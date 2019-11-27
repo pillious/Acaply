@@ -32,7 +32,7 @@ const postSchema = new Schema({
 //     comments: [commentSchema],
     created: { type: Date, default: Date.now },
     views: { type: Number, default: 0 },
-    type: { type: String, required: true },
+    type: { type: String, required: true }, //change to subcategory
     text: { type: String, default: "" },
     keywords: [String],
 });

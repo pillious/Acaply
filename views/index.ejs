@@ -22,12 +22,12 @@
             <div class="navbar-nav ml-auto">
 
                 <div class="nav-item">
-                    <form action="/login" method="POST">
+                    <form action="/login" method="GET">
                         <button type="submit" class="btn btn-link">login</button>
                     </form>
                 </div>
                 <div class="nav-item">
-                    <form action="/signup" method="POST">
+                    <form action="/signup" method="GET">
                         <button type="submit" class="btn btn-link">signup</button>
                     </form>
                 </div>
@@ -45,7 +45,7 @@
         </div>
     </nav>
 
-    <form action="/createPost" method="POST">
+    <form action="/posts/createPost" method="POST">
         <input type="text" name="title" placeholder="title">
         <input type="text" name="body" placeholder="body text">
         <input type="text" name="keywords" placeholder="keywords">
