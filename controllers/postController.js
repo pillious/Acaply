@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const PostSchema = require('../models/Post');
 
+const categories = require('../modules/categories')
+
 const {PostClass, UserClass} = require('../modules/modules');
 
 // gets all posts in db
@@ -13,10 +15,13 @@ exports.all_posts = async function (req, resp) {
     const userClassInstance = new UserClass();
     userDoc = await userClassInstance.getUserProfile(req)
 
+    console.log(categories["Updates"])
+
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,
-        user: userDoc
+        user: userDoc,
+        categories: categories
     })
 };
 
@@ -33,7 +38,7 @@ exports.subCategory_posts = async function(req, resp) {
     var postClassInstance = new PostClass();
 
     // check if category exists before searching for subCategory <-------------------------------
-    var posts = await postClassInstance.getSpecificPosts("subCategpry", req.path.split('/').pop());
+    var posts = await postClassInstance.getSpecificPosts("subCategory", req.path.split('/').pop());
 
     resp.send(posts);
 };

@@ -3,7 +3,7 @@ const categories = {
         "Events",
         "Fundraisers"
     ],
-    "Clubs": 1,
+    "Clubs": [],
     "Classes": [
         "English",
         "History",

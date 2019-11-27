@@ -4,19 +4,9 @@ const mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-// // import db schema
-// const PostSchema = require('./models/Post');
-// const CommentSchema = require('./models/Comment');
-// const UserSchema = require('./models/User');
-
 // import routes
 var postRoutes = require('./routes/postsRouter.js');
 var indexRoutes = require('./routes/indexRouter')
-
-// const {
-//     PostClass,
-//     UserClass
-// } = require('./modules/modules');
 
 // set view engine
 app.set('views', 'views');

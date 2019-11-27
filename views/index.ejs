@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
+        .sidebar-arrow {
+            cursor: pointer;
+        }
+
         .sidebar-arrow[data-toggle].collapsed:after {
             content: "▼";
             display: inline-block;
@@ -23,6 +27,11 @@
 
         .sidebar-subcategory {
             padding-left: 20px;
+            text-align: left;
+        }
+
+        .category-btn {
+            text-align: left;
         }
     </style>
 </head>
@@ -87,31 +96,53 @@
     <div class="container-fluid">
         <div class="row">
 
-            <!-- sidebar -->
+            <!-- sidebar section -->
             <div class="col-2 collapse show d-md-flex bg-light pt-2 pl-0 min-vh-100" id="sidebar">
                 <ul class="nav flex-column flex-nowrap overflow-hidden">
+                    <% for (var category in categories) { %>
+                    <% if (categories.hasOwnProperty(category)) { %>
+
+                    <!-- display categories for sidebar -->
                     <li class="nav-item">
-                        <div class="sidebar-category text-truncate"><button
-                                class="btn btn-link d-none d-sm-inline">Reports</button><span
-                                class="sidebar-arrow collapsed" data-toggle="collapse" data-target="#submenu1"></span>
+                        <div class="sidebar-category text-truncate">
+                            <form action="/posts/<%= category.toLowerCase() %>">
+                                <button class="btn btn-link d-none d-sm-inline"><%= category %></button>
+
+                                <% if (categories[category].length != 0) { %>
+                                <span class="sidebar-arrow collapsed" data-toggle="collapse"
+                                    data-target="#<%= category %>"></span>
+                                <% } %>
+                            </form>
                         </div>
-                        <div class="collapse" id="submenu1" aria-expanded="false">
+
+                        <% if (categories[category].length != 0) { %>
+
+                        <!-- display subcategories for sidebar -->
+                        <div class="collapse" id="<%= category %>" aria-expanded="false">
                             <ul class="flex-column pl-2 nav">
+                                <% for (var subcategory in categories[category]) { %>
                                 <li class="nav-item sidebar-subcategory">
-                                    <div class="py-0"><button class="btn btn-link d-none d-sm-inline">Reports</button>
+                                    <div class="py-0">
+                                        <form
+                                            action="/posts/<%= category.toLowerCase() %>/<%= categories[category][subcategory].toLowerCase() %>">
+                                            <button
+                                                class="btn btn-link d-none d-sm-inline category-btn"><%= categories[category][subcategory] %></button>
+                                        </form>
                                     </div>
                                 </li>
-                                <li class="nav-item sidebar-subcategory">
-                                    <div class="collapsed py-1"><button
-                                            class="btn btn-link d-none d-sm-inline">Reports</button></div>
-                                </li>
+                                <% } %>
                             </ul>
                         </div>
+                        <% } %>
+
                     </li>
+                    <% } %>
+                    <% } %>
+
                 </ul>
             </div>
 
-            <!-- posts -->
+            <!-- posts section -->
             <div class="col-10">
                 <div>
                     <% if (posts && posts.length) { %>
