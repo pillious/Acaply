@@ -69,6 +69,10 @@ exports.login_validate = async function (req, resp) {
 exports.logout = async function (req, resp) {
     // once logged out, destroy the session (user's session id)
     if (req.session) {
+        // change session id field in user profile back to empty string
+        const userClassInstance = new UserClass();
+        await userClassInstance.clearUserSessionId(req)
+
         // delete session object
         req.session.destroy(function (err) {
             if (err) {
@@ -77,6 +81,7 @@ exports.logout = async function (req, resp) {
                 resp.redirect('/');
             }
         });
+
     }
     resp.redirect("/")
 };

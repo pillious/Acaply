@@ -25,14 +25,14 @@ const commentSchema = new Schema({
 
 const postSchema = new Schema({
     title: { type: String, required: true },
-//     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     category: { type: String, required: true },
     score: { type: Number, default: 0 },
-//     votes: [{ user: Schema.Types.ObjectId, vote: Number, _id: false, default: 0 }],
-//     comments: [commentSchema],
+    votes: [{ user: Schema.Types.ObjectId, vote: Number, _id: false, default: 0 }],
+    comments: [commentSchema],
     created: { type: Date, default: Date.now },
     views: { type: Number, default: 0 },
-    type: { type: String, required: true }, //change to subcategory
+    subCategory: { type: String, required: true }, //change to subcategory
     text: { type: String, default: "" },
     keywords: [String],
 });

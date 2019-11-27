@@ -32,12 +32,20 @@ class PostClass {
 
     async createNewPost(req) {
         var postInstance = new PostSchema();
+
+        var userClassInstance = new UserClass();
+        var userDoc = await userClassInstance.getUserProfile(req)
+
+        // set values of post schema
         postInstance.title = req.body.title
         postInstance.text = req.body.body
         postInstance.category = req.body.category
-        postInstance.type = req.body.subCategory
+        postInstance.subCategory = req.body.subCategory
+        postInstance.author = userDoc._id
 
+        // add new post to db
         await postInstance.save()
+        
         return postInstance;
     }
 }
@@ -53,6 +61,16 @@ class UserClass {
         }
 
         return userDoc;
+    }
+
+    // set user's session id to empty string
+    async clearUserSessionId(req) {
+        var userDoc;
+        userDoc = await UserSchema.findOne({
+            "sessionId": req.session.userSessionId
+        });
+        userDoc.sessionId = "";
+        userDoc.save()
     }
 }
 

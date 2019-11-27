@@ -32,7 +32,8 @@ app.use(express.json());
 
 //use sessions for tracking logins
 app.use(session({
-    secret: 'work hard',
+    // change secret key !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    secret: 'ULqlcX4KcYE9jeS3lnpv',
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({

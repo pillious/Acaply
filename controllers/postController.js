@@ -32,8 +32,8 @@ exports.category_posts = async function(req, resp) {
 exports.subCategory_posts = async function(req, resp) {
     var postClassInstance = new PostClass();
 
-    // check if category exists before searching for subcategory <-------------------------------
-    var posts = await postClassInstance.getSpecificPosts("type", req.path.split('/').pop());
+    // check if category exists before searching for subCategory <-------------------------------
+    var posts = await postClassInstance.getSpecificPosts("subCategpry", req.path.split('/').pop());
 
     resp.send(posts);
 };
@@ -43,8 +43,8 @@ exports.create_posts = async function(req, resp) {
     if (req.session.userSessionId) {
         try {
             var postClassInstance = new PostClass();
-            await postClassInstance.createNewPost(req);
-            resp.redirect('/signup')
+            var newPostDoc = await postClassInstance.createNewPost(req);
+            resp.render('viewPost', {postDoc: newPostDoc})
         } catch {
             resp.send("post failed")
         }
@@ -53,3 +53,7 @@ exports.create_posts = async function(req, resp) {
         resp.redirect('/login')
     }
 }
+
+// exports.view_posts = function(req, resp) {
+//     resp.render()
+// };
