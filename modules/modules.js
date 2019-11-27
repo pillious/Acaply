@@ -35,12 +35,13 @@ class PostClass {
 
         var userClassInstance = new UserClass();
         var userDoc = await userClassInstance.getUserProfile(req)
-
+        
         // set values of post schema
         postInstance.title = req.body.title
         postInstance.text = req.body.body
         postInstance.category = req.body.category
         postInstance.subCategory = req.body.subCategory
+        postInstance.keywords = req.body.keywords.split(",")
         postInstance.author = userDoc._id
 
         // add new post to db

@@ -8,6 +8,23 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .sidebar-arrow[data-toggle].collapsed:after {
+            content: "▼";
+            display: inline-block;
+            transform: rotate(90deg);
+            font-size: 12px;
+        }
+
+        .sidebar-arrow[data-toggle]:not(.collapsed):after {
+            content: "▼";
+            font-size: 12px;
+        }
+
+        .sidebar-subcategory {
+            padding-left: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,7 +55,7 @@
                 </div>
                 <div class="nav-item">
                     <% if (user) { %>
-                        <p><%= user.username %></p>
+                    <p><%= user.username %></p>
                     <% } %>
                 </div>
             </div>
@@ -66,12 +83,45 @@
         <button type="submit">Create Post</button>
     </form>
 
-    <div>
-        <% if (posts && posts.length) { %>
-        <% posts.forEach((post) => { %>
-        <p><%= post %></p>
-        <% }) %>
-        <% } %>
+    <!-- sidebar & posts container -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- sidebar -->
+            <div class="col-2 collapse show d-md-flex bg-light pt-2 pl-0 min-vh-100" id="sidebar">
+                <ul class="nav flex-column flex-nowrap overflow-hidden">
+                    <li class="nav-item">
+                        <div class="sidebar-category text-truncate"><button
+                                class="btn btn-link d-none d-sm-inline">Reports</button><span
+                                class="sidebar-arrow collapsed" data-toggle="collapse" data-target="#submenu1"></span>
+                        </div>
+                        <div class="collapse" id="submenu1" aria-expanded="false">
+                            <ul class="flex-column pl-2 nav">
+                                <li class="nav-item sidebar-subcategory">
+                                    <div class="py-0"><button class="btn btn-link d-none d-sm-inline">Reports</button>
+                                    </div>
+                                </li>
+                                <li class="nav-item sidebar-subcategory">
+                                    <div class="collapsed py-1"><button
+                                            class="btn btn-link d-none d-sm-inline">Reports</button></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- posts -->
+            <div class="col-10">
+                <div>
+                    <% if (posts && posts.length) { %>
+                    <% posts.forEach((post) => { %>
+                    <p><%= post %></p>
+                    <% }) %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
