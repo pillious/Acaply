@@ -13,17 +13,31 @@ class PostClass {
     }
 
     // get posts from a category or subcategory
-    async getSpecificPosts(fieldName, fieldValue) {
-        console.log(fieldName, fieldValue)
+    async getSubcategoryPosts(category, subcategory) {
+        console.log(category, subcategory)
         var posts;
-        if (fieldName && fieldValue) {
+        if (category && subcategory) {
 
             // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
-            var dbSearchParameter = {};
-            dbSearchParameter[fieldName] = fieldValue
-            console.log(dbSearchParameter);
+            var dbSearchParameters = [ {"category": category}, {"subCategory": subcategory}];
 
-            posts = await PostSchema.find(dbSearchParameter);
+            // posts = await PostSchema.find(dbSearchParameter);
+            posts = await PostSchema.find({ $and: dbSearchParameters })
+            return posts;
+        }
+
+        return posts;
+    }
+
+    // get posts from a category or subcategory
+    async getCategoryPosts(category) {
+        var posts;
+        if (category) {
+
+            // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
+            var dbSearchParameter = {"category": category};
+
+            posts = await PostSchema.find(dbSearchParameter)
             return posts;
         }
 

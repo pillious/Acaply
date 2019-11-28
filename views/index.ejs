@@ -24,27 +24,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
+                <% if (isLoggedIn) { %>
+                    <div class="nav-item">
+                        <form action="/logout" method="POST">
+                            <button type="submit" class="btn btn-link">logout</button>
+                        </form>
+                    </div>
+                    <div class="nav-item">
+                        <% if (user) { %>
+                        <p><%= user.username %></p>
+                        <% } %>
+                    </div>
+                <% } else { %>
+                    <div class="nav-item">
+                        <form action="/login" method="GET">
+                            <button type="submit" class="btn btn-link">login</button>
+                        </form>
+                    </div>
+                    <div class="nav-item">
+                        <form action="/signup" method="GET">
+                            <button type="submit" class="btn btn-link">signup</button>
+                        </form>
+                    </div>
+                <% } %>
 
-                <div class="nav-item">
-                    <form action="/login" method="GET">
-                        <button type="submit" class="btn btn-link">login</button>
-                    </form>
-                </div>
-                <div class="nav-item">
-                    <form action="/signup" method="GET">
-                        <button type="submit" class="btn btn-link">signup</button>
-                    </form>
-                </div>
-                <div class="nav-item">
-                    <form action="/logout" method="POST">
-                        <button type="submit" class="btn btn-link">logout</button>
-                    </form>
-                </div>
-                <div class="nav-item">
-                    <% if (user) { %>
-                    <p><%= user.username %></p>
-                    <% } %>
-                </div>
             </div>
         </div>
     </nav>
@@ -54,10 +57,12 @@
         <div class="row">
 
             <!-- sidebar section -->
-            <div class="col-2 collapse show d-md-flex bg-light pt-2 pl-0 min-vh-100" id="sidebar">
-                <ul class="nav flex-column flex-nowrap overflow-hidden">
+            <div class="col-2 collapse show d-md-flex bg-light pl-0 min-vh-100 sidebar-wrapper" id="sidebar">
+                <ul class="nav flex-column flex-nowrap overflow-hidden sidebar">
                     <li class="nav-item">
-                        <button class="create-post-btn">Create Post</button>
+                        <form action="/new" method="GET">
+                            <button class="create-post-btn" type="submit">Create Post</button>
+                        </form>
                     </li>
                     <% for (var category in categories) { %>
                     <% if (categories.hasOwnProperty(category)) { %>
@@ -66,7 +71,7 @@
                     <li class="nav-item">
                         <div class="sidebar-category text-truncate">
                             <form action="/posts/<%= category.toLowerCase() %>">
-                                <button class="btn btn-link d-none d-sm-inline"><%= category %></button>
+                                <button class="btn btn-link d-none d-sm-inline category-btn"><%= category %></button>
 
                                 <% if (categories[category].length != 0) { %>
                                 <span class="sidebar-arrow collapsed" data-toggle="collapse"
@@ -86,7 +91,7 @@
                                         <form
                                             action="/posts/<%= category.toLowerCase() %>/<%= categories[category][subcategory].toLowerCase() %>">
                                             <button
-                                                class="btn btn-link d-none d-sm-inline category-btn"><%= categories[category][subcategory] %></button>
+                                                class="btn btn-link d-none d-sm-inline subcategory-btn"><%= categories[category][subcategory] %></button>
                                         </form>
                                     </div>
                                 </li>

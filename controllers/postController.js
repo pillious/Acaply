@@ -15,18 +15,27 @@ exports.all_posts = async function (req, resp) {
     const userClassInstance = new UserClass();
     userDoc = await userClassInstance.getUserProfile(req)
 
+    var isLoggedIn = false;
+
+    if (userDoc) {
+        isLoggedIn = true;
+    }
+
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,
         user: userDoc,
-        categories: categories
+        categories: categories,
+        isLoggedIn: isLoggedIn
     })
 };
 
 // gets posts from specific category 
 exports.category_posts = async function(req, resp) {
     var postClassInstance = new PostClass();
-    var posts = await postClassInstance.getSpecificPosts("category", req.path.split('/').pop());
+
+    var category = req.path.split('/').pop()
+    var posts = await postClassInstance.getCategoryPosts(category);
 
     resp.send(posts);
 };
@@ -35,18 +44,26 @@ exports.category_posts = async function(req, resp) {
 exports.subCategory_posts = async function(req, resp) {
     var postClassInstance = new PostClass();
 
-    // check if category exists before searching for subCategory <-------------------------------
-    var posts = await postClassInstance.getSpecificPosts("subCategory", req.path.split('/').pop());
+    var category = req.path.split('/')[1]
+    var subcategory = req.path.split('/')[2]
+    var posts = await postClassInstance.getSubcategoryPosts(category, subcategory);
 
     resp.send(posts);
+};
+
+// go to createPost page
+exports.to_new_post = function (req, resp) {
+    resp.render('createPost')
 };
 
 // create a new post
 exports.create_posts = async function(req, resp) {
     if (req.session.userSessionId) {
         try {
+            // save new post on db
             var postClassInstance = new PostClass();
             var newPostDoc = await postClassInstance.createNewPost(req);
+
             resp.render('viewPost', {postDoc: newPostDoc})
         } catch {
             resp.send("post failed")
@@ -57,6 +74,6 @@ exports.create_posts = async function(req, resp) {
     }
 }
 
-// exports.view_posts = function(req, resp) {
-//     resp.render()
-// };
+exports.view_post = function(req, resp) {
+    resp.send("view post not implemented yet. COMING SOON!")
+};

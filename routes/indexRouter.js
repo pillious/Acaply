@@ -7,6 +7,9 @@ var post_controller = require('../controllers/postController');
 // default route used on website load
 router.get('/', post_controller.all_posts)
 
+// go to new post page
+router.get('/new', post_controller.to_new_post);
+
 // ---- user & auth related routes ----
 
 // go to login page

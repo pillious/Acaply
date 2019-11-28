@@ -16,6 +16,6 @@ router.get('/:category/:subcategory', post_controller.subCategory_posts);
 router.post('/createPost', post_controller.create_posts);
 
 // view one specific post
-// router.get('/view', post_controller.view_post)
+router.get('/view/:postId', post_controller.view_post)
 
 module.exports = router;
