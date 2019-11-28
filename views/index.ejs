@@ -25,27 +25,27 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
                 <% if (isLoggedIn) { %>
-                    <div class="nav-item">
-                        <form action="/logout" method="POST">
-                            <button type="submit" class="btn btn-link">logout</button>
-                        </form>
-                    </div>
-                    <div class="nav-item">
-                        <% if (user) { %>
-                        <p><%= user.username %></p>
-                        <% } %>
-                    </div>
+                <div class="nav-item">
+                    <form action="/logout" method="POST">
+                        <button type="submit" class="btn btn-link">logout</button>
+                    </form>
+                </div>
+                <div class="nav-item">
+                    <% if (user) { %>
+                    <p><%= user.username %></p>
+                    <% } %>
+                </div>
                 <% } else { %>
-                    <div class="nav-item">
-                        <form action="/login" method="GET">
-                            <button type="submit" class="btn btn-link">login</button>
-                        </form>
-                    </div>
-                    <div class="nav-item">
-                        <form action="/signup" method="GET">
-                            <button type="submit" class="btn btn-link">signup</button>
-                        </form>
-                    </div>
+                <div class="nav-item">
+                    <form action="/login" method="GET">
+                        <button type="submit" class="btn btn-link">login</button>
+                    </form>
+                </div>
+                <div class="nav-item">
+                    <form action="/signup" method="GET">
+                        <button type="submit" class="btn btn-link">signup</button>
+                    </form>
+                </div>
                 <% } %>
 
             </div>
@@ -70,7 +70,7 @@
                     <!-- display categories for sidebar -->
                     <li class="nav-item">
                         <div class="sidebar-category text-truncate">
-                            <form action="/posts/<%= category.toLowerCase() %>">
+                            <form action="/posts/all/<%= category.toLowerCase() %>">
                                 <button class="btn btn-link d-none d-sm-inline category-btn"><%= category %></button>
 
                                 <% if (categories[category].length != 0) { %>
@@ -89,7 +89,7 @@
                                 <li class="nav-item sidebar-subcategory">
                                     <div class="py-0">
                                         <form
-                                            action="/posts/<%= category.toLowerCase() %>/<%= categories[category][subcategory].toLowerCase() %>">
+                                            action="/posts/all/<%= category.toLowerCase() %>/<%= categories[category][subcategory].toLowerCase() %>">
                                             <button
                                                 class="btn btn-link d-none d-sm-inline subcategory-btn"><%= categories[category][subcategory] %></button>
                                         </form>
@@ -109,15 +109,33 @@
 
             <!-- posts section -->
             <div class="col-10">
-                <div>
-                    <% if (posts && posts.length) { %>
-                    <% posts.forEach((post) => { %>
-                    <p><%= post %></p>
-                    <% }) %>
-                    <% } %>
+                <% if (posts && posts.length) { %>
+                <% posts.forEach((post) => { %>
+                <div class="post-container">
+                    <div><%= post %></div>
+                    <form action="/posts/editpost" method="POST">
+                        <input type="hidden" name="postId" value="<%= post._id %>">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <!-- <button onclick="editPost('<%= post._id %>')">Edit</button> -->
+                    <!-- <form action="/posts/<%= post._id %>" method="POST">
+                        <input type="hidden" name="postId" value="<%= post._id %>">
+                        <button type="submit">Delete</button>
+                    </form> -->
+                    <button onclick="deletePost('<%= post._id %>')">Delete</button>
                 </div>
+                <% }) %>
+                <% } %>
             </div>
         </div>
+    </div>
+
+    <div>
+        <% if (posts && posts.length) { %>
+        <% posts.forEach((post) => { %>
+        <p><%= post %></p>
+        <% }) %>
+        <% } %>
     </div>
 
     <!-- needed for bootstrap 4 -->
@@ -130,6 +148,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
+
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+    <!-- custom scripts -->
+    <script src="/js/index.js"></script>
 </body>
 
 </html>

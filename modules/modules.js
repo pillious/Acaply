@@ -14,7 +14,6 @@ class PostClass {
 
     // get posts from a category or subcategory
     async getSubcategoryPosts(category, subcategory) {
-        console.log(category, subcategory)
         var posts;
         if (category && subcategory) {
 
@@ -44,24 +43,53 @@ class PostClass {
         return posts;
     }
 
-    async createNewPost(req) {
+    // get one specific post from db using the post _id field
+    async getSpecificPost(postId) {
+        var post;
+        if (postId) {
+
+            // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
+            var dbSearchParameter = {"_id": postId};
+
+            post = await PostSchema.findOne(dbSearchParameter)
+            return post;
+        }
+
+        return post;
+    }
+
+    async createNewPost(postFields) {
         var postInstance = new PostSchema();
 
         var userClassInstance = new UserClass();
         var userDoc = await userClassInstance.getUserProfile(req)
         
         // set values of post schema
-        postInstance.title = req.body.title
-        postInstance.text = req.body.body
-        postInstance.category = req.body.category
-        postInstance.subCategory = req.body.subCategory
-        postInstance.keywords = req.body.keywords.split(",")
+        postInstance.title = postFields.title
+        postInstance.text = postFields.body
+        postInstance.category = postFields.category
+        postInstance.subCategory = postFields.subCategory
+        postInstance.keywords = postFields.keywords.split(",")
         postInstance.author = userDoc._id
 
         // add new post to db
         await postInstance.save()
         
         return postInstance;
+    }
+
+    async deletePost(postId) {
+        var post;
+        if (postId) {
+
+            // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
+            var dbSearchParameter = {"_id": postId};
+
+            post = await PostSchema.findByIdAndRemove(postId)
+            return post;
+        }
+
+        return post;
     }
 }
 

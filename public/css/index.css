@@ -51,3 +51,9 @@
     color: #007bff;
     text-decoration: none;
 }
+
+.post-container {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
