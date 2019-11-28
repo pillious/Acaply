@@ -15,8 +15,6 @@ exports.all_posts = async function (req, resp) {
     const userClassInstance = new UserClass();
     userDoc = await userClassInstance.getUserProfile(req)
 
-    console.log(categories["Updates"])
-
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,

@@ -13,6 +13,7 @@ app.set('views', 'views');
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
+// app.use('/public', express.static('public'))
 
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded());

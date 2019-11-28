@@ -8,12 +8,27 @@
 </head>
 
 <body>
-    <div>View Post</div>
-    <div>
-        <% if (postDoc) { %>
-            <p><%= postDoc %></p>
-        <% } %>
-    </div>
+    <div>Create Post</div>
+    <form action="/posts/createPost" method="POST">
+        <input type="text" name="title" placeholder="title">
+        <input type="text" name="body" placeholder="body text">
+        <input type="text" name="keywords" placeholder="keywords">
+
+        <select name="category" required>
+            <option value="general">General</option>
+            <option value="clubs">Clubs</option>
+            <option value="classes">Classes</option>
+        </select>
+
+        <select name="subCategory" required>
+            <option value="english">English</option>
+            <option value="math">Math</option>
+            <option value="science">Science</option>
+            <option value="events">Events</option>
+        </select>
+
+        <button type="submit">Create Post</button>
+    </form>
 </body>
 
 </html>
