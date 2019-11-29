@@ -99,7 +99,12 @@ exports.view_post = async function (req, resp) {
 
 // go to createPost page
 exports.to_new_post = function (req, resp) {
-    resp.render('createPost')
+    if (req.session.userSessionId) {
+        resp.render('createPost')
+    }
+    else {
+        resp.redirect('/login')
+    }
 };
 
 // create a new post
@@ -171,7 +176,7 @@ exports.delete_post = async function (req, resp) {
 // gets posts from specific category 
 exports.category_posts = async function (req, resp) {
     var postClassInstance = new PostClass();
-    var posts = await postClassInstance.getCategoryPosts(req.params.category);
+    var postsDoc = await postClassInstance.getCategoryPosts(req.params.category);
 
     let userDoc;
     // check if user is logged in
@@ -198,7 +203,7 @@ exports.category_posts = async function (req, resp) {
 
     // render once posts are returned by getAllPosts()
     resp.render('index', {
-        posts: posts,
+        posts: postsDoc,
         user: userDoc.username,
         categories: categories,
         isLoggedIn: isLoggedIn
@@ -212,7 +217,7 @@ exports.subCategory_posts = async function (req, resp) {
     var category = req.params.category
     var subcategory = req.params.subcategory
 
-    var posts = await postClassInstance.getSubcategoryPosts(category, subcategory);
+    var postsDoc = await postClassInstance.getSubcategoryPosts(category, subcategory);
 
     let userDoc;
     // check if user is logged in
@@ -240,7 +245,7 @@ exports.subCategory_posts = async function (req, resp) {
 
     // render once posts are returned by getAllPosts()
     resp.render('index', {
-        posts: posts,
+        posts: postsDoc,
         user: userDoc.username,
         categories: categories,
         isLoggedIn: isLoggedIn

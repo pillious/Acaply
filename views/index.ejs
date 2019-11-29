@@ -70,7 +70,7 @@
                     <!-- display categories for sidebar -->
                     <li class="nav-item">
                         <div class="sidebar-category text-truncate">
-                            <form action="/posts/all/<%= category.toLowerCase() %>">
+                            <form action="/posts/<%= category.toLowerCase() %>">
                                 <button class="btn btn-link d-none d-sm-inline category-btn"><%= category %></button>
 
                                 <% if (categories[category].length != 0) { %>
@@ -89,7 +89,7 @@
                                 <li class="nav-item sidebar-subcategory">
                                     <div class="py-0">
                                         <form
-                                            action="/posts/all/<%= category.toLowerCase() %>/<%= categories[category][subcategory].toLowerCase() %>">
+                                            action="/posts/<%= category.toLowerCase() %>/<%= categories[category][subcategory].toLowerCase() %>">
                                             <button
                                                 class="btn btn-link d-none d-sm-inline subcategory-btn"><%= categories[category][subcategory] %></button>
                                         </form>
