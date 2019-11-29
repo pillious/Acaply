@@ -27,7 +27,7 @@ exports.all_posts = async function (req, resp) {
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,
-        user: userDoc,
+        user: userDoc.username,
         categories: categories,
         isLoggedIn: isLoggedIn
     })
@@ -162,7 +162,7 @@ exports.category_posts = async function (req, resp) {
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: posts,
-        user: userDoc,
+        user: userDoc.username,
         categories: categories,
         isLoggedIn: isLoggedIn
     })
@@ -191,7 +191,7 @@ exports.subCategory_posts = async function (req, resp) {
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: posts,
-        user: userDoc,
+        user: userDoc.username,
         categories: categories,
         isLoggedIn: isLoggedIn
     })
