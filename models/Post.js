@@ -5,6 +5,7 @@ const commentSchema = require('./Comment').schema
 const postSchema = new Schema({
     title: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    authorUsername: {type: String, required: true},
     category: { type: String, required: true },
     score: { type: Number, default: 0 },
     votes: [{ user: Schema.Types.ObjectId, vote: Number, _id: false, default: 0 }],

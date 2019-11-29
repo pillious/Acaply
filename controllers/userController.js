@@ -83,5 +83,5 @@ exports.logout = async function (req, resp) {
         });
 
     }
-    resp.redirect("/")
+    // resp.redirect("/")
 };

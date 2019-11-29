@@ -9,7 +9,7 @@ class PostClass {
     // get all posts in db
     async getAllPosts() {
         var posts;
-        posts = await PostSchema.find();
+        posts = await PostSchema.find().lean();
         return posts;
     }
 
@@ -28,7 +28,7 @@ class PostClass {
             // posts = await PostSchema.find(dbSearchParameter);
             posts = await PostSchema.find({
                 $and: dbSearchParameters
-            })
+            }).lean()
             return posts;
         }
 
@@ -45,7 +45,7 @@ class PostClass {
                 "category": category
             };
 
-            posts = await PostSchema.find(dbSearchParameter)
+            posts = await PostSchema.find(dbSearchParameter).lean()
             return posts;
         }
 
@@ -79,11 +79,11 @@ class PostClass {
         }
     }
 
-    async createNewPost(postFields) {
+    async createNewPost(postFields, userSessionId) {
         var postInstance = new PostSchema();
 
         var userClassInstance = new UserClass();
-        var userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
+        var userDoc = await userClassInstance.getUserProfileBySession(userSessionId)
 
         // set values of post schema
         postInstance.title = postFields.title
@@ -92,6 +92,7 @@ class PostClass {
         postInstance.subCategory = postFields.subCategory
         postInstance.keywords = postFields.keywords.split(",")
         postInstance.author = userDoc._id
+        postInstance.authorUsername = userDoc.username
 
         // add new post to db
         await postInstance.save()

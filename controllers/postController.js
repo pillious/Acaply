@@ -24,10 +24,24 @@ exports.all_posts = async function (req, resp) {
         isLoggedIn = true;
     }
 
+    if (isLoggedIn) {
+        // check each post for if current user is owner of the post
+        for (var i = 0; i < postsDoc.length; i++) {
+            postsDoc[i]["isPostAuthor"] = false;
+            if (postsDoc[i].author.toString() === userDoc._id.toString()) {
+                postsDoc[i]["isPostAuthor"] = true;
+            }
+
+            // delete user _id from post docs
+            delete postsDoc[i].author;
+        }
+    }
+
+
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,
-        user: userDoc.username,
+        user: userDoc,
         categories: categories,
         isLoggedIn: isLoggedIn
     })
@@ -47,7 +61,9 @@ exports.view_post = async function (req, resp) {
         var userDocCurrent = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
 
         // get the user profile of the post author
-        var userDocAuthor = await userClassInstance.getUserProfile({"_id": postDoc.post.author})
+        var userDocAuthor = await userClassInstance.getUserProfile({
+            "_id": postDoc.post.author
+        })
 
         // check if current user is the post author
         var isPostAuthor = false;
@@ -55,8 +71,8 @@ exports.view_post = async function (req, resp) {
             isPostAuthor = true;
         }
 
-        // change post author from user's _id to user's username (used to show post author on UI)
-        postDoc.post.author = userDocAuthor.username;
+        // delete post author's _id
+        delete postDoc.post.author;
 
         // check each comment if it was created by current user
         for (var i = 0; i < postDoc.comments.length; i++) {
@@ -71,9 +87,12 @@ exports.view_post = async function (req, resp) {
             delete postDoc.comments[i].author;
         }
 
-        resp.render('viewPost', { post: postDoc.post, comments: postDoc.comments, isPostAuthor: isPostAuthor})
-    }
-    catch {
+        resp.render('viewPost', {
+            post: postDoc.post,
+            comments: postDoc.comments,
+            isPostAuthor: isPostAuthor
+        })
+    } catch {
         resp.send("post not found")
     }
 };
@@ -89,7 +108,7 @@ exports.create_posts = async function (req, resp) {
         try {
             // save new post on db
             var postClassInstance = new PostClass();
-            var newPostDoc = await postClassInstance.createNewPost(req.body);
+            var newPostDoc = await postClassInstance.createNewPost(req.body, req.session.userSessionId);
 
             resp.redirect('/posts/view/' + newPostDoc._id)
         } catch {
@@ -106,12 +125,11 @@ exports.edit_post = async function (req, resp) {
     // get one specific post 
     try {
         var postDoc = await postClassInstance.getSpecificPost(req.body.postId);
-        
+
         resp.render('editPost', {
             post: postDoc.post
         })
-    }
-    catch {
+    } catch {
         resp.redirect('/')
     }
 
@@ -123,8 +141,14 @@ exports.update_post = async function (req, resp) {
 
     const postId = req.params.postId
 
-    const filter = { '_id': postId };
-    const update = { 'title': req.body.title, 'text': req.body.body , 'keywords': req.body.keywords.split(',') };
+    const filter = {
+        '_id': postId
+    };
+    const update = {
+        'title': req.body.title,
+        'text': req.body.body,
+        'keywords': req.body.keywords.split(',')
+    };
 
     let updatedPostDoc = await PostSchema.findOneAndUpdate(filter, update, {
         new: true
@@ -159,6 +183,19 @@ exports.category_posts = async function (req, resp) {
         isLoggedIn = true;
     }
 
+    if (isLoggedIn) {
+        // check each post for if current user is owner of the post
+        for (var i = 0; i < postsDoc.length; i++) {
+            postsDoc[i]["isPostAuthor"] = false;
+            if (postsDoc[i].author.toString() === userDoc._id.toString()) {
+                postsDoc[i]["isPostAuthor"] = true;
+            }
+
+            // delete user _id from post docs
+            delete postsDoc[i].author;
+        }
+    }
+
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: posts,
@@ -186,6 +223,19 @@ exports.subCategory_posts = async function (req, resp) {
 
     if (userDoc) {
         isLoggedIn = true;
+    }
+
+    if (isLoggedIn) {
+        // check each post for if current user is owner of the post
+        for (var i = 0; i < postsDoc.length; i++) {
+            postsDoc[i]["isPostAuthor"] = false;
+            if (postsDoc[i].author.toString() === userDoc._id.toString()) {
+                postsDoc[i]["isPostAuthor"] = true;
+            }
+
+            // delete user _id from post docs
+            delete postsDoc[i].author;
+        }
     }
 
     // render once posts are returned by getAllPosts()
