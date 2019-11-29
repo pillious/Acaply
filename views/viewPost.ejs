@@ -11,12 +11,12 @@
     <div>View Post</div>
     <div>
         <% if (post) { %>
-        <p><%= post %></p>
+        <p><%= JSON.stringify(post) %></p>
         <% } %>
 
         <% if (comments) { %>
             <% comments.forEach(function (comment) { %>
-                <p><%= comment %></p>
+                <p><%= JSON.stringify(comment) %></p>
                 <button onclick="deleteComment('<%= comment._id %>')">Delete Comment</button>
                 <br>
             <% }); %>

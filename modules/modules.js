@@ -64,8 +64,8 @@ class PostClass {
             }
 
             // get posts & comments from db
-            var post = await PostSchema.findOne(dbPostSearchParameter)
-            var comments = await CommentSchema.find(dbCommentSearchParameter)
+            var post = await PostSchema.findOne(dbPostSearchParameter).lean()
+            var comments = await CommentSchema.find(dbCommentSearchParameter).lean()
 
             return {
                 post: post,
@@ -83,7 +83,7 @@ class PostClass {
         var postInstance = new PostSchema();
 
         var userClassInstance = new UserClass();
-        var userDoc = await userClassInstance.getUserProfile(req)
+        var userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
 
         // set values of post schema
         postInstance.title = postFields.title
@@ -114,12 +114,14 @@ class PostClass {
 
 class CommentClass {
     // create a new comment for a post
-    async createNewComment(commentBody, parentPost, author) {
+    async createNewComment(commentBody, parentPost, authorUserDoc) {
+        console.log(authorUserDoc)
         try {
             var commentInstance = new CommentSchema();
             commentInstance.body = commentBody;
             commentInstance.parentPost = parentPost;
-            commentInstance.author = author;
+            commentInstance.author = authorUserDoc._id;
+            commentInstance.authorUsername = authorUserDoc.username
 
             var commentDoc = await commentInstance.save()
 
@@ -130,19 +132,19 @@ class CommentClass {
     }
 
     // get the existing comments for a post
-    async getComments(postId) {
-        try {
-            // search for the comments in the db
-            const dbSearchParameter = {
-                "parentPost": postId
-            };
+    // async getComments(postId) {
+    //     try {
+    //         // search for the comments in the db
+    //         const dbSearchParameter = {
+    //             "parentPost": postId
+    //         };
 
-            var comments = await CommentSchema.find(dbSearchParameter)
-            return comments;
-        } catch {
-            return [];
-        }
-    }
+    //         var comments = await CommentSchema.find(dbSearchParameter).lean()
+    //         return comments;
+    //     } catch {
+    //         return [];
+    //     }
+    // }
 
     // delete a comment
     async deleteComment(commentId) {
@@ -157,16 +159,27 @@ class CommentClass {
 }
 
 class UserClass {
-    // get the user profile
-    async getUserProfile(req) {
+    // get the user profile by session id
+    async getUserProfileBySession(sessionId) {
         var userDoc;
-        if (req.session.userSessionId) {
+        if (sessionId) {
             userDoc = await UserSchema.findOne({
-                "sessionId": req.session.userSessionId
+                "sessionId": sessionId
             });
         }
 
         return userDoc;
+    }
+
+    // get user profile (must use getUserProfileBySession for finding user by session id)
+    async getUserProfile(dbUserSearchParameter) {
+        try {
+            var userDoc = await UserSchema.findOne(dbUserSearchParameter);
+            return userDoc;
+        }
+        catch {
+            return {};
+        }
     }
 
     // set user's session id to empty string

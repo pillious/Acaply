@@ -8,10 +8,9 @@ const postSchema = new Schema({
     category: { type: String, required: true },
     score: { type: Number, default: 0 },
     votes: [{ user: Schema.Types.ObjectId, vote: Number, _id: false, default: 0 }],
-    comments: [commentSchema],
     created: { type: Date, default: Date.now },
     views: { type: Number, default: 0 },
-    subCategory: { type: String, required: true }, //change to subcategory
+    subCategory: { type: String, required: true },
     text: { type: String, default: "" },
     keywords: [String],
 });
