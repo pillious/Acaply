@@ -1,7 +1,8 @@
 express = require('express');
-var router = express.Router();
+const router = express.Router();
 
-var post_controller = require('../controllers/postController');
+const post_controller = require('../controllers/postController');
+
 
 // less specific routes go to bottom
 

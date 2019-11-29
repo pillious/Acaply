@@ -5,7 +5,8 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 // import routes
-var postRoutes = require('./routes/postsRouter.js');
+var postRoutes = require('./routes/postsRouter');
+var commentRoutes = require('./routes/commentRouter');
 var indexRoutes = require('./routes/indexRouter')
 
 // set view engine
@@ -33,6 +34,7 @@ app.use(session({
 }));
 
 app.use('/posts', postRoutes);
+app.use('/comment', commentRoutes)
 app.use('/', indexRoutes)
 
 // connect to the database
