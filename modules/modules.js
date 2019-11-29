@@ -148,13 +148,9 @@ class CommentClass {
     async deleteComment(commentId) {
         // try to delete comment by comment's _id field
         try {
-            console.log(commentId)
-
             var comment = await CommentSchema.findByIdAndRemove(commentId)
-            console.log(comment)
             return comment;
         } catch {
-            console.log("fail")
             return {};
         }
     }

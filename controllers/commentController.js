@@ -32,7 +32,6 @@ exports.create_comment = async function (req, resp) {
 
 // delete a comment
 exports.delete_comment = async function (req, resp) { 
-    console.log("deleting comment...")
     if (req.session.userSessionId) {
         const commentClassInstance = new CommentClass();
         var commentDoc = await commentClassInstance.deleteComment(req.params.commentId);
