@@ -7,11 +7,11 @@ function deletePost(postId) {
     }
 }
 
-// function editPost(postId) {
-//     axios.post("http://localhost:3000/posts/editPost").then(function (response) {
-//         console.log(response)
-//     }).catch(function (err) {
-//         console.log(err);
-//     })
-
-// }
+function deleteComment(commentId) {
+    var confirmDelete = confirm("Are you sure you want to delete this comment?")
+    if (confirmDelete) {
+        axios.delete("http://localhost:3000/comment/" + commentId).then(function (response) {
+            location.reload();
+        })
+    }
+}

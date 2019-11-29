@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 // import db schemas
 const PostSchema = require('../models/Post');
+const CommentSchema = require('../models/Comment');
 const UserSchema = require('../models/User');
 
 class PostClass {
@@ -18,10 +19,16 @@ class PostClass {
         if (category && subcategory) {
 
             // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
-            var dbSearchParameters = [ {"category": category}, {"subCategory": subcategory}];
+            var dbSearchParameters = [{
+                "category": category
+            }, {
+                "subCategory": subcategory
+            }];
 
             // posts = await PostSchema.find(dbSearchParameter);
-            posts = await PostSchema.find({ $and: dbSearchParameters })
+            posts = await PostSchema.find({
+                $and: dbSearchParameters
+            })
             return posts;
         }
 
@@ -34,7 +41,9 @@ class PostClass {
         if (category) {
 
             // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
-            var dbSearchParameter = {"category": category};
+            var dbSearchParameter = {
+                "category": category
+            };
 
             posts = await PostSchema.find(dbSearchParameter)
             return posts;
@@ -43,19 +52,31 @@ class PostClass {
         return posts;
     }
 
-    // get one specific post from db using the post _id field
+    // get one specific post & and its comments
     async getSpecificPost(postId) {
-        var post;
-        if (postId) {
+        try {
 
-            // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
-            var dbSearchParameter = {"_id": postId};
+            const dbPostSearchParameter = {
+                "_id": postId
+            };
+            const dbCommentSearchParameter = {
+                "parentPost": postId
+            }
 
-            post = await PostSchema.findOne(dbSearchParameter)
-            return post;
+            // get posts & comments from db
+            var post = await PostSchema.findOne(dbPostSearchParameter)
+            var comments = await CommentSchema.find(dbCommentSearchParameter)
+
+            return {
+                post: post,
+                comments: comments
+            };
+        } catch {
+            return {
+                post: {},
+                comments: []
+            };
         }
-
-        return post;
     }
 
     async createNewPost(postFields) {
@@ -63,7 +84,7 @@ class PostClass {
 
         var userClassInstance = new UserClass();
         var userDoc = await userClassInstance.getUserProfile(req)
-        
+
         // set values of post schema
         postInstance.title = postFields.title
         postInstance.text = postFields.body
@@ -74,22 +95,68 @@ class PostClass {
 
         // add new post to db
         await postInstance.save()
-        
+
         return postInstance;
     }
 
+    // delete a post
     async deletePost(postId) {
         var post;
         if (postId) {
-
-            // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
-            var dbSearchParameter = {"_id": postId};
-
+            // delete post from db using post's _id
             post = await PostSchema.findByIdAndRemove(postId)
             return post;
         }
 
         return post;
+    }
+}
+
+class CommentClass {
+    // create a new comment for a post
+    async createNewComment(commentBody, parentPost, author) {
+        try {
+            var commentInstance = new CommentSchema();
+            commentInstance.body = commentBody;
+            commentInstance.parentPost = parentPost;
+            commentInstance.author = author;
+
+            var commentDoc = await commentInstance.save()
+
+            return commentDoc;
+        } catch {
+            return {};
+        }
+    }
+
+    // get the existing comments for a post
+    async getComments(postId) {
+        try {
+            // search for the comments in the db
+            const dbSearchParameter = {
+                "parentPost": postId
+            };
+
+            var comments = await CommentSchema.find(dbSearchParameter)
+            return comments;
+        } catch {
+            return [];
+        }
+    }
+
+    // delete a comment
+    async deleteComment(commentId) {
+        // try to delete comment by comment's _id field
+        try {
+            console.log(commentId)
+
+            var comment = await CommentSchema.findByIdAndRemove(commentId)
+            console.log(comment)
+            return comment;
+        } catch {
+            console.log("fail")
+            return {};
+        }
     }
 }
 
@@ -119,5 +186,6 @@ class UserClass {
 
 module.exports = {
     PostClass,
+    CommentClass,
     UserClass
 };

@@ -35,11 +35,11 @@ exports.all_posts = async function (req, resp) {
 
 // view one specific post
 exports.view_post = async function (req, resp) {
-    var postClassInstance = new PostClass();
-    var postDoc
+    // try to get the post & comments
     try {
-        postDoc = await postClassInstance.getSpecificPost(req.params.postId);
-        resp.render('viewPost', { post: postDoc})
+        var postClassInstance = new PostClass();
+        var postDoc = await postClassInstance.getSpecificPost(req.params.postId);
+        resp.render('viewPost', { post: postDoc.post, comments: postDoc.comments})
     }
     catch {
         resp.send("post not found")
@@ -102,11 +102,13 @@ exports.update_post = async function (req, resp) {
 
 // delete a post
 exports.delete_post = async function (req, resp) {
-    // use function from modules.js to delete post
-    const postClassInstance = new PostClass();
-    userDoc = await postClassInstance.deletePost(req.params.postId)
+    if (req.session.userSessionId) {
+        // use function from modules.js to delete post
+        const postClassInstance = new PostClass();
+        var postDoc = await postClassInstance.deletePost(req.params.postId)
 
-    resp.send(userDoc)
+        resp.send(postDoc)
+    }
 }
 
 // gets posts from specific category 
