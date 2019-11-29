@@ -71,7 +71,6 @@ exports.view_post = async function (req, resp) {
             delete postDoc.comments[i].author;
         }
 
-        console.log(postDoc.post)
         resp.render('viewPost', { post: postDoc.post, comments: postDoc.comments, isPostAuthor: isPostAuthor})
     }
     catch {

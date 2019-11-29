@@ -112,16 +112,11 @@
                 <% if (posts && posts.length) { %>
                 <% posts.forEach((post) => { %>
                 <div class="post-container">
-                    <div><%= post %></div>
+                    <a href="/posts/view/<%= post._id %>"><%= post %></a>
                     <form action="/posts/editpost" method="POST">
                         <input type="hidden" name="postId" value="<%= post._id %>">
                         <button type="submit">Edit</button>
                     </form>
-                    <!-- <button onclick="editPost('<%= post._id %>')">Edit</button> -->
-                    <!-- <form action="/posts/<%= post._id %>" method="POST">
-                        <input type="hidden" name="postId" value="<%= post._id %>">
-                        <button type="submit">Delete</button>
-                    </form> -->
                     <button onclick="deletePost('<%= post._id %>')">Delete</button>
                 </div>
                 <% }) %>
