@@ -60,14 +60,9 @@ exports.view_post = async function (req, resp) {
         // get the user profile of the currently logged in user
         var userDocCurrent = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
 
-        // get the user profile of the post author
-        var userDocAuthor = await userClassInstance.getUserProfile({
-            "_id": postDoc.post.author
-        })
-
         // check if current user is the post author
         var isPostAuthor = false;
-        if (userDocCurrent._id === postDoc.post.author) {
+        if (userDocCurrent && (userDocCurrent._id === postDoc.post.author)) {
             isPostAuthor = true;
         }
 
@@ -79,7 +74,7 @@ exports.view_post = async function (req, resp) {
 
             // add new field to each comment obj (default to false)
             postDoc.comments[i]["isCommentAuthor"] = false;
-            if (postDoc.comments[i].author.toString() === userDocCurrent._id.toString()) {
+            if (postDoc && userDocCurrent && (postDoc.comments[i].author.toString() === userDocCurrent._id.toString())) {
                 postDoc.comments[i]["isCommentAuthor"] = true;
             }
 
@@ -184,8 +179,10 @@ exports.category_posts = async function (req, resp) {
     userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
     var isLoggedIn = false;
 
+    var username = null;
     if (userDoc) {
         isLoggedIn = true;
+        username = userDoc.username
     }
 
     if (isLoggedIn) {
@@ -204,7 +201,7 @@ exports.category_posts = async function (req, resp) {
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,
-        user: userDoc.username,
+        user: username,
         categories: categories,
         isLoggedIn: isLoggedIn
     })
