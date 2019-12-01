@@ -1,5 +1,7 @@
+// automatically updates the UI
 const categories = {
-    "Updates": [
+    "General": [
+        "Updates",
         "Events",
         "Fundraisers"
     ],

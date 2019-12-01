@@ -100,7 +100,7 @@ exports.view_post = async function (req, resp) {
 // go to createPost page
 exports.to_new_post = function (req, resp) {
     if (req.session.userSessionId) {
-        resp.render('createPost')
+        resp.render('createPost', {categories: categories})
     }
     else {
         resp.redirect('/login')
