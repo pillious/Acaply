@@ -3,33 +3,28 @@ const router = express.Router();
 
 const post_controller = require('../controllers/postController');
 
-
-// less specific routes go to bottom
-
-// get all posts (/posts)
+//Get all the different posts.
 router.get('/', post_controller.all_posts);
 
-// view one specific post
+//View a specific post.
 router.get('/view/:postId', post_controller.view_post)
 
-// create a new post
+//Create a new post.
 router.post('/createPost', post_controller.create_posts);
 
-// edit a post (edit post title & body text & keywords)
+//Edit a specific post.
 router.post('/editPost', post_controller.edit_post);
 
-// edit a post (edit post title & body text)
+//Update a specific post.
 router.post('/updatePost/:postId', post_controller.update_post);
 
-// delete a post
+//Delete a post.
 router.delete('/:postId', post_controller.delete_post);
 
-// get all posts in a category (e.g classes, updates) (/posts/classes)
-// /:category route must go under /editPost because it's less specific
+//Get all the posts in a category (/:category route must be under /editPost because less specific).
 router.get('/:category', post_controller.category_posts);
 
-// get all posts in a subcategory (e.g. events, english, math) (/posts/classes/english)
-// /:category/:subcategory route must be under /view/:postId because it's less specific
+//Get all the posts in a subcategory (/:category/:subcategory route must be under /view/:postId because less specific).
 router.get('/:category/:subcategory', post_controller.subCategory_posts);
 
 module.exports = router;

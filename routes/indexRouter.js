@@ -1,30 +1,31 @@
 express = require('express');
 var router = express.Router();
 
+//Controllers for the posts and users.
 var user_controller = require('../controllers/userController');
 var post_controller = require('../controllers/postController');
 
-// default route used on website load
+//Default route that is shown when the website is loaded.
 router.get('/', post_controller.all_posts)
 
-// go to new post page
+//Go to the new post page.
 router.get('/new', post_controller.to_new_post);
 
-// ---- user & auth related routes ----
+//User and authentication routes are below.
 
-// go to login page
+//Go to the login page.
 router.get('/login', user_controller.login_page);
 
-//go to signup page
+//Go to the signup page.
 router.get('/signup', user_controller.signup_page);
 
-// create a new account
+//Create a new account.
 router.post('/createAccount', user_controller.create_account);
 
-// validate login credentials & log user in
+//Validate login credentials and log the user in.
 router.post('/loginValidate', user_controller.login_validate);
 
-// log current use out
+//Log the current user out.
 router.post('/logout', user_controller.logout);
 
 module.exports = router;
