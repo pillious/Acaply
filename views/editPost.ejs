@@ -3,12 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-
     <title>Acaply - Edit Post</title>
 </head>
 
 <body>
-    <div>Edit </div>
+    <div>Edit Post</div>
     <form action="/posts/updatePost/<%= post._id %>" method="POST">
         <div>Category: <%= post.category %></div>
         <div>Subcategory: <%= post.subCategory %></div>
@@ -20,7 +19,7 @@
         <button type="submit">Done</button>
     </form>
 
-    <a href="http://localhost:3000">home</a>
+    <a href="http://localhost:3000">Home</a>
 </body>
 
 </html>
