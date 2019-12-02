@@ -1,6 +1,4 @@
 # Acaply
 
-Beta Version:
-Live at: acaply.com
-
-Temp Readme :D
+### License:
+- This project is licensed under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
