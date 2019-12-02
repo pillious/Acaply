@@ -1,7 +1,9 @@
 # Acaply
 
+A social media website for high schoolers.
+
 ### Usage:
-- `git clone `.
+- `git clone https://github.com/pillious/acaply.com.git`.
 - `cd acaply.com`.
 - `npm install`.
 - `npm start`.
