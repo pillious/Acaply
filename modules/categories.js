@@ -1,4 +1,4 @@
-// automatically updates the UI
+//Automatically updates the user interface.
 const categories = {
     "General": [
         "Updates",
@@ -16,4 +16,4 @@ const categories = {
     ]
 }
 
-module.exports = categories
+module.exports = categories;

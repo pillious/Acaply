@@ -18,16 +18,19 @@
 .sidebar-arrow {
     cursor: pointer;
 }
+
 .sidebar-arrow[data-toggle].collapsed:after {
     content: "▼";
     display: inline-block;
     transform: rotate(90deg);
     font-size: 12px;
 }
+
 .sidebar-arrow[data-toggle]:not(.collapsed):after {
     content: "▼";
     font-size: 12px;
 }
+
 .sidebar-subcategory {
     padding-left: 20px;
     text-align: left;

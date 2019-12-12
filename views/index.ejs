@@ -3,27 +3,27 @@
 
 <head>
     <meta charset="UTF-8">
-
     <title>Acaply</title>
 
-    <!-- bootstrap  -->
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!-- custom stylesheet -->
+    <!-- Custom Styles -->
     <link type="text/css" rel="stylesheet" href="/css/index.css">
 </head>
 
 <body>
-    <!-- navbar -->
+    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Acaply</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav ml-auto">
+                <!-- Show this stuff if the user is logged in. -->
                 <% if (isLoggedIn) { %>
                 <div class="nav-item">
                     <form action="/logout" method="POST">
@@ -35,31 +35,31 @@
                     <p><%= user.username %></p>
                     <% } %>
                 </div>
+                <!-- Show this stuff if the user is not logged in. -->
                 <% } else { %>
                 <div class="nav-item">
                     <form action="/login" method="GET">
-                        <button type="submit" class="btn btn-link">login</button>
+                        <button type="submit" class="btn btn-link">Log In</button>
                     </form>
                 </div>
                 <div class="nav-item">
                     <form action="/signup" method="GET">
-                        <button type="submit" class="btn btn-link">signup</button>
+                        <button type="submit" class="btn btn-link">Sign Up</button>
                     </form>
                 </div>
                 <% } %>
-
             </div>
         </div>
     </nav>
 
-    <!-- sidebar & posts container -->
+    <!-- Container that holds the sidebar and posts. -->
     <div class="container-fluid">
         <div class="row">
-
-            <!-- sidebar section -->
+            <!-- Sidebar Section -->
             <div class="col-2 collapse show d-md-flex bg-light pl-0 min-vh-100 sidebar-wrapper" id="sidebar">
                 <ul class="nav flex-column flex-nowrap overflow-hidden sidebar">
                     <li class="nav-item">
+                        <!-- Form that lets you make a new post. -->
                         <form action="/new" method="GET">
                             <button class="create-post-btn" type="submit">Create Post</button>
                         </form>
@@ -67,12 +67,11 @@
                     <% for (var category in categories) { %>
                     <% if (categories.hasOwnProperty(category)) { %>
 
-                    <!-- display categories for sidebar -->
+                    <!-- Show the different categories on the sidebar. -->
                     <li class="nav-item">
                         <div class="sidebar-category text-truncate">
                             <form action="/posts/<%= category.toLowerCase() %>">
                                 <button class="btn btn-link d-none d-sm-inline category-btn"><%= category %></button>
-
                                 <% if (categories[category].length != 0) { %>
                                 <span class="sidebar-arrow collapsed" data-toggle="collapse"
                                     data-target="#<%= category %>"></span>
@@ -82,7 +81,7 @@
 
                         <% if (categories[category].length != 0) { %>
 
-                        <!-- display subcategories for sidebar -->
+                        <!-- Show the different categories on the sidebar. -->
                         <div class="collapse" id="<%= category %>" aria-expanded="false">
                             <ul class="flex-column pl-2 nav">
                                 <% for (var subcategory in categories[category]) { %>
@@ -107,18 +106,18 @@
                 </ul>
             </div>
 
-            <!-- posts section -->
+            <!-- Post Section -->
             <div class="col-10">
                 <% if (posts && posts.length) { %>
                 <% posts.forEach((post) => { %>
                 <div class="post-container">
                     <a href="/posts/view/<%= post._id %>"><%= JSON.stringify(post) %></a>
                     <% if (isLoggedIn && post.isPostAuthor) { %>
-                        <form action="/posts/editpost" method="POST">
-                            <input type="hidden" name="postId" value="<%= post._id %>">
-                            <button type="submit">Edit</button>
-                        </form>
-                        <button onclick="deletePost('<%= post._id %>')">Delete</button>
+                    <form action="/posts/editpost" method="POST">
+                        <input type="hidden" name="postId" value="<%= post._id %>">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <button onclick="deletePost('<%= post._id %>')">Delete</button>
                     <% } %>
                 </div>
                 <% }) %>
@@ -127,7 +126,7 @@
         </div>
     </div>
 
-    <!-- needed for bootstrap 4 -->
+    <!-- Bootstrap 4 Requirements -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
@@ -138,10 +137,10 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
 
-    <!-- axios -->
+    <!-- Axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
-    <!-- custom scripts -->
+    <!-- JavaScript -->
     <script src="/js/index.js"></script>
 </body>
 

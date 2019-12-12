@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-
     <title>Acaply - View</title>
 </head>
 
@@ -11,29 +10,31 @@
     <div>View Post</div>
     <div>
         <% if (post) { %>
-        <p><%= JSON.stringify(post) %></p>
+            <p><%= JSON.stringify(post) %></p>
         <% } %>
 
         <% if (comments) { %>
             <% comments.forEach(function (comment) { %>
-                <p><%= JSON.stringify(comment) %></p>
-                <button onclick="deleteComment('<%= comment._id %>')">Delete Comment</button>
-                <br>
+            <p><%= JSON.stringify(comment) %></p>
+            <!-- Delete a comment. -->
+            <button onclick="deleteComment('<%= comment._id %>')">Delete Comment</button>
+            <br>
             <% }); %>
         <% } %>
 
+        <!-- Create a new comment. -->
         <form action="/comment/createComment" method="POST">
-            <input type="text" name="comment" placeholder="comment...">
+            <input type="text" name="comment" placeholder="Comment">
             <input type="hidden" name="postId" value="<%= post._id %>">
-            <button type="submit">Create Comment</button>
+            <button type="submit">Create</button>
         </form>
 
     </div>
 
-    <!-- axios -->
+    <!-- Axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
-    <!-- custom scripts -->
+    <!-- JavaScript -->
     <script src="/js/index.js"></script>
 </body>
 
