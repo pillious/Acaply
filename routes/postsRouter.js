@@ -21,6 +21,11 @@ router.post('/updatePost/:postId', post_controller.update_post);
 //Delete a post.
 router.delete('/:postId', post_controller.delete_post);
 
+// vote on post (upvote, downvote, removevote)
+router.post('/vote/upVote', post_controller.upVote_post);
+router.post('/vote/downVote', post_controller.downVote_post);
+router.post('/vote/removeVote', post_controller.removeVote_post);
+
 //Get all the posts in a category (/:category route must be under /editPost because less specific).
 router.get('/:category', post_controller.category_posts);
 

@@ -29,6 +29,7 @@ app.use(express.json());
 //A session is a storage that consists of information on server-side.
 app.use(session({
     //Super secret code.
+    // -------------- MUST CHANGE BEFORE DEPLOYMENT ---------------------
     secret: 'ULqlcX4KcYE9jeS3lnpv',
     resave: true,
     saveUninitialized: false,

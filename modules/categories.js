@@ -1,4 +1,7 @@
 //Automatically updates the user interface.
+
+// all categories and subcategories
+// all strings inside arrays are subcategories
 const categories = {
     "General": [
         "Updates",

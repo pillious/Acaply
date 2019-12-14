@@ -172,6 +172,22 @@ exports.delete_post = async function (req, resp) {
     }
 }
 
+// upvote a post
+exports.upVote_post = async function (req, resp) {
+    resp.send('upvote');
+}
+
+// downvote a post
+exports.downVote_post = async function (req, resp) {
+    resp.send('downvote');
+}
+
+// remove an upvote or downvote from a post
+exports.removeVote_post = async function (req, resp) {
+    resp.send('removepost');
+}
+
+
 // gets posts from specific category 
 exports.category_posts = async function (req, resp) {
     var postClassInstance = new PostClass();

@@ -39,6 +39,10 @@ const postSchema = new Schema({
         type: Number,
         default: 0
     },
+    comments: {
+        type: Number,
+        default: 0
+    },
     subCategory: {
         type: String,
         required: true

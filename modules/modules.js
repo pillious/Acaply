@@ -138,6 +138,9 @@ class CommentClass {
 
             var commentDoc = await commentInstance.save()
 
+            // postDoc after incrementing comments doc
+            var updatedPostDoc = await PostSchema.findOneAndUpdate({ '_id': parentPost }, { $inc: {'comments': 1 } }, {new: true });
+
             return commentDoc;
         } catch {
             return {};

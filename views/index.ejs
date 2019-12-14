@@ -9,13 +9,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <!-- font awesome -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+
     <!-- Custom Styles -->
     <link type="text/css" rel="stylesheet" href="/css/index.css">
 </head>
 
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <a class="navbar-brand" href="#">Acaply</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,8 +59,8 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar Section -->
-            <div class="col-2 collapse show d-md-flex bg-light pl-0 min-vh-100 sidebar-wrapper" id="sidebar">
-                <ul class="nav flex-column flex-nowrap overflow-hidden sidebar">
+            <div class="col-lg-2 col-sm-3 collapse show d-md-flex sidebar-wrapper" id="sidebar">
+                <ul class="nav flex-column flex-nowrap overflow-hidden bg-white sidebar">
                     <li class="nav-item">
                         <!-- Form that lets you make a new post. -->
                         <form action="/new" method="GET">
@@ -107,9 +110,9 @@
             </div>
 
             <!-- Post Section -->
-            <div class="col-10">
+            <div class="col-lg-10 col-sm-9 post-column">
                 <% if (posts && posts.length) { %>
-                <% posts.forEach((post) => { %>
+                <% posts.forEach( function(post) { %>
                 <div class="post-container">
                     <a href="/posts/view/<%= post._id %>"><%= JSON.stringify(post) %></a>
                     <% if (isLoggedIn && post.isPostAuthor) { %>
@@ -119,6 +122,36 @@
                     </form>
                     <button onclick="deletePost('<%= post._id %>')">Delete</button>
                     <% } %>
+                </div>
+                <% }) %>
+                <% } %>
+
+                <% if (posts && posts.length) { %>
+                <% posts.forEach( function(post) { %>
+                <div class="post-container">
+                    <div class="score-wrapper">
+                        <div>^</div>
+                        <div>10</div>
+                        <div>v</div>
+                    </div>
+                    <div class="post-wrapper">
+                        <a href="/posts/view/<%= post._id %>" class="post-title"><%= post.title %></a>
+                        <div class="post-body"><%= post.text %></div>
+
+                        <!-- post info (# of comments, category & subcategory, author) -->
+                        <div class="post-info-wrapper">
+                            <% if (post.comments === 1) { %>
+                            <div><%= post.comments %> comment <span>|</span> </div>
+                            <% } else {%>
+                            <div><%= post.comments %> comments <span>|</span> </div>
+                            <% } %>
+
+                            <div>/<%= post.category %>/<%= post.subCategory %> <span>|</span> </div>
+
+                            <div>by <%= post.authorUsername %></div>
+                        </div>
+
+                    </div>
                 </div>
                 <% }) %>
                 <% } %>
