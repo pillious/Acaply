@@ -102,6 +102,16 @@ class PostClass {
         return postInstance;
     }
 
+    async incrementPostViews(postId) {
+        console.log(postId)
+        var postDoc = await PostSchema.findOneAndUpdate(
+            { '_id' : postId }, 
+            { $inc: { 'views': 1 } }, 
+            {new: true });
+        console.log(postDoc)
+        return postDoc;
+    }
+
     // delete a post
     async deletePost(postId) {
         var post;

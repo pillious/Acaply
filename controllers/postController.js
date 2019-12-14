@@ -83,9 +83,11 @@ exports.view_post = async function (req, resp) {
         }
 
         // increase views of post by 1
+        // returns the newly updated postDoc (postDocUpdated includes the incremented views count)
+        var postDocUpdated = await postClassInstance.incrementPostViews(postDoc.post._id);
 
         resp.render('viewPost', {
-            post: postDoc.post,
+            post: postDocUpdated,
             comments: postDoc.comments,
             isPostAuthor: isPostAuthor
         })
