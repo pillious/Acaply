@@ -1,31 +1,32 @@
 const mongoose = require('mongoose');
 
-// import db schemas
+//Get the database models (schemas).
 const PostSchema = require('../models/Post');
 const CommentSchema = require('../models/Comment');
 const UserSchema = require('../models/User');
 
+//Helper functions.
 class PostClass {
-    // get all posts in db
+    //Get all the posts in the database.
     async getAllPosts() {
         var posts;
         posts = await PostSchema.find().lean();
         return posts;
     }
 
-    // get posts from a category or subcategory
+    //Get posts from a subcategory.
     async getSubcategoryPosts(category, subcategory) {
         var posts;
-        if (category && subcategory) {
 
-            // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
+        if (category && subcategory) {
+            //Creates an object with a fieldName and fieldValue.
+            //Search for posts in db which match the search parameter
             var dbSearchParameters = [{
                 "category": category
             }, {
                 "subCategory": subcategory
             }];
 
-            // posts = await PostSchema.find(dbSearchParameter);
             posts = await PostSchema.find({
                 $and: dbSearchParameters
             }).lean()
@@ -35,9 +36,10 @@ class PostClass {
         return posts;
     }
 
-    // get posts from a category or subcategory
+    //Get posts from a category.
     async getCategoryPosts(category) {
         var posts;
+
         if (category) {
 
             // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter

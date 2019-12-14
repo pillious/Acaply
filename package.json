@@ -1,14 +1,13 @@
 {
   "name": "acaply",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A website for high schoolers.",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
   "keywords": [],
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^3.1.2",
