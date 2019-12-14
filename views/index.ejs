@@ -135,20 +135,32 @@
                         <div>v</div>
                     </div>
                     <div class="post-wrapper">
+
+                        <!-- post info (category & subcategory, author, time since post) -->
+                        <div class="post-info-wrapper">
+                            <!--  <a href="/posts/<%= post.category %>/<%= post.subCategory %>">/<%= post.category %>/<%= post.subCategory %></a> -->
+                           <div>/<%= post.category %>/<%= post.subCategory %></div>
+
+                            <div>by <%= post.authorUsername %></div>
+
+                            <div class=""> time ago</div>
+                        </div>
+
                         <a href="/posts/view/<%= post._id %>" class="post-title"><%= post.title %></a>
                         <div class="post-body"><%= post.text %></div>
 
-                        <!-- post info (# of comments, category & subcategory, author) -->
+                        <!-- post info (# of comments, keywords) -->
                         <div class="post-info-wrapper">
                             <% if (post.comments === 1) { %>
-                            <div><%= post.comments %> comment <span>|</span> </div>
+                            <div><%= post.comments %> comment |</div>
                             <% } else {%>
-                            <div><%= post.comments %> comments <span>|</span> </div>
+                            <div><%= post.comments %> comments |</div>
                             <% } %>
 
-                            <div>/<%= post.category %>/<%= post.subCategory %> <span>|</span> </div>
-
-                            <div>by <%= post.authorUsername %></div>
+                            <div>tags: </div>
+                            <% post.keywords.forEach( function(keyword) { %>
+                            <div class="post-keyword bg-light"><%= keyword %></div>
+                            <% }) %>
                         </div>
 
                     </div>
@@ -159,7 +171,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap 4 Requirements -->
+    <!-- Bootstrap 4 requirements -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
     </script>
@@ -173,7 +185,7 @@
     <!-- Axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
-    <!-- JavaScript -->
+    <!-- Custom Js -->
     <script src="/js/index.js"></script>
 </body>
 

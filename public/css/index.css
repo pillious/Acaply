@@ -72,6 +72,9 @@ body {
     background-color: #fff;
     border: 1px #f0f0f0 solid;
     margin: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .score-wrapper {
@@ -87,15 +90,22 @@ body {
 }
 
 .post-title {
-    color: #000000;
+    color: #454f5b;
     font-weight: 500;
-    padding: 5px 5px 5px 0;
+}
+
+.post-title:hover {
+    color: #1890ff;
+    text-decoration: none;
 }
 
 .post-body {
-    padding: 5px 5px 5px 0;
+    padding: 0 5px 5px 0;
     font-size: 14px;
-    color: rgb(155, 155, 155);
+    color: #9b9b9b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .post-info-wrapper {
@@ -105,11 +115,13 @@ body {
 
 .post-info-wrapper div {
     padding: 5px 5px 5px 0;
-    color: rgb(77, 77, 77);
+    color: #4d4d4d;
 }
 
-.post-info-divider {
-    height: 100%;
-    width: 1px;
-    background-color: black;
+.post-info-wrapper div.post-keyword {
+    color: rgb(110, 110, 110);
+    margin: 0 2px;
+    padding-right: 15px;
+    padding-left: 15px;
+    border-radius: 12%;
 }
