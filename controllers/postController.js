@@ -82,6 +82,8 @@ exports.view_post = async function (req, resp) {
             delete postDoc.comments[i].author;
         }
 
+        // increase views of post by 1
+
         resp.render('viewPost', {
             post: postDoc.post,
             comments: postDoc.comments,

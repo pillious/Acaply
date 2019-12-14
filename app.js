@@ -38,11 +38,13 @@ app.use('/comment', commentRoutes)
 app.use('/', indexRoutes)
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/acaply', {
+mongoose.connect('mongodb://127.0.0.1:27017/acaply', {
     useNewUrlParser: true
 }).then(function () {
     //This means that the database was successfully connected to.
     console.log("Database connected.");
+}).catch((err) => {
+    console.log("Not Connected to Database ERROR! ", err);
 });
 
 const port = process.env.port || 3000;
