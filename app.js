@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+const cors = require('cors');
 
 //Create the application.
 const app = express();
@@ -24,6 +25,9 @@ app.use(express.urlencoded());
 
 //Parse the JSON bodies (as sent by API clients).
 app.use(express.json());
+
+// Use cors
+app.use(cors())
 
 //Use sessions for tracking user logins.
 //A session is a storage that consists of information on server-side.

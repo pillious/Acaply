@@ -36,19 +36,41 @@ class PostClass {
         return posts;
     }
 
-    //Get posts from a category.
-    async getCategoryPosts(category) {
+    // get all posts which correspond which search field (e.g author: 'pillious')
+    async getPostsByOneField(fieldKey, fieldValue) {
         var posts;
 
-        if (category) {
+        if (fieldKey && fieldValue) {
 
             // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
-            var dbSearchParameter = {
-                "category": category
-            };
+            var dbSearchParameter = {};
+            dbSearchParameter[fieldKey] = fieldValue
 
             posts = await PostSchema.find(dbSearchParameter).lean()
             return posts;
+
+        }
+
+        return posts;
+    }
+
+    async getPostsByKeyWords(keywords) {
+        
+    }
+
+    // get all posts which contain the search string (e.g search string = 'english study guide')
+    async getPostsByOneField(fieldKey, fieldValue) {
+        var posts;
+
+        if (fieldKey && fieldValue) {
+
+            // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
+            var dbSearchParameter = {};
+            dbSearchParameter[fieldKey] = fieldValue
+
+            posts = await PostSchema.find(dbSearchParameter).lean()
+            return posts;
+
         }
 
         return posts;
@@ -102,13 +124,17 @@ class PostClass {
         return postInstance;
     }
 
+    // increase view count of a post by 1
     async incrementPostViews(postId) {
-        console.log(postId)
-        var postDoc = await PostSchema.findOneAndUpdate(
-            { '_id' : postId }, 
-            { $inc: { 'views': 1 } }, 
-            {new: true });
-        console.log(postDoc)
+        var postDoc = await PostSchema.findOneAndUpdate({
+            '_id': postId
+        }, {
+            $inc: {
+                'views': 1
+            }
+        }, {
+            new: true
+        });
         return postDoc;
     }
 
@@ -128,7 +154,6 @@ class PostClass {
 class CommentClass {
     // create a new comment for a post
     async createNewComment(commentBody, parentPost, authorUserDoc) {
-        console.log(authorUserDoc)
         try {
             var commentInstance = new CommentSchema();
             commentInstance.body = commentBody;
@@ -139,28 +164,21 @@ class CommentClass {
             var commentDoc = await commentInstance.save()
 
             // postDoc after incrementing comments doc
-            var updatedPostDoc = await PostSchema.findOneAndUpdate({ '_id': parentPost }, { $inc: {'comments': 1 } }, {new: true });
+            var updatedPostDoc = await PostSchema.findOneAndUpdate({
+                '_id': parentPost
+            }, {
+                $inc: {
+                    'comments': 1
+                }
+            }, {
+                new: true
+            });
 
             return commentDoc;
         } catch {
             return {};
         }
     }
-
-    // get the existing comments for a post
-    // async getComments(postId) {
-    //     try {
-    //         // search for the comments in the db
-    //         const dbSearchParameter = {
-    //             "parentPost": postId
-    //         };
-
-    //         var comments = await CommentSchema.find(dbSearchParameter).lean()
-    //         return comments;
-    //     } catch {
-    //         return [];
-    //     }
-    // }
 
     // delete a comment
     async deleteComment(commentId) {
@@ -192,8 +210,7 @@ class UserClass {
         try {
             var userDoc = await UserSchema.findOne(dbUserSearchParameter);
             return userDoc;
-        }
-        catch {
+        } catch {
             return {};
         }
     }

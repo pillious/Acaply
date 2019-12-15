@@ -26,10 +26,17 @@ router.post('/vote/upVote', post_controller.upVote_post);
 router.post('/vote/downVote', post_controller.downVote_post);
 router.post('/vote/removeVote', post_controller.removeVote_post);
 
+// Get all posts which contain the search string
+router.get('/search/:searchString', post_controller.search_string_posts)
+
+// Get all posts by a specific user
+router.get('/user/:authorUsername', post_controller.author_posts)
+
 //Get all the posts in a category (/:category route must be under /editPost because less specific).
 router.get('/:category', post_controller.category_posts);
 
 //Get all the posts in a subcategory (/:category/:subcategory route must be under /view/:postId because less specific).
 router.get('/:category/:subcategory', post_controller.subCategory_posts);
+
 
 module.exports = router;

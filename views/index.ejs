@@ -114,52 +114,48 @@
                 <% if (posts && posts.length) { %>
                 <% posts.forEach( function(post) { %>
                 <div class="post-container">
-                    <a href="/posts/view/<%= post._id %>"><%= JSON.stringify(post) %></a>
-                    <% if (isLoggedIn && post.isPostAuthor) { %>
-                    <form action="/posts/editpost" method="POST">
-                        <input type="hidden" name="postId" value="<%= post._id %>">
-                        <button type="submit">Edit</button>
-                    </form>
-                    <button onclick="deletePost('<%= post._id %>')">Delete</button>
-                    <% } %>
-                </div>
-                <% }) %>
-                <% } %>
-
-                <% if (posts && posts.length) { %>
-                <% posts.forEach( function(post) { %>
-                <div class="post-container">
                     <div class="score-wrapper">
-                        <div>^</div>
-                        <div>10</div>
-                        <div>v</div>
+                        <div><i class="fa fa-chevron-up vote-icon"
+                                id="<%= (post.comments ? 'vote-not-clicked' : 'vote-clicked') %>"></i></div>
+                        <div class="pt-2 pb-2">10</div>
+                        <div><i class="fa fa-chevron-down vote-icon"
+                                id="<%= (post.comments ? 'vote-not-clicked' : 'vote-clicked') %>"></i></div>
                     </div>
                     <div class="post-wrapper">
 
                         <!-- post info (category & subcategory, author, time since post) -->
                         <div class="post-info-wrapper">
-                            <!--  <a href="/posts/<%= post.category %>/<%= post.subCategory %>">/<%= post.category %>/<%= post.subCategory %></a> -->
-                           <div>/<%= post.category %>/<%= post.subCategory %></div>
+                            <a href="/posts/<%= post.category %>/<%= post.subCategory %>"
+                                class="post-info-dark post-link">
+                                /<%= post.category[0].toUpperCase() +  post.category.substr(1) %>/<%= post.subCategory[0].toUpperCase() +  post.subCategory.substr(1) %>
+                            </a>
 
-                            <div>by <%= post.authorUsername %></div>
+                            <div>
+                                <span class="pr-0">by</span>
+                                <a href="#" class="pr-0 post-link post-info-dark"><%= post.authorUsername %></a>
+                            </div>
 
-                            <div class=""> time ago</div>
+                            <div class="">
+                                time ago</div>
                         </div>
 
-                        <a href="/posts/view/<%= post._id %>" class="post-title"><%= post.title %></a>
+                        <a href="/posts/view/<%= post._id %>" class="post-title post-link"><%= post.title %></a>
                         <div class="post-body"><%= post.text %></div>
 
                         <!-- post info (# of comments, keywords) -->
                         <div class="post-info-wrapper">
                             <% if (post.comments === 1) { %>
-                            <div><%= post.comments %> comment |</div>
+                            <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comment |</a>
                             <% } else {%>
-                            <div><%= post.comments %> comments |</div>
+                            <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comments |</a>
                             <% } %>
 
-                            <div>tags: </div>
+                            <div>tags:
+                            </div>
                             <% post.keywords.forEach( function(keyword) { %>
-                            <div class="post-keyword bg-light"><%= keyword %></div>
+                            <div class="post-keyword bg-light">
+                                <a href="#" class="post-link post-info-dark"><%= keyword %></a>
+                            </div>
                             <% }) %>
                         </div>
 

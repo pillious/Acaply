@@ -80,9 +80,25 @@ body {
 .score-wrapper {
     display: flex;
     flex-direction: column;
-    padding: 5px 10px 0 0;
+    padding: 10px 15px;
     border-right: 1px #f0f0f0 solid;
     text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.vote-icon {
+    color: rgba(175, 175, 175, 0.8);
+    font-size: 20px;
+    font-weight: 100;
+}
+
+#vote-not-clicked {
+    color: rgba(175, 175, 175, 0.8);
+}
+
+#vote-clicked {
+    color: rgba(251, 112, 62, 0.8);
 }
 
 .post-wrapper {
@@ -94,7 +110,7 @@ body {
     font-weight: 500;
 }
 
-.post-title:hover {
+.post-link:hover {
     color: #1890ff;
     text-decoration: none;
 }
@@ -102,7 +118,7 @@ body {
 .post-body {
     padding: 0 5px 5px 0;
     font-size: 14px;
-    color: #9b9b9b;
+    color: #4d4d4d;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -113,15 +129,22 @@ body {
     font-size: 13px;
 }
 
-.post-info-wrapper div {
+.post-info-wrapper * {
     padding: 5px 5px 5px 0;
-    color: #4d4d4d;
+    color: #858585;
 }
 
 .post-info-wrapper div.post-keyword {
-    color: rgb(110, 110, 110);
     margin: 0 2px;
     padding-right: 15px;
     padding-left: 15px;
     border-radius: 12%;
+}
+
+.post-keyword a {
+    padding: 0;
+}
+
+.post-info-dark{
+    color: #2c2c2c;
 }

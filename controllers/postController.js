@@ -24,18 +24,20 @@ exports.all_posts = async function (req, resp) {
         isLoggedIn = true;
     }
 
-    if (isLoggedIn) {
-        // check each post for if current user is owner of the post
-        for (var i = 0; i < postsDoc.length; i++) {
+
+    // check each post for if current user is owner of the post
+    for (var i = 0; i < postsDoc.length; i++) {
+        if (isLoggedIn) {
             postsDoc[i]["isPostAuthor"] = false;
             if (postsDoc[i].author.toString() === userDoc._id.toString()) {
                 postsDoc[i]["isPostAuthor"] = true;
             }
-
-            // delete user _id from post docs
-            delete postsDoc[i].author;
         }
+
+        // delete user _id from post docs
+        delete postsDoc[i].author;
     }
+
 
 
     // render once posts are returned by getAllPosts()
@@ -99,9 +101,10 @@ exports.view_post = async function (req, resp) {
 // go to createPost page
 exports.to_new_post = function (req, resp) {
     if (req.session.userSessionId) {
-        resp.render('createPost', {categories: categories})
-    }
-    else {
+        resp.render('createPost', {
+            categories: categories
+        })
+    } else {
         resp.redirect('/login')
     }
 };
@@ -187,11 +190,22 @@ exports.removeVote_post = async function (req, resp) {
     resp.send('removepost');
 }
 
-
-// gets posts from specific category 
-exports.category_posts = async function (req, resp) {
+// remove an upvote or downvote from a post
+exports.search_string_posts = async function (req, resp) {
     var postClassInstance = new PostClass();
-    var postsDoc = await postClassInstance.getCategoryPosts(req.params.category);
+    var postsDoc = [];
+
+    // check if any of these fields contain the search string
+    const dbSearchParamKeys = ["authorUsername", "keywords", "category", "subCategory", "title", "text"];
+
+    for (dbSearchParamKey in dbSearchParamKeys) {
+        var postsDocByParamKey = await postClassInstance.getPostsByOneField("text", req.params.searchString);
+        if (postsDocByParamKey.length != 0) {
+            postsDoc.push(postsDocByParamKey)
+        }
+    }
+
+    console.log(postsDoc)
 
     let userDoc;
     // check if user is logged in
@@ -205,17 +219,96 @@ exports.category_posts = async function (req, resp) {
         username = userDoc.username
     }
 
-    if (isLoggedIn) {
-        // check each post for if current user is owner of the post
-        for (var i = 0; i < postsDoc.length; i++) {
+    // check each post for if current user is owner of the post
+    for (var i = 0; i < postsDoc.length; i++) {
+        if (isLoggedIn) {
             postsDoc[i]["isPostAuthor"] = false;
             if (postsDoc[i].author.toString() === userDoc._id.toString()) {
                 postsDoc[i]["isPostAuthor"] = true;
             }
-
-            // delete user _id from post docs
-            delete postsDoc[i].author;
         }
+
+        // delete user _id from post docs
+        delete postsDoc[i].author;
+    }
+
+    // render once posts are returned by getAllPosts()
+    resp.render('index', {
+        posts: postsDoc,
+        user: username,
+        categories: categories,
+        isLoggedIn: isLoggedIn
+    })
+}
+
+// remove an upvote or downvote from a post
+exports.author_posts = async function (req, resp) {
+    var postClassInstance = new PostClass();
+    var postsDoc = await postClassInstance.getPostsByOneField("authorUsername", req.params.authorUsername);
+
+    let userDoc;
+    // check if user is logged in
+    const userClassInstance = new UserClass();
+    userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
+    var isLoggedIn = false;
+
+    var username = null;
+    if (userDoc) {
+        isLoggedIn = true;
+        username = userDoc.username
+    }
+
+    // check each post for if current user is owner of the post
+    for (var i = 0; i < postsDoc.length; i++) {
+        if (isLoggedIn) {
+            postsDoc[i]["isPostAuthor"] = false;
+            if (postsDoc[i].author.toString() === userDoc._id.toString()) {
+                postsDoc[i]["isPostAuthor"] = true;
+            }
+        }
+
+        // delete user _id from post docs
+        delete postsDoc[i].author;
+    }
+
+    // render once posts are returned by getAllPosts()
+    resp.render('index', {
+        posts: postsDoc,
+        user: username,
+        categories: categories,
+        isLoggedIn: isLoggedIn
+    })
+}
+
+// gets posts from specific category 
+exports.category_posts = async function (req, resp) {
+    var postClassInstance = new PostClass();
+    var postsDoc = await postClassInstance.getPostsByOneField("category", req.params.category);
+
+    let userDoc;
+    // check if user is logged in
+    const userClassInstance = new UserClass();
+    userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
+    var isLoggedIn = false;
+
+    var username = null;
+    if (userDoc) {
+        isLoggedIn = true;
+        username = userDoc.username
+    }
+
+
+    // check each post for if current user is owner of the post
+    for (var i = 0; i < postsDoc.length; i++) {
+        if (isLoggedIn) {
+            postsDoc[i]["isPostAuthor"] = false;
+            if (postsDoc[i].author.toString() === userDoc._id.toString()) {
+                postsDoc[i]["isPostAuthor"] = true;
+            }
+        }
+
+        // delete user _id from post docs
+        delete postsDoc[i].author;
     }
 
     // render once posts are returned by getAllPosts()
@@ -243,27 +336,29 @@ exports.subCategory_posts = async function (req, resp) {
 
     var isLoggedIn = false;
 
+    var username = null;
     if (userDoc) {
         isLoggedIn = true;
+        username = userDoc.username
     }
 
-    if (isLoggedIn) {
-        // check each post for if current user is owner of the post
-        for (var i = 0; i < postsDoc.length; i++) {
+    // check each post for if current user is owner of the post
+    for (var i = 0; i < postsDoc.length; i++) {
+        if (isLoggedIn) {
             postsDoc[i]["isPostAuthor"] = false;
             if (postsDoc[i].author.toString() === userDoc._id.toString()) {
                 postsDoc[i]["isPostAuthor"] = true;
             }
-
-            // delete user _id from post docs
-            delete postsDoc[i].author;
         }
+
+        // delete user _id from post docs
+        delete postsDoc[i].author;
     }
 
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,
-        user: userDoc.username,
+        user: username,
         categories: categories,
         isLoggedIn: isLoggedIn
     })
