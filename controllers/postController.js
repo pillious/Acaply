@@ -36,14 +36,16 @@ exports.all_posts = async function (req, resp) {
 
         // delete user _id from post docs
         delete postsDoc[i].author;
+
+        for (vote in postsDoc[i].votes) {
+            delete postsDoc[i].votes[vote].userId;
+        }
     }
-
-
 
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,
-        user: userDoc,
+        user: userDoc.username,
         categories: categories,
         isLoggedIn: isLoggedIn
     })
@@ -82,6 +84,10 @@ exports.view_post = async function (req, resp) {
 
             // delete comment's author field (this field contains the author's _id) from comment obj
             delete postDoc.comments[i].author;
+
+            for (vote in postDoc[i].votes) {
+                delete postDoc[i].votes[vote].userId;
+            }
         }
 
         // increase views of post by 1
@@ -175,19 +181,88 @@ exports.delete_post = async function (req, resp) {
     }
 }
 
-// upvote a post
-exports.upVote_post = async function (req, resp) {
-    resp.send('upvote');
-}
+// upvote or downvote a post
+exports.vote_post = async function (req, resp) {
+    const userClassInstance = new UserClass();
+    const postClassInstance = new PostClass();
+    var userDoc;
+    var isLoggedIn = false;
 
-// downvote a post
-exports.downVote_post = async function (req, resp) {
-    resp.send('downvote');
+    // check if user is logged in
+    if (req.session.userSessionId) {
+        userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId);
+        isLoggedIn = true;
+
+        try {
+            // set the vote score depending on upvote or downvote
+            var voteScore = 1;
+            if (req.path.includes('downVote')) {
+                voteScore = -1;
+            }
+
+            // returns a post doc if user has already voted on a specific post, returns null if user hasn't voted that post before
+            var beforeUpdatePostDoc = await postClassInstance.hasUserAlreadyVoted(req.params.postId, userDoc)
+
+            // true = user hasn't voted on specific post before
+            var newVoter = false;
+            if (!beforeUpdatePostDoc) {
+                newVoter = true;
+            }
+
+            // addVoteToPost(str postId, str userDoc, num voteScore, bool newVote)
+            var postDoc = await postClassInstance.addVoteToPost(req.params.postId, userDoc, voteScore, newVoter);
+
+            // if not a new voter, post overall score changes by 2
+            // else, post overall score changes by 1
+            if (!newVoter) {
+                await postClassInstance.updatePostScore(req.params.postId, voteScore * 2)
+            } else {
+                await postClassInstance.updatePostScore(req.params.postId, voteScore)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    resp.send({
+        isLoggedIn: isLoggedIn
+    });
 }
 
 // remove an upvote or downvote from a post
 exports.removeVote_post = async function (req, resp) {
-    resp.send('removepost');
+    const userClassInstance = new UserClass();
+    const postClassInstance = new PostClass();
+    var userDoc;
+    var isLoggedIn = false;
+
+    // check if user is logged in
+    if (req.session.userSessionId) {
+        userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId);
+        isLoggedIn = true;
+
+        try {
+            // return the postDoc of the post user just voted on
+            var postDoc = await postClassInstance.hasUserAlreadyVoted(req.params.postId, userDoc)
+
+            // update the post's total score
+            for (vote in postDoc.votes) {
+                if (postDoc.votes[vote].userId.toString() === userDoc._id.toString()) {
+                    await postClassInstance.updatePostScore(req.params.postId, postDoc.votes[vote].vote * -1);
+                    break;
+                }
+            }
+
+            // remove user from the votes array of a post
+            await postClassInstance.removePostVote(req.params.postId, userDoc);
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    resp.send({
+        isLoggedIn: isLoggedIn
+    });
 }
 
 // remove an upvote or downvote from a post
@@ -230,6 +305,10 @@ exports.search_string_posts = async function (req, resp) {
 
         // delete user _id from post docs
         delete postsDoc[i].author;
+
+        for (vote in postsDoc[i].votes) {
+            delete postDocs[i].votes[vote].userId;
+        }
     }
 
     // render once posts are returned by getAllPosts()
@@ -269,6 +348,10 @@ exports.author_posts = async function (req, resp) {
 
         // delete user _id from post docs
         delete postsDoc[i].author;
+
+        for (vote in postsDoc[i].votes) {
+            delete postsDoc[i].votes[vote].userId;
+        }
     }
 
     // render once posts are returned by getAllPosts()
@@ -309,6 +392,10 @@ exports.category_posts = async function (req, resp) {
 
         // delete user _id from post docs
         delete postsDoc[i].author;
+
+        for (vote in postsDoc[i].votes) {
+            delete postsDoc[i].votes[vote].userId;
+        }
     }
 
     // render once posts are returned by getAllPosts()
@@ -353,6 +440,10 @@ exports.subCategory_posts = async function (req, resp) {
 
         // delete user _id from post docs
         delete postsDoc[i].author;
+
+        for (vote in postsDoc[i].votes) {
+            delete postsDoc[i].votes[vote].userId;
+        }
     }
 
     // render once posts are returned by getAllPosts()

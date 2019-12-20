@@ -55,7 +55,7 @@ class PostClass {
     }
 
     async getPostsByKeyWords(keywords) {
-        
+        return "coming soon";
     }
 
     // get all posts which contain the search string (e.g search string = 'english study guide')
@@ -133,9 +133,76 @@ class PostClass {
                 'views': 1
             }
         }, {
-            new: true
+            new: false
         });
         return postDoc;
+    }
+
+    // check if user has already voted on a post
+    hasUserAlreadyVoted(postId, userDoc) {
+        // check if userId is in the array of votes already
+        return PostSchema.findOne({
+            '_id': postId,
+            "votes.userId": userDoc._id
+        })
+    }
+
+    // update the post score (when a user votes/changes vote on a post)
+    updatePostScore(postId, changeInPostScore) {
+        console.log(changeInPostScore)
+        return PostSchema.findOneAndUpdate({
+            '_id': postId
+        },{
+            "$inc": {'score': changeInPostScore}
+        }, {
+            "new": true,
+        })
+
+    }
+
+    // add/change vote of user (+1, -1, 0)
+    addVoteToPost(postId, userDoc, score, newVoter) {
+        if (newVoter) {
+            return PostSchema.findOneAndUpdate({
+                '_id': postId
+            }, {
+                "$push": {
+                    "votes": {
+                        userId: userDoc._id,
+                        username: userDoc.username,
+                        vote: score,
+                    }
+                }
+            }, {
+                "new": true,
+                "upsert": true
+            });
+        } else {
+            return PostSchema.updateOne({
+                '_id': postId,
+                'votes.userId': userDoc._id
+            }, {
+                $set: {
+                    'votes.$.vote': score
+                }
+            }, {
+                "new": true
+            });
+        }
+    }
+
+    // remove user's vote from votes array of a post
+    removePostVote(postId, userDoc) {
+        return PostSchema.updateOne({
+            '_id': postId,
+            'votes.userId': userDoc._id
+        }, {
+            $pull: {
+                'votes': {'userId': userDoc._id}
+            }
+        }, {
+            "new": true
+        });
     }
 
     // delete a post

@@ -22,9 +22,9 @@ router.post('/updatePost/:postId', post_controller.update_post);
 router.delete('/:postId', post_controller.delete_post);
 
 // vote on post (upvote, downvote, removevote)
-router.post('/vote/upVote', post_controller.upVote_post);
-router.post('/vote/downVote', post_controller.downVote_post);
-router.post('/vote/removeVote', post_controller.removeVote_post);
+router.post('/vote/upVote/:postId', post_controller.vote_post);
+router.post('/vote/downVote/:postId', post_controller.vote_post);
+router.post('/vote/removeVote/:postId', post_controller.removeVote_post);
 
 // Get all posts which contain the search string
 router.get('/search/:searchString', post_controller.search_string_posts)

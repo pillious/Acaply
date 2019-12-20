@@ -91,13 +91,10 @@ body {
     color: rgba(175, 175, 175, 0.8);
     font-size: 20px;
     font-weight: 100;
+    cursor: pointer;
 }
 
-#vote-not-clicked {
-    color: rgba(175, 175, 175, 0.8);
-}
-
-#vote-clicked {
+.vote-clicked {
     color: rgba(251, 112, 62, 0.8);
 }
 

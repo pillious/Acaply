@@ -26,7 +26,8 @@ const postSchema = new Schema({
         default: 0
     },
     votes: [{
-        user: Schema.Types.ObjectId,
+        userId: Schema.Types.ObjectId,
+        username: String,
         vote: Number,
         _id: false,
         default: 0
