@@ -26,8 +26,13 @@ function deleteComment(commentId) {
 function voteOnPost(element, postId, voteType) {
     // list of the selected element's classes
     var elementClassList = element.classList;
+
+    // corresponding score counter to the vote-btn clicked
+    var postScoreCounter = element.parentElement.parentElement.childNodes[3];
+
+    // disable all voting btns until response to request
     $("i.vote-icon").attr("disabled", true);
-    
+
     // check if user is adding a vote or removing a vote
     if (elementClassList.contains('vote-clicked')) {
         // send voting info to db (remove a vote)
@@ -35,6 +40,16 @@ function voteOnPost(element, postId, voteType) {
             if (resp.data.isLoggedIn) {
                 // remove class 'vote-clicked' to make arrow gray
                 elementClassList.remove('vote-clicked');
+
+                // change score counter for post
+                var postScoreCounter = element.parentElement.parentElement.childNodes[3];
+                if (voteType === "upVote") {
+                    postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) - 1;
+                } else {
+                    postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) + 1;
+                }
+
+
             } else {
                 alert("Please login before voting on posts.");
             }
@@ -55,12 +70,30 @@ function voteOnPost(element, postId, voteType) {
                     // get the up vote btn's corresponding down vote btn element 
                     var downVoteElement = element.parentElement.parentElement.childNodes[5].childNodes[0];
 
+                    // change score counter for post
+                    if (resp.data.isNewVoter) {
+                        postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) + 1;
+                    }
+                    else {
+                        postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) + 2;
+                    }
+
+
                     // if the corresponding down vote btn is already clicked (is orange) change color back to gray
                     downVoteElement.classList.remove('vote-clicked')
+
+
                 } else {
                     // get the down vote btn's corresponding up vote btn element 
                     var upVoteElement = element.parentElement.parentElement.childNodes[1].childNodes[0];
 
+                    // change score counter for post
+                    if (resp.data.isNewVoter) {
+                        postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) - 1;
+                    }
+                    else {
+                        postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) - 2;
+                    }
                     // if the corresponding up vote btn is already clicked (is orange) change color back to gray
                     upVoteElement.classList.remove('vote-clicked')
                 }

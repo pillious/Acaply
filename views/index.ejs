@@ -126,7 +126,7 @@
                 <% posts.forEach( function(post) { %>
                 <div class="post-container">
                     <div class="score-wrapper">
-                        <% if (post.votes && post.votes.length) { %>
+                        <% if (post.votes && post.votes.length && user) { %>
                             <% for (vote in post.votes) { %>
                                 <% if (post.votes[vote].username === user) { %>
                                     <div><i class="fa fa-chevron-up vote-icon <%= (post.votes[vote].vote === 1 ? 'vote-clicked': '') %>" onclick="voteOnPost(this, '<%= post._id %>', 'upVote')"></i></div>

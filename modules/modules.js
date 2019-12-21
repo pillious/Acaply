@@ -149,7 +149,6 @@ class PostClass {
 
     // update the post score (when a user votes/changes vote on a post)
     updatePostScore(postId, changeInPostScore) {
-        console.log(changeInPostScore)
         return PostSchema.findOneAndUpdate({
             '_id': postId
         },{

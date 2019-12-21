@@ -17,11 +17,13 @@ exports.all_posts = async function (req, resp) {
     // check if user is logged in
     const userClassInstance = new UserClass();
     userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
+    var username;
 
     var isLoggedIn = false;
 
     if (userDoc) {
         isLoggedIn = true;
+        username = userDoc.username
     }
 
 
@@ -45,7 +47,7 @@ exports.all_posts = async function (req, resp) {
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,
-        user: userDoc.username,
+        user: username,
         categories: categories,
         isLoggedIn: isLoggedIn
     })
@@ -192,6 +194,7 @@ exports.vote_post = async function (req, resp) {
     if (req.session.userSessionId) {
         userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId);
         isLoggedIn = true;
+        var isNewVoter = false;
 
         try {
             // set the vote score depending on upvote or downvote
@@ -204,17 +207,16 @@ exports.vote_post = async function (req, resp) {
             var beforeUpdatePostDoc = await postClassInstance.hasUserAlreadyVoted(req.params.postId, userDoc)
 
             // true = user hasn't voted on specific post before
-            var newVoter = false;
             if (!beforeUpdatePostDoc) {
-                newVoter = true;
+                isNewVoter = true;
             }
 
             // addVoteToPost(str postId, str userDoc, num voteScore, bool newVote)
-            var postDoc = await postClassInstance.addVoteToPost(req.params.postId, userDoc, voteScore, newVoter);
+            var postDoc = await postClassInstance.addVoteToPost(req.params.postId, userDoc, voteScore, isNewVoter);
 
             // if not a new voter, post overall score changes by 2
             // else, post overall score changes by 1
-            if (!newVoter) {
+            if (!isNewVoter) {
                 await postClassInstance.updatePostScore(req.params.postId, voteScore * 2)
             } else {
                 await postClassInstance.updatePostScore(req.params.postId, voteScore)
@@ -224,7 +226,8 @@ exports.vote_post = async function (req, resp) {
         }
     }
     resp.send({
-        isLoggedIn: isLoggedIn
+        isLoggedIn: isLoggedIn,
+        isNewVoter: isNewVoter
     });
 }
 
@@ -261,7 +264,8 @@ exports.removeVote_post = async function (req, resp) {
     }
 
     resp.send({
-        isLoggedIn: isLoggedIn
+        isLoggedIn: isLoggedIn,
+        isNewVoter: true
     });
 }
 
