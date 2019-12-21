@@ -158,8 +158,7 @@
                                 <a href="/posts/user/<%= post.authorUsername %>" class="pr-0 post-link post-info-dark"><%= post.authorUsername %></a>
                             </div>
 
-                            <div class="">
-                                time ago</div>
+                            <div><%= moment(post.created).fromNow() %></div>
                         </div>
 
                         <a href="/posts/view/<%= post._id %>" class="post-title post-link"><%= post.title %></a>
