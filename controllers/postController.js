@@ -72,9 +72,6 @@ exports.view_post = async function (req, resp) {
             isPostAuthor = true;
         }
 
-        // delete post author's _id
-        delete postDoc.post.author;
-
         // check each comment if it was created by current user
         for (var i = 0; i < postDoc.comments.length; i++) {
 
@@ -86,23 +83,28 @@ exports.view_post = async function (req, resp) {
 
             // delete comment's author field (this field contains the author's _id) from comment obj
             delete postDoc.comments[i].author;
-
-            for (vote in postDoc[i].votes) {
-                delete postDoc[i].votes[vote].userId;
-            }
         }
 
         // increase views of post by 1
         // returns the newly updated postDoc (postDocUpdated includes the incremented views count)
         var postDocUpdated = await postClassInstance.incrementPostViews(postDoc.post._id);
 
+        // delete post author's _id
+        delete postDocUpdated.author;
+
+        // delete userId from each coment
+        for (vote in postDocUpdated.votes) {
+            console.log(vote)
+            delete postDocUpdated.votes[vote].userId;
+        }
+
         resp.render('viewPost', {
             post: postDocUpdated,
             comments: postDoc.comments,
             isPostAuthor: isPostAuthor
         })
-    } catch {
-        resp.send("post not found")
+    } catch(err) {
+        resp.send(err)
     }
 };
 

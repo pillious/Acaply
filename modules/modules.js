@@ -133,8 +133,8 @@ class PostClass {
                 'views': 1
             }
         }, {
-            new: false
-        });
+            new: true
+        }).lean()
         return postDoc;
     }
 

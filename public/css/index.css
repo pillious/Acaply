@@ -2,6 +2,20 @@ body {
     background-color: rgb(248, 249, 250);;
 }
 
+.navbar {
+    box-shadow: 0px 5px 10px 0px rgba(200, 200, 200, 0.35);
+    margin-bottom: 10px;
+}
+
+.navbar-link {
+    color: #2c2c2c;
+    cursor: pointer;
+}
+
+.navbar-link:hover {
+    color: #1890ff;
+}
+
 .sidebar-wrapper {
     padding-right: 0;
 }
