@@ -95,7 +95,7 @@ class PostClass {
                 post: post,
                 comments: comments
             };
-        } catch {
+        } catch(err) {
             return {
                 post: {},
                 comments: []
@@ -241,7 +241,7 @@ class CommentClass {
             });
 
             return commentDoc;
-        } catch {
+        } catch(err) {
             return {};
         }
     }
@@ -252,7 +252,7 @@ class CommentClass {
         try {
             var comment = await CommentSchema.findByIdAndRemove(commentId)
             return comment;
-        } catch {
+        } catch(err) {
             return {};
         }
     }
@@ -276,7 +276,7 @@ class UserClass {
         try {
             var userDoc = await UserSchema.findOne(dbUserSearchParameter);
             return userDoc;
-        } catch {
+        } catch(err) {
             return {};
         }
     }

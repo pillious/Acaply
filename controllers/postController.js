@@ -128,7 +128,7 @@ exports.create_posts = async function (req, resp) {
             var newPostDoc = await postClassInstance.createNewPost(req.body, req.session.userSessionId);
 
             resp.redirect('/posts/view/' + newPostDoc._id)
-        } catch {
+        } catch(err) {
             resp.send("post failed")
         }
     } else {
@@ -146,7 +146,7 @@ exports.edit_post = async function (req, resp) {
         resp.render('editPost', {
             post: postDoc.post
         })
-    } catch {
+    } catch(err) {
         resp.redirect('/')
     }
 
