@@ -1,0 +1,60 @@
+<!-- Sidebar -->
+<div class="col-lg-2 col-sm-3 collapse show d-md-flex sidebar-wrapper" id="sidebar">
+    <ul class="nav flex-column flex-nowrap overflow-hidden bg-white sidebar">
+        <li class="nav-item">
+            <!-- Form that lets you make a new post. -->
+            <form action="/new" method="GET">
+                <button class="create-post-btn" type="submit">Create Post</button>
+            </form>
+        </li>
+
+
+        <!-- sidebar btn which directs to all posts -->
+        <li class="nav-item">
+            <div class="sidebar-category text-truncate">
+                <form action="/posts/">
+                    <button class="btn btn-link d-none d-sm-inline category-btn">All</button>
+                </form>
+            </div>
+        </li>
+
+        <% for (var category in categories) { %>
+        <% if (categories.hasOwnProperty(category)) { %>
+
+        <!-- Show the different categories on the sidebar. -->
+        <li class="nav-item">
+            <div class="sidebar-category text-truncate">
+                <form action="/posts/<%= category.toLowerCase() %>">
+                    <button class="btn btn-link d-none d-sm-inline category-btn"><%= category %></button>
+                    <% if (categories[category].length != 0) { %>
+                    <span class="sidebar-arrow collapsed" data-toggle="collapse" data-target="#<%= category %>"></span>
+                    <% } %>
+                </form>
+            </div>
+
+            <% if (categories[category].length != 0) { %>
+
+            <!-- Show the subcategories of a category. -->
+            <div class="collapse" id="<%= category %>" aria-expanded="false">
+                <ul class="flex-column pl-2 nav">
+                    <% for (var subcategory in categories[category]) { %>
+                    <li class="nav-item sidebar-subcategory">
+                        <div class="py-0">
+                            <form
+                                action="/posts/<%= category.toLowerCase() %>/<%= categories[category][subcategory].toLowerCase() %>">
+                                <button
+                                    class="btn btn-link d-none d-sm-inline subcategory-btn"><%= categories[category][subcategory] %></button>
+                            </form>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+            <% } %>
+
+        </li>
+        <% } %>
+        <% } %>
+
+    </ul>
+</div>

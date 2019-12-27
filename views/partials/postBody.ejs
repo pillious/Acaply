@@ -1,0 +1,40 @@
+<!-- display main post info (title, text, tags, etc.)-->
+<div class="post-wrapper">
+
+    <!-- post info (category & subcategory, author, time since post) -->
+    <div class="post-info-wrapper">
+        <a href="/posts/<%= post.category %>/<%= post.subCategory %>"
+            class="post-info-dark post-link">
+            /<%= post.category[0].toUpperCase() +  post.category.substr(1) %>/<%= post.subCategory[0].toUpperCase() +  post.subCategory.substr(1) %>
+        </a>
+
+        <div>
+            <span class="pr-0">by</span>
+            <a href="/posts/user/<%= post.authorUsername %>"
+                class="pr-0 post-link post-info-dark"><%= post.authorUsername %></a>
+        </div>
+
+        <div><%= moment(post.created).fromNow() %></div>
+    </div>
+
+    <a href="/posts/view/<%= post._id %>" class="post-title post-link"><%= post.title %></a>
+    <div class="post-body"><%= post.text %></div>
+
+    <!-- post info (# of comments, keywords) -->
+    <div class="post-info-wrapper">
+        <% if (post.comments === 1) { %>
+        <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comment |</a>
+        <% } else {%>
+        <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comments |</a>
+        <% } %>
+
+        <div>tags:
+        </div>
+        <% post.keywords.forEach( function(keyword) { %>
+        <div class="post-keyword bg-light">
+            <a href="#" class="post-link post-info-dark"><%= keyword %></a>
+        </div>
+        <% }) %>
+    </div>
+
+</div>

@@ -19,9 +19,7 @@ app.set('views', 'views');
 app.set('view engine', 'ejs');
 
 // momentjs local var (can be accessed by any EJS scripts)
-// var shortDateFormat = "ddd @ h:mmA";
 app.locals.moment = moment; // this makes moment available as a variable in every EJS page
-// app.locals.shortDateFormat = shortDateFormat;
 
 //The public folder serves static files such as images, CSS files, and JavaScript files.
 app.use(express.static(__dirname + '/public'));

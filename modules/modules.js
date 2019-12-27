@@ -10,7 +10,7 @@ class PostClass {
     //Get all the posts in the database.
     async getAllPosts() {
         var posts;
-        posts = await PostSchema.find().lean();
+        posts = await PostSchema.find().sort({ 'score' : 'descending'}).lean();
         return posts;
     }
 

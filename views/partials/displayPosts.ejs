@@ -1,0 +1,20 @@
+ <!-- Posts -->
+ <div class="col-lg-10 col-sm-9 post-column">
+    <select name="cars">
+        <option value="volvo">Volvo XC90</option>
+        <option value="saab">Saab 95</option>
+        <option value="mercedes">Mercedes SLK</option>
+        <option value="audi">Audi TT</option>
+    </select>
+    <% if (posts && posts.length) {
+        posts.forEach( function(post) { %>
+    <div class="post-container">
+        <!-- upvote/downvote btn & post score displayed -->
+        <% include postScore %>
+
+        <!-- display main post info (title, text, tags, etc.)-->
+        <% include postBody %>
+    </div>
+    <% })
+    } %>
+</div>
