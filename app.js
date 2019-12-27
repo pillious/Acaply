@@ -51,6 +51,16 @@ app.use('/posts', postRoutes);
 app.use('/comment', commentRoutes);
 app.use('/', indexRoutes);
 
+app.get('/headers', function(req, resp) {
+    const headers = req.headers;
+    if (headers['sort-field'] && headers['sort-order']) {
+        resp.send(JSON.stringify(req.headers));
+    }
+    else {
+        req.send('defaulted to newest')
+    }
+})
+
 //Connect to the MongoDB database.
 //At the moment, we have our local MongoDB databases on our separate computers.
 mongoose.connect('mongodb://localhost:27017/acaply', {

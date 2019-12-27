@@ -16,12 +16,12 @@
              </form>
          </div>
          <div class="sort-posts-wrapper">
-             <label>Sortby:</label>
+             <label>Sort by:</label>
              <div class="sort-post-dropdown-wrapper">
-                 <select class="sort-post-dropdown">
-                     <option>Newest</option>
-                     <option>Highest Rated</option>
-                     <option>Most Viewed</option>
+                 <select class="sort-post-dropdown" id="sort-post-dropdown">
+                     <option value="created" data-sort-order="descending">Newest</option>
+                     <option value="score" data-sort-order="descending">Highest Rated</option>
+                     <option value="views" data-sort-order="descending">Most Viewed</option>
                  </select>
              </div>
          </div>

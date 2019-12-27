@@ -1,6 +1,5 @@
 body {
     background-color: rgb(248, 249, 250);
-    ;
 }
 
 .navbar {
@@ -11,10 +10,18 @@ body {
 .navbar-link {
     color: #2c2c2c;
     cursor: pointer;
+    border-radius: 0;
 }
 
 .navbar-link:hover {
-    color: #1890ff;
+    color: rgba(248, 92, 35, 0.8);
+    border-bottom: 3px rgba(251, 112, 62, 0.8) solid;
+}
+
+.navbar-link:active,
+.navbar-link:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 .sidebar-wrapper {
@@ -109,6 +116,7 @@ body {
 .sort-post-dropdown-wrapper {
     display: inline-block;
     border:none;
+    border-bottom: 1px #3996fa solid;
 }
 
 .sort-post-dropdown-wrapper::after {
@@ -117,7 +125,7 @@ body {
     width: 0;
     height: 3px;
     background: #3996fa;
-    transition: width .3s;
+    transition: width .25s;
     border:none;
 }
 
@@ -128,10 +136,13 @@ body {
 
 .sort-post-dropdown {
     display: inline-block;
-    padding-bottom: 5px;
+    padding-bottom: 3px;
     background: transparent;
     border: none;
     font-weight: 500;
+    text-align-last:center;
+    direction: ltr;
+    cursor: pointer;
 }
 
 .sort-post-dropdown:focus {

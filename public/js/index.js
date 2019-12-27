@@ -108,3 +108,19 @@ function voteOnPost(element, postId, voteType) {
         });
     }
 }
+
+// #sort-post-dropdown
+$('#sort-post-dropdown').on('change', function() {
+    // sortPosts(sortField, sortOrder)
+    sortPosts(this.value, $(this).find(':selected').data('sort-order'))
+  });
+
+
+// retrive the posts in a certain order (depending on the selected 'Sort by' option)
+function sortPosts(sortField, sortOrder) {
+    axios.get('http://localhost:3000/headers', {headers: {'sort-field': sortField, 'sort-order': sortOrder}}).then(resp => {
+        console.log(resp.data['sort-field'], resp.data['sort-order']);
+    }).catch(err => {
+        console.log(err)
+    })
+}

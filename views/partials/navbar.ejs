@@ -6,28 +6,26 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
-            <!-- Show this stuff if the user is logged in. -->
-            <% if (isLoggedIn) { %>
-            <div class="nav-item">
-                <% if (user) { %>
-                <a href="/posts/user/<%= user %>" class="btn navbar-link"><%= user %></a>
-                <% } %>
-            </div>
-            <div class="nav-item">
-                <form action="/logout" method="POST">
-                    <button type="submit" class="btn navbar-link">Log Out</button>
-                </form>
-            </div>
-            <!-- Show this stuff if the user is not logged in. -->
-            <% } else { %>
-            <div class="nav-item">
-                <a href="/login" class="btn navbar-link">Log In</a>
-            </div>
-            <div class="nav-item">
-                <a href="/signup" class="btn navbar-link">Sign Up</a>
-            </div>
+        <!-- Show this stuff if the user is logged in. -->
+        <% if (isLoggedIn) { %>
+        <div class="nav-item ml-auto">
+            <% if (user) { %>
+            <a href="/posts/user/<%= user %>" class="btn navbar-link"><%= user %></a>
             <% } %>
         </div>
+        <div class="nav-item">
+            <form action="/logout" method="POST">
+                <button type="submit" class="btn navbar-link">Log Out</button>
+            </form>
+        </div>
+        <!-- Show this stuff if the user is not logged in. -->
+        <% } else { %>
+        <div class="nav-item ml-auto">
+            <a href="/login" class="btn navbar-link">Log In</a>
+        </div>
+        <div class="nav-item">
+            <a href="/signup" class="btn navbar-link">Sign Up</a>
+        </div>
+        <% } %>
     </div>
 </nav>
