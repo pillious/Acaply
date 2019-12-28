@@ -3,8 +3,7 @@
 
     <!-- post info (category & subcategory, author, time since post) -->
     <div class="post-info-wrapper">
-        <a href="/posts/<%= post.category %>/<%= post.subCategory %>"
-            class="post-info-dark post-link">
+        <a href="/posts/<%= post.category %>/<%= post.subCategory %>" class="post-info-dark post-link">
             /<%= post.category[0].toUpperCase() +  post.category.substr(1) %>/<%= post.subCategory[0].toUpperCase() +  post.subCategory.substr(1) %>
         </a>
 
@@ -23,9 +22,15 @@
     <!-- post info (# of comments, keywords) -->
     <div class="post-info-wrapper">
         <% if (post.comments === 1) { %>
-        <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comment |</a>
+        <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comment </a><span>|</span>
         <% } else {%>
-        <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comments |</a>
+        <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comments </a><span>|</span>
+        <% } %>
+
+        <% if (post.views === 1) { %>
+        <div><%= post.comments %><%= post.views %> view |</div>
+        <% } else { %>
+        <div><%= post.comments %><%= post.views %> views |</div>
         <% } %>
 
         <div>tags:

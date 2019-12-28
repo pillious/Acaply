@@ -332,6 +332,7 @@ exports.search_string_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
 }
@@ -375,6 +376,7 @@ exports.author_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
 }
@@ -419,6 +421,7 @@ exports.category_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
 };
@@ -467,6 +470,7 @@ exports.subCategory_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
 };
