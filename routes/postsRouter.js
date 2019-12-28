@@ -6,6 +6,9 @@ const post_controller = require('../controllers/postController');
 //Get all the different posts.
 router.get('/', post_controller.all_posts);
 
+// sort posts
+router.get('/sortPosts', post_controller.all_posts);
+
 //View a specific post.
 router.get('/view/:postId', post_controller.view_post)
 

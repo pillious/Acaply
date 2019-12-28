@@ -8,9 +8,13 @@ const UserSchema = require('../models/User');
 //Helper functions.
 class PostClass {
     //Get all the posts in the database.
-    async getAllPosts() {
+    async getAllPosts(sortField, sortOrder) {
         var posts;
-        posts = await PostSchema.find().sort({ 'score' : 'descending'}).lean();
+        var sortObj = {};
+        sortObj[sortField] = sortOrder;
+        posts = await PostSchema.find().sort(sortObj).lean();
+        // console.log(posts)
+        // console.log(sortObj)
         return posts;
     }
 

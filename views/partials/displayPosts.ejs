@@ -1,41 +1,13 @@
- <!-- Posts -->
- <div class="col-lg-10 col-sm-9 post-column">
-     <div class="search-posts-container mb-4">
-         <div class="searchbar-wrapper">
-             <form action="" class="searchbar-form">
-                 <div class="input-group bg-white border rounded-pill p-1 searchbar">
-                     <div class="input-group">
-                         <input type="search" placeholder="What're you searching for?" aria-describedby="search"
-                             class="form-control border-0 bg-white rounded-pill searchbar-input">
-                         <div class="input-group-append">
-                             <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i
-                                     class="fa fa-search"></i></button>
-                         </div>
-                     </div>
-                 </div>
-             </form>
-         </div>
-         <div class="sort-posts-wrapper">
-             <label>Sort by:</label>
-             <div class="sort-post-dropdown-wrapper">
-                 <select class="sort-post-dropdown" id="sort-post-dropdown">
-                     <option value="created" data-sort-order="descending">Newest</option>
-                     <option value="score" data-sort-order="descending">Highest Rated</option>
-                     <option value="views" data-sort-order="descending">Most Viewed</option>
-                 </select>
-             </div>
-         </div>
-     </div>
+<!-- Posts -->
+<div class="col-lg-10 col-sm-9 post-column">
+    <!-- Searchbar -->
+    <div class="search-posts-container mb-4">
+        <% include searchbar %>
+        <% include sortPosts %>
+    </div>
 
-     <% if (posts && posts.length) {
-        posts.forEach( function(post) { %>
-     <div class="post-container">
-         <!-- upvote/downvote btn & post score displayed -->
-         <% include postScore %>
-
-         <!-- display main post info (title, text, tags, etc.)-->
-         <% include postBody %>
-     </div>
-     <% })
-    } %>
- </div>
+    <div id="posts-wrapper">
+        <!-- create the posts -->
+        <% include createPosts %>
+    </div>
+</div>

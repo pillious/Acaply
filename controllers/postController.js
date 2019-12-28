@@ -11,7 +11,16 @@ const {
 // gets all posts in db
 exports.all_posts = async function (req, resp) {
     const postClassInstance = new PostClass();
-    var postsDoc = await postClassInstance.getAllPosts()
+    // console.log(req.headers)
+    // console.log((req.headers['sort-field'] && req.headers['sort-order']))
+    var postsDoc;
+    if (req.headers['sort-field'] && req.headers['sort-order']) {
+        postsDoc = await postClassInstance.getAllPosts(req.headers['sort-field'], req.headers['sort-order'])
+    }
+    else {
+        // defaults to getting posts by descending score (highest score -> lowest score)
+        postsDoc = await postClassInstance.getAllPosts('score', 'descending');
+    }
 
     let userDoc;
     // check if user is logged in
@@ -49,6 +58,7 @@ exports.all_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
 };

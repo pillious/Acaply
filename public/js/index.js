@@ -73,8 +73,7 @@ function voteOnPost(element, postId, voteType) {
                     // change score counter for post
                     if (resp.data.isNewVoter) {
                         postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) + 1;
-                    }
-                    else {
+                    } else {
                         postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) + 2;
                     }
 
@@ -90,8 +89,7 @@ function voteOnPost(element, postId, voteType) {
                     // change score counter for post
                     if (resp.data.isNewVoter) {
                         postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) - 1;
-                    }
-                    else {
+                    } else {
                         postScoreCounter.innerHTML = parseInt(postScoreCounter.innerHTML) - 2;
                     }
                     // if the corresponding up vote btn is already clicked (is orange) change color back to gray
@@ -109,17 +107,16 @@ function voteOnPost(element, postId, voteType) {
     }
 }
 
-// #sort-post-dropdown
-$('#sort-post-dropdown').on('change', function() {
-    // sortPosts(sortField, sortOrder)
-    sortPosts(this.value, $(this).find(':selected').data('sort-order'))
-  });
-
-
 // retrive the posts in a certain order (depending on the selected 'Sort by' option)
-function sortPosts(sortField, sortOrder) {
-    axios.get('http://localhost:3000/headers', {headers: {'sort-field': sortField, 'sort-order': sortOrder}}).then(resp => {
-        console.log(resp.data['sort-field'], resp.data['sort-order']);
+function sortPosts(element) {
+    axios.get('http://localhost:3000/posts/sortPosts', {
+        headers: {
+            'sort-field': element.value,
+            'sort-order': 'descending'
+        }
+    }).then(resp => {
+        // set document's content to the response data (resp.data returns the updated html)
+        document.body.innerHTML = resp.data
     }).catch(err => {
         console.log(err)
     })
