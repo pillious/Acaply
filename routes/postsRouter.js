@@ -7,7 +7,10 @@ const post_controller = require('../controllers/postController');
 router.get('/', post_controller.all_posts);
 
 // sort posts
-router.get('/sortPosts', post_controller.all_posts);
+router.get('/sortAllPosts', post_controller.all_posts);
+router.get('/sortCategoryPosts', post_controller.category_posts);
+router.get('/sortSubcategoryPosts', post_controller.subCategory_posts);
+// router.get('/sortSearch', post_controller.all_posts);
 
 //View a specific post.
 router.get('/view/:postId', post_controller.view_post)

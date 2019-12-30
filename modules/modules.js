@@ -13,13 +13,11 @@ class PostClass {
         var sortObj = {};
         sortObj[sortField] = sortOrder;
         posts = await PostSchema.find().sort(sortObj).lean();
-        // console.log(posts)
-        // console.log(sortObj)
         return posts;
     }
 
     //Get posts from a subcategory.
-    async getSubcategoryPosts(category, subcategory) {
+    async getSubcategoryPosts(category, subcategory, sortField, sortOrder) {
         var posts;
 
         if (category && subcategory) {
@@ -31,48 +29,54 @@ class PostClass {
                 "subCategory": subcategory
             }];
 
+            var sortObj = {};
+            sortObj[sortField] = sortOrder;
+
             posts = await PostSchema.find({
                 $and: dbSearchParameters
-            }).lean()
+            }).sort(sortObj).lean()
             return posts;
         }
 
         return posts;
     }
 
-    // get all posts which correspond which search field (e.g author: 'pillious')
-    async getPostsByOneField(fieldKey, fieldValue) {
-        var posts;
+    // // get all posts which correspond which search field (e.g author: 'pillious')
+    // async getPostsByOneField(fieldKey, fieldValue) {
+    //     var posts;
 
-        if (fieldKey && fieldValue) {
+    //     if (fieldKey && fieldValue) {
 
-            // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
-            var dbSearchParameter = {};
-            dbSearchParameter[fieldKey] = fieldValue
+    //         // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
+    //         var dbSearchParameter = {};
+    //         dbSearchParameter[fieldKey] = fieldValue
 
-            posts = await PostSchema.find(dbSearchParameter).lean()
-            return posts;
+    //         posts = await PostSchema.find(dbSearchParameter).lean()
+    //         return posts;
 
-        }
+    //     }
 
-        return posts;
-    }
+    //     return posts;
+    // }
 
     async getPostsByKeyWords(keywords) {
         return "coming soon";
     }
 
     // get all posts which contain the search string (e.g search string = 'english study guide')
-    async getPostsByOneField(fieldKey, fieldValue) {
+    async getPostsByOneField(fieldKey, fieldValue, sortField, sortOrder) {
         var posts;
-
+        console.log(fieldKey, fieldValue)
         if (fieldKey && fieldValue) {
-
+            console.log("asfhkalsjdhfklasdhdjflkashdlfjka")
             // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
             var dbSearchParameter = {};
             dbSearchParameter[fieldKey] = fieldValue
 
-            posts = await PostSchema.find(dbSearchParameter).lean()
+            var sortObj = {};
+            sortObj[sortField] = sortOrder;
+
+            posts = await PostSchema.find(dbSearchParameter).sort(sortObj).lean()
             return posts;
 
         }

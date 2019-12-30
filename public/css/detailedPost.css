@@ -1,0 +1,8 @@
+.post-body {
+    padding: 0 5px 5px 0;
+    font-size: 14px;
+    color: #4d4d4d;
+    /* white-space: normal; */
+    overflow: visible;
+    white-space: pre-wrap;
+}

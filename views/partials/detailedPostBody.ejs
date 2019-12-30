@@ -16,7 +16,7 @@
         <div><%= moment(post.created).fromNow() %></div>
     </div>
 
-    <a href="/posts/view/<%= post._id %>" class="post-title post-link"><%= post.title %></a>
+    <div class="post-title"><%= post.title %></div>
     <div class="post-body"><%= post.text %></div>
 
     <!-- post info (# of comments, keywords) -->

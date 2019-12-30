@@ -4,22 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Acaply - View</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+
+    <!-- Custom Styles -->
+    <link type="text/css" rel="stylesheet" href="/css/index.css">
+    <!-- detailedPost.css most be linked below index.css -->
+    <link rel="stylesheet" href="/css/detailedPost.css">
 </head>
 
 <body>
-    <div>View Post</div>
+    <!-- Navigation Bar -->
+    <% include ../views/partials/navbar %>
+
+    <!-- Container that holds the sidebar + post & comments. -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <% include ../views/partials/sidebar %>
+
+            <!-- Display the posts -->
+            <% include ../views/partials/displayDetailedPost.ejs %>
+        </div>
+    </div>
     <div>
         <% if (post) { %>
-            <p><%= JSON.stringify(post) %></p>
+        <p><%= JSON.stringify(post) %></p>
         <% } %>
 
         <% if (comments) { %>
-            <% comments.forEach(function (comment) { %>
-            <p><%= JSON.stringify(comment) %></p>
-            <!-- Delete a comment. -->
-            <button onclick="deleteComment('<%= comment._id %>')">Delete Comment</button>
-            <br>
-            <% }); %>
+        <% comments.forEach(function (comment) { %>
+        <p><%= JSON.stringify(comment) %></p>
+        <!-- Delete a comment. -->
+        <button onclick="deleteComment('<%= comment._id %>')">Delete Comment</button>
+        <br>
+        <% }); %>
         <% } %>
 
         <!-- Create a new comment. -->
@@ -31,8 +55,22 @@
 
     </div>
 
+    <!-- Bootstrap 4 requirements -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
     <!-- Axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/js/index.js"></script>
 
     <!-- JavaScript -->
     <script src="/js/index.js"></script>

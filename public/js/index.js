@@ -108,8 +108,19 @@ function voteOnPost(element, postId, voteType) {
 }
 
 // retrive the posts in a certain order (depending on the selected 'Sort by' option)
-function sortPosts(element) {
-    axios.get('http://localhost:3000/posts/sortPosts', {
+function sortPosts(element, postsType) {
+    var url = 'http://localhost:3000/posts/'
+    if (postsType === 'all') {
+        url += 'sortAllPosts'
+    }
+    else if (postsType === 'category') {
+        url += 'sortCategoryPosts'
+    }
+    else if (postsType === 'subcategory') {
+        url += 'sortSubcategoryPosts'
+    }
+
+    axios.get(url, {
         headers: {
             'sort-field': element.value,
             'sort-order': 'descending'

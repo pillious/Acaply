@@ -11,8 +11,7 @@ const {
 // gets all posts in db
 exports.all_posts = async function (req, resp) {
     const postClassInstance = new PostClass();
-    // console.log(req.headers)
-    // console.log((req.headers['sort-field'] && req.headers['sort-order']))
+
     var postsDoc;
     if (req.headers['sort-field'] && req.headers['sort-order']) {
         postsDoc = await postClassInstance.getAllPosts(req.headers['sort-field'], req.headers['sort-order'])
@@ -58,6 +57,7 @@ exports.all_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        postsType: 'all',
         sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
@@ -76,10 +76,17 @@ exports.view_post = async function (req, resp) {
         // get the user profile of the currently logged in user
         var userDocCurrent = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
 
+        var isLoggedIn = false;
+        var username;
         // check if current user is the post author
         var isPostAuthor = false;
-        if (userDocCurrent && (userDocCurrent._id === postDoc.post.author)) {
-            isPostAuthor = true;
+        if (userDocCurrent ) {
+            isLoggedIn = true;
+            username = userDocCurrent.username
+
+            if (userDocCurrent._id === postDoc.post.author) {
+                isPostAuthor = true;
+            }
         }
 
         // check each comment if it was created by current user
@@ -110,8 +117,11 @@ exports.view_post = async function (req, resp) {
 
         resp.render('viewPost', {
             post: postDocUpdated,
+            user: username,
+            categories: categories,
             comments: postDoc.comments,
-            isPostAuthor: isPostAuthor
+            isPostAuthor: isPostAuthor,
+            isLoggedIn: isLoggedIn
         })
     } catch(err) {
         resp.send(err)
@@ -332,6 +342,7 @@ exports.search_string_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        postsType: 'search',
         sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
@@ -376,6 +387,7 @@ exports.author_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        postsType: 'search',
         sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
@@ -384,7 +396,19 @@ exports.author_posts = async function (req, resp) {
 // gets posts from specific category 
 exports.category_posts = async function (req, resp) {
     var postClassInstance = new PostClass();
-    var postsDoc = await postClassInstance.getPostsByOneField("category", req.params.category);
+    var postsDoc;
+
+    console.log(req.headers)
+
+    if (req.headers['sort-field'] && req.headers['sort-order']) {
+        postsDoc = await postClassInstance.getPostsByOneField("category", req.params.category, req.headers['sort-field'], req.headers['sort-order']);
+    }
+    else {
+        // defaults to getting posts by descending score (highest score -> lowest score)
+        postsDoc = await postClassInstance.getPostsByOneField("category", req.params.category, 'score', 'descending');
+    }
+
+    console.log(postsDoc);
 
     let userDoc;
     // check if user is logged in
@@ -397,7 +421,6 @@ exports.category_posts = async function (req, resp) {
         isLoggedIn = true;
         username = userDoc.username
     }
-
 
     // check each post for if current user is owner of the post
     for (var i = 0; i < postsDoc.length; i++) {
@@ -421,6 +444,7 @@ exports.category_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        postsType: 'category',
         sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
@@ -470,6 +494,7 @@ exports.subCategory_posts = async function (req, resp) {
         posts: postsDoc,
         user: username,
         categories: categories,
+        postsType: 'subcategory',
         sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
