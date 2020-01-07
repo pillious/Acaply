@@ -9,7 +9,7 @@ var post_controller = require('../controllers/postController');
 router.get('/', post_controller.all_posts)
 
 //Go to the new post page.
-router.get('/new', post_controller.to_new_post);
+router.post('/new', post_controller.to_new_post);
 
 //User and authentication routes are below.
 

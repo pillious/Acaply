@@ -1,6 +1,90 @@
-.category-tab {
-    color: black;
-    border: 1px solid #dee2e6;
-    border-bottom: none;
-    margin: 10px;
+html {
+    /* not 100% prevent scrollbar due to height of navbar */
+    height: 80%;
+}
+
+body {
+    height: 100%;
+}
+
+.content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.create-post-form-wrapper {
+    background-color: white;
+    padding: 25px;
+    min-width: 400px;
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 500px) {
+    .create-post-form-wrapper {
+        width: 400px;
+    }
+}
+
+@media (max-width: 1150px) {
+    .create-post-form-wrapper {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1151px) {
+    .create-post-form-wrapper {
+        width: 50%;
+        max-width: 565px;
+    }
+}
+
+.create-post-form-wrapper form {
+    text-align: center;
+    width: 100%;
+}
+
+.create-post-form-wrapper form div {
+    padding: 7px;
+}
+
+.new-post-location-wrapper * {
+    display: inline;
+    padding: 0 10px;
+}
+
+.new-post-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.new-post-content-wrapper div label {
+    min-width: 40px;
+    margin-bottom: 5px;
+}
+
+.new-post-content {
+    display: block;
+    width: 100%;
+}
+
+.new-post-body {
+    vertical-align: top;
+}
+
+.create-post-form-wrapper form .new-post-btn-wrapper {
+    text-align: right;
+    padding: 7px 14px;
+}
+
+.new-post-btn {
+    /* .375rem -> default top/bottom padding for bootstrap btn */
+    padding: .375rem 30px;
+    margin-left: 10px;
 }

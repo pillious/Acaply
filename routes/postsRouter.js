@@ -16,7 +16,7 @@ router.get('/sortSubcategoryPosts', post_controller.subCategory_posts);
 router.get('/view/:postId', post_controller.view_post)
 
 //Create a new post.
-router.post('/createPost', post_controller.create_posts);
+router.post('/createPost', post_controller.create_post);
 
 //Edit a specific post.
 router.post('/editPost', post_controller.edit_post);

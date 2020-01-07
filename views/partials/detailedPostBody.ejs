@@ -3,8 +3,8 @@
 
     <!-- post info (category & subcategory, author, time since post) -->
     <div class="post-info-wrapper">
-        <a href="/posts/<%= post.category %>/<%= post.subCategory %>" class="post-info-dark post-link">
-            /<%= post.category[0].toUpperCase() +  post.category.substr(1) %>/<%= post.subCategory[0].toUpperCase() +  post.subCategory.substr(1) %>
+        <a href="/posts/<%= post.category %>/<%= (post.subCategory != 'none') ? post.subCategory : '' %> %>" class="post-info-dark post-link">
+            /<%= post.category[0].toUpperCase() +  post.category.substr(1) %>/<%= (post.subCategory != 'none') ? (post.subCategory[0].toUpperCase() +  post.subCategory.substr(1)) : '' %>
         </a>
 
         <div>
@@ -35,11 +35,14 @@
 
         <div>tags:
         </div>
-        <% post.keywords.forEach( function(keyword) { %>
+        <% if (post.keywords.length != 1 && post.keywords[0] != "") {
+        post.keywords.forEach( function(keyword) { 
+        %>
         <div class="post-keyword bg-light">
             <a href="#" class="post-link post-info-dark"><%= keyword %></a>
         </div>
-        <% }) %>
+        <% }) 
+        } %>
     </div>
 
 </div>

@@ -1,13 +1,19 @@
 <!-- Sidebar -->
 <div class="col-lg-2 col-sm-3 collapse show d-md-flex sidebar-wrapper" id="sidebar">
     <ul class="nav flex-column flex-nowrap overflow-hidden bg-white sidebar">
+        <% if (allowCreatePost) { %>
         <li class="nav-item">
             <!-- Form that lets you make a new post. -->
-            <form action="/new" method="GET">
+            <form action="/new" method="POST">
+                <!-- hidden inputs specify what page user is currently on -->
+                <input type="hidden" name="category" value="<%= currentCategory %>">
+                <input type="hidden" name="subcategory" value="<%= currentSubcategory %>">
                 <button class="create-post-btn" type="submit">Create Post</button>
             </form>
         </li>
-
+        <% } else { %>
+            <button class="create-post-btn" title="Go to a category to create a post" disabled></button>
+        <% } %>
 
         <!-- sidebar btn which directs to all posts -->
         <li class="nav-item">
