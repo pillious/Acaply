@@ -45,6 +45,10 @@ body {
     font-weight: 700;
 }
 
+.back-arrow {
+    margin-right: 10px;
+}
+
 .sidebar-arrow {
     cursor: pointer;
 }

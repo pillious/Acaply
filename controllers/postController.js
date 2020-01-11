@@ -114,7 +114,6 @@ exports.view_post = async function (req, resp) {
 
         // delete userId from each coment
         for (vote in postDocUpdated.votes) {
-            console.log(vote)
             delete postDocUpdated.votes[vote].userId;
         }
 
@@ -134,7 +133,6 @@ exports.view_post = async function (req, resp) {
 
 // go to createPost page
 exports.to_new_post = async function (req, resp) {
-    console.log(req.body)
     if (req.session.userSessionId) {
         let userDoc;
         // check if user is logged in
@@ -163,7 +161,6 @@ exports.to_new_post = async function (req, resp) {
 // create a new post
 exports.create_post = async function (req, resp) {
     if (req.session.userSessionId) {
-        console.log(req.body)
         try {
             // save new post on db
             var postClassInstance = new PostClass();
@@ -196,7 +193,6 @@ exports.edit_post = async function (req, resp) {
 
 // update the post in the db
 exports.update_post = async function (req, resp) {
-    console.log(req.body)
 
     const postId = req.params.postId
 
@@ -426,8 +422,6 @@ exports.category_posts = async function (req, resp) {
     var postClassInstance = new PostClass();
     var postsDoc;
 
-    console.log(req.headers)
-
     if (req.headers['sort-field'] && req.headers['sort-order']) {
         postsDoc = await postClassInstance.getPostsByOneField("category", req.params.category, req.headers['sort-field'], req.headers['sort-order']);
     }
@@ -435,8 +429,6 @@ exports.category_posts = async function (req, resp) {
         // defaults to getting posts by descending score (highest score -> lowest score)
         postsDoc = await postClassInstance.getPostsByOneField("category", req.params.category, 'score', 'descending');
     }
-
-    console.log(postsDoc);
 
     let userDoc;
     // check if user is logged in

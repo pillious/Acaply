@@ -33,19 +33,6 @@
         </div>
     </div>
     <div>
-        <% if (post) { %>
-        <p><%= JSON.stringify(post) %></p>
-        <% } %>
-
-        <% if (comments) { %>
-        <% comments.forEach(function (comment) { %>
-        <p><%= JSON.stringify(comment) %></p>
-        <!-- Delete a comment. -->
-        <button onclick="deleteComment('<%= comment._id %>')">Delete Comment</button>
-        <br>
-        <% }); %>
-        <% } %>
-
         <!-- Create a new comment. -->
         <form action="/comment/createComment" method="POST">
             <input type="text" name="comment" placeholder="Comment">

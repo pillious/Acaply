@@ -66,9 +66,7 @@ class PostClass {
     // get all posts which contain the search string (e.g search string = 'english study guide')
     async getPostsByOneField(fieldKey, fieldValue, sortField, sortOrder) {
         var posts;
-        console.log(fieldKey, fieldValue)
         if (fieldKey && fieldValue) {
-            console.log("asfhkalsjdhfklasdhdjflkashdlfjka")
             // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
             var dbSearchParameter = {};
             dbSearchParameter[fieldKey] = fieldValue

@@ -1,0 +1,50 @@
+<!-- Form to create a new post -->
+<div class="content-wrapper">
+    <!-- Form for creating a new post. -->
+    <div class="create-post-form-wrapper">
+        <form action="/posts/createPost" method="POST" class="needs-validation" novalidate>
+            <h3>New Post</h3>
+            <div class="new-post-location-wrapper">
+                <h6>Category: <%= category.replace(/^\w/, c => c.toUpperCase()); %></h6>
+                <h6>Subcategory: <%= subCategory.replace(/^\w/, c => c.toUpperCase()); %></h6>
+
+                <!-- hidden inputs -->
+                <input type="hidden" name="category" value="<%= category %>">
+                <input type="hidden" name="subCategory" value="<%= subCategory %>">
+            </div>
+            <div class="new-post-content-wrapper">
+                <div>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" placeholder="post title..." autocomplete="off"
+                        class="new-post-content form-control" required>
+                    <div class="invalid-feedback">
+                        Title required.
+                    </div>
+                </div>
+
+                <div>
+                    <label for="body">Body:</label>
+                    <textarea name="body" placeholder="post text..." rows="6"
+                        class="new-post-content new-post-body form-control" required></textarea>
+                    <div class="invalid-feedback">
+                        Body text required.
+                    </div>
+                </div>
+
+                <div>
+                    <label for="keywords">Tags:</label>
+                    <input type="text" name="keywords" placeholder="(e.g: math, event)" autocomplete="off"
+                        class="new-post-content form-control">
+                </div>
+            </div>
+            <div class="new-post-btn-wrapper">
+                <!-- onclick, go back to home page-->
+                <button class="btn btn-outline-danger" type="button"
+                    onclick="window.location = '/posts/'">Cancel</button>
+
+                <!-- create the post -->
+                <button class="btn btn-primary new-post-btn" type="submit">Create Post</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,15 +1,83 @@
-.post-container {
-    overflow: visible;
-    /* text-overflow: ellipsis; */
+.detailed-post-container {
+    background-color: #fff;
+    border: 1px #f0f0f0 solid;
 }
 
+.post-score-col {
+    border-right: 1px #f0f0f0 solid;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    max-width: 50px;
+}
+
+.score-wrapper {
+    border: none;
+}
 
 .post-body {
     white-space: normal;
-    overflow: visible;
-    white-space: pre-wrap;
 }
 
 .post-info-wrapper {
+    white-space: normal;
+}
+
+.keywords-wrapper {
+    overflow-x: scroll;
+    width: 100%;
     white-space: nowrap;
+}
+
+.post-title {
+    padding: 10px 0;
+}
+
+.post-body {
+    padding: 10px 0;
+    font-size: 1rem;
+}
+
+.post-stats-wrapper {
+    display: flex;
+}
+
+.comments-container {
+    background-color: #fff;
+    border: 1px #f0f0f0 solid;
+    margin-top: 3rem;
+}
+
+.create-comment-wrapper {
+    padding: 20px;
+    text-align: right;
+    border-bottom: 1px #f0f0f0 solid;
+}
+
+.new-comment {
+    background-color: rgb(250, 250, 250);
+}
+
+.new-comment-btn {
+    margin-top: 20px;
+}
+
+.comment {
+    padding: 20px;
+}
+
+.comment-info {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.comment-time {
+    font-size: 14px;
+    font-weight: 400;
+    color: #858585;
+}
+
+.comment-body {
+    padding-top: 5px;
+    font-size: 14px;
 }

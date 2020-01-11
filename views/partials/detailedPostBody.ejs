@@ -1,9 +1,9 @@
 <!-- display main post info (title, text, tags, etc.)-->
 <div class="post-wrapper">
-
     <!-- post info (category & subcategory, author, time since post) -->
     <div class="post-info-wrapper">
-        <a href="/posts/<%= post.category %>/<%= (post.subCategory != 'none') ? post.subCategory : '' %> %>" class="post-info-dark post-link">
+        <a href="/posts/<%= post.category %>/<%= (post.subCategory != 'none') ? post.subCategory : '' %> %>"
+            class="post-info-dark post-link">
             /<%= post.category[0].toUpperCase() +  post.category.substr(1) %>/<%= (post.subCategory != 'none') ? (post.subCategory[0].toUpperCase() +  post.subCategory.substr(1)) : '' %>
         </a>
 
@@ -21,28 +21,34 @@
 
     <!-- post info (# of comments, keywords) -->
     <div class="post-info-wrapper">
-        <% if (post.comments === 1) { %>
-        <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comment </a><span>|</span>
-        <% } else {%>
-        <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comments </a><span>|</span>
-        <% } %>
+        <div class="post-stats-wrapper">
+            <% if (post.comments === 1) { %>
+            <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comment </a><span>|</span>
+            <% } else {%>
+            <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comments </a><span>|</span>
+            <% } %>
 
-        <% if (post.views === 1) { %>
-        <div><%= post.views %> view |</div>
-        <% } else { %>
-        <div><%= post.views %> views |</div>
-        <% } %>
+            <% if (post.views === 1) { %>
+            <div><%= post.views %> view</div>
+            <% } else { %>
+            <div><%= post.views %> views</div>
+            <% } %>
+        </div>
+    </div>
 
-        <div>tags:
+    <div class="post-info-wrapper">
+        <div>tags:</div>
+        <div class="keywords-wrapper">
+            <div>
+                <% if (post.keywords.length != 1 && post.keywords[0] != "") {
+            post.keywords.forEach( function(keyword) { %>
+                <div class="post-keyword bg-light" style="display: inline;">
+                    <a href="#" class="post-link post-info-dark"><%= keyword %></a>
+                </div>
+                <% }) 
+            } %>
+            </div>
         </div>
-        <% if (post.keywords.length != 1 && post.keywords[0] != "") {
-        post.keywords.forEach( function(keyword) { 
-        %>
-        <div class="post-keyword bg-light">
-            <a href="#" class="post-link post-info-dark"><%= keyword %></a>
-        </div>
-        <% }) 
-        } %>
     </div>
 
 </div>
