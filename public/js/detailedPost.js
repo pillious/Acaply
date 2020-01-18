@@ -75,7 +75,7 @@ async function editCommentSave(element, commentId) {
     // check if comment text is empty & blank
     if ((commentContentElement.innerHTML != "") && (commentContentElement.innerHTML.replace(/\s/g,"") != "")) {
         var params = {
-            commentBody: commentContentElement.innerHTML,
+            commentBody: commentContentElement.innerText,
             commentId: commentId
         };
 
