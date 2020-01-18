@@ -24,7 +24,7 @@
 }
 
 .keywords-wrapper {
-    overflow-x: scroll;
+    overflow-x: auto;
     width: 100%;
     white-space: nowrap;
 }
