@@ -2,10 +2,15 @@
 <div class="sort-posts-wrapper">
     <label>Sort by:</label>
     <div class="sort-post-dropdown-wrapper">
-        <select class="sort-post-dropdown" id="sort-post-dropdown" onchange="sortPosts(this, '<%= postsType %>')">
-            <option value="created" data-sort-order="descending" <%= sortField === 'created' ? 'selected' : '' %>>Newest</option>
-            <option value="score" data-sort-order="descending" <%= sortField === 'score' ? 'selected' : '' %>>Highest Rated</option>
-            <option value="views" data-sort-order="descending" <%= sortField === 'views' ? 'selected' : '' %>>Most Viewed</option>
+        <!-- <select class="sort-post-dropdown" id="sort-post-dropdown" onchange="sortPosts(this, '<%#= postsType %>')">
+            <option value="created" data-sort-order="descending" <%#= sortField === 'created' ? 'selected' : '' %>>Newest</option>
+            <option value="score" data-sort-order="descending" <%#= sortField === 'score' ? 'selected' : '' %>>Highest Rated</option>
+            <option value="views" data-sort-order="descending" <%#= sortField === 'views' ? 'selected' : '' %>>Most Viewed</option>
+        </select> -->
+
+        <select class="sort-post-dropdown" id="sort-post-dropdown">
+            <option value="score">Highest Rated</option>
+            <option value="Coming Soon"disabled>More coming soon!</option>
         </select>
     </div>
 </div>
