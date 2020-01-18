@@ -10,18 +10,6 @@ function deletePost(postId) {
     }
 }
 
-//This function runs when a user tries to delete their comment.
-function deleteComment(commentId) {
-    var confirmDelete = confirm("Are you sure you want to delete this comment?");
-    if (confirmDelete) {
-        axios.delete("http://localhost:3000/comment/" + commentId).then(resp => {
-            location.reload();
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-}
-
 // upvote a post
 function voteOnPost(element, postId, voteType) {
     // list of the selected element's classes

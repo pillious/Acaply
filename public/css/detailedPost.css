@@ -130,3 +130,31 @@
     padding-top: 5px;
     font-size: 14px;
 }
+
+.comment-body[contenteditable="true"] {
+    outline: none;
+    border:none;
+    padding-bottom: 2px;
+    border-bottom: 3px solid rgba(251, 112, 62, 1);
+    transition : border 0.2s ease-out;
+}
+
+.edit-comment-wrapper {
+    padding-top: 10px;
+    text-align: right;
+    display: none;
+}
+
+.edit-comment-cancel {
+    color: #000000;
+    padding-right: 1.5rem;
+}
+
+.edit-comment-cancel:hover {
+    text-decoration: none;
+    color: #dc3545;
+}
+
+.edit-comment-save {
+    padding: 0.25rem 1.5rem;
+}

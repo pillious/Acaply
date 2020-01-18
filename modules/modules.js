@@ -101,7 +101,7 @@ class PostClass {
                 post: post,
                 comments: comments
             };
-        } catch(err) {
+        } catch (err) {
             return {
                 post: {},
                 comments: []
@@ -157,8 +157,10 @@ class PostClass {
     updatePostScore(postId, changeInPostScore) {
         return PostSchema.findOneAndUpdate({
             '_id': postId
-        },{
-            "$inc": {'score': changeInPostScore}
+        }, {
+            "$inc": {
+                'score': changeInPostScore
+            }
         }, {
             "new": true,
         })
@@ -203,7 +205,9 @@ class PostClass {
             'votes.userId': userDoc._id
         }, {
             $pull: {
-                'votes': {'userId': userDoc._id}
+                'votes': {
+                    'userId': userDoc._id
+                }
             }
         }, {
             "new": true
@@ -247,7 +251,27 @@ class CommentClass {
             });
 
             return commentDoc;
-        } catch(err) {
+        } catch (err) {
+            return {};
+        }
+    }
+
+    // get a specific comment by its id
+    async getComment(commentId) {
+        try {
+            var comment = await CommentSchema.findById(commentId)
+            return comment;
+        } catch (err) {
+            return {};
+        }
+    }
+
+    // update the db with edited comment
+    async editComment(commentId, commentBody) {
+        try {
+            var comment = await CommentSchema.findByIdAndUpdate(commentId, { body: commentBody })
+            return comment;
+        } catch (err) {
             return {};
         }
     }
@@ -256,9 +280,9 @@ class CommentClass {
     async deleteComment(commentId) {
         // try to delete comment by comment's _id field
         try {
-            var comment = await CommentSchema.findByIdAndRemove(commentId)
+            var comment = await CommentSchema.findByIdAndRemove(commentId);
             return comment;
-        } catch(err) {
+        } catch (err) {
             return {};
         }
     }
@@ -282,7 +306,7 @@ class UserClass {
         try {
             var userDoc = await UserSchema.findOne(dbUserSearchParameter);
             return userDoc;
-        } catch(err) {
+        } catch (err) {
             return {};
         }
     }
