@@ -10,7 +10,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- font awesome -->
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" />
 
     <!-- Custom Styles -->
     <link type="text/css" rel="stylesheet" href="/css/index.css">
@@ -32,15 +32,6 @@
             <% include ../views/partials/displayDetailedPost.ejs %>
         </div>
     </div>
-    <div>
-        <!-- Create a new comment. -->
-        <form action="/comment/createComment" method="POST">
-            <input type="text" name="comment" placeholder="Comment">
-            <input type="hidden" name="postId" value="<%= post._id %>">
-            <button type="submit">Create</button>
-        </form>
-
-    </div>
 
     <!-- Bootstrap 4 requirements -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -56,11 +47,12 @@
     <!-- Axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
+    <!-- HandelbarsJs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.2/handlebars.min.js"></script>
+
     <!-- Custom Js -->
     <script src="/js/index.js"></script>
-
-    <!-- JavaScript -->
-    <script src="/js/index.js"></script>
+    <script src="/js/detailedPost.js"></script>
 </body>
 
 </html>

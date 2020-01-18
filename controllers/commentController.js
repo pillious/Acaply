@@ -13,17 +13,17 @@ exports.create_comment = async function (req, resp) {
         // get the user doc (used to get author's id)
         const userClassInstance = new UserClass();
         var userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId);
-
-        const postId = req.body.postId;
-        const commentBody = req.body.comment;
+        console.log(req.body)
+        const postId = req.body.params.postId;
+        const commentBody = req.body.params.comment;
 
         // create the comment & save to db
         const commentClassInstance = new CommentClass();
         await commentClassInstance.createNewComment(commentBody, postId, userDoc);
 
-        resp.redirect('/posts/view/' + postId);
+        resp.status(200).send("new comment success!");
     } else {
-        resp.redirect('/login');
+        resp.status(400).send("new comment failed");
     }
 };
 

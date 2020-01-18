@@ -184,6 +184,18 @@ body {
     color: rgba(251, 112, 62, 0.8);
 }
 
+.vote-score {
+    font-weight: 500;
+}
+
+.vote-postive {
+    color: rgb(2, 209, 2);
+}
+
+.vote-negative {
+    color: rgb(168, 0, 0);
+}
+
 .post-wrapper {
     padding: 10px;
 }

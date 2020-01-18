@@ -16,19 +16,35 @@
 <div class="comments-container">
     <!-- create a comment -->
     <div class="create-comment-wrapper">
-        <textarea class="form-control new-comment" placeholder="Write a comment..." rows="3"></textarea>
-        <button class="btn btn-sm btn-primary new-comment-btn" onclick="createNewComment()">Comment</button>
+        <textarea class="form-control new-comment" id="commentBody" placeholder="Write a comment..."
+            rows="3"></textarea>
+        <button class="btn btn-sm btn-primary new-comment-btn"
+            onclick="createNewComment('<%=post._id%>')">Comment</button>
     </div>
 
     <!-- all comments -->
-    <div class="comments-wrapper">
+    <div class="comments-wrapper" id="comments-wrapper">
 
         <% if (comments && comments.length != 0) { %>
-        <% comments.forEach( function(comment) { %>
+        <% comments.reverse().forEach( function(comment) { %>
         <div class="comment">
             <div class="comment-info">
-                <a href="/posts/user/<%= comment.authorUsername %>" class="post-link post-info-dark"><%= comment.authorUsername %></a>
+                <a href="/posts/user/<%= comment.authorUsername %>"
+                    class="post-link post-info-dark"><%= comment.authorUsername %></a>
                 <span class="comment-time"><%= moment(comment.created).fromNow() %></span>
+                <span class="comment-menu-wrapper">
+                    <button class="comment-menu-toggle fa fa-ellipsis-v" id="comment-menu-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <!-- <i class="fa fa-ellipsis-v comment-menu"></i> -->
+                    </button>
+
+                    <div class="comment-dropdown dropdown-menu dropdown-menu-right" aria-labelledby="comment-menu-toggle">
+                        <button class="dropdown-item"><i class="fa fa-pencil"></i> Edit</button>
+                        <button class="dropdown-item text-danger"><i class="fa fa-trash"></i> Delete</button>
+                    </div>
+                </span>
+
+
             </div>
             <div class="comment-body"><%= comment.body %></div>
         </div>
@@ -37,7 +53,17 @@
 
     </div>
 
-    <!-- <button onclick="deleteComment(' comment._id ')">Delete Comment</button> -->
+    <!-- <button onclick="deleteComment(' comment._id ')">Delete Comment</button> 
 
-    // delete btn for post & comment
+    delete btn for post & comment -->
 </div>
+
+<script id="handlebars-new-comment" type="text/x-handlebars-template">
+    <div class="comment">
+        <div class="comment-info">
+            <a href="/posts/user/<%= user %>" class="post-link post-info-dark"><%= user %></a>
+                <span class="comment-time"><%= moment(Date.now()).fromNow() %></span>
+        </div>
+        <div class="comment-body">{{body}}</div>
+    </div>
+</script>

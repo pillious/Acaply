@@ -5,13 +5,13 @@
         <% if (post.votes[vote].username === user) { %>
         <div><i class="fa fa-chevron-up vote-icon <%= (post.votes[vote].vote === 1 ? 'vote-clicked': '') %>"
                         onclick="voteOnPost(this, '<%= post._id %>', 'upVote')"></i></div>
-        <div class="pt-2 pb-2"><%= post.score %></div>
+        <div class="pt-2 pb-2 vote-score <%= (post.score > 0) ? 'text-success' : ((post.score != 0) ? 'text-danger' : 'text-muted') %>"><%= post.score %></div>
         <div><i class="fa fa-chevron-down vote-icon <%= (post.votes[vote].vote === -1 ? 'vote-clicked': '') %>"
                         onclick="voteOnPost(this, '<%= post._id %>', 'downVote')"></i></div>
         <% } else { %>
         <div><i class="fa fa-chevron-up vote-icon" onclick="voteOnPost(this, '<%= post._id %>', 'upVote')"></i>
         </div>
-        <div class="pt-2 pb-2"><%= post.score %></div>
+        <div class="pt-2 pb-2 vote-score <%= (post.score > 0) ? 'text-success' : ((post.score != 0) ? 'text-danger' : 'text-muted') %>"><%= post.score %></div>
         <div><i class="fa fa-chevron-down vote-icon" onclick="voteOnPost(this, '<%= post._id %>', 'downVote')"></i>
         </div>
         <% } %>
@@ -19,7 +19,7 @@
         <% } else { %>
         <div><i class="fa fa-chevron-up vote-icon" onclick="voteOnPost(this, '<%= post._id %>', 'upVote')"></i>
         </div>
-        <div class="pt-2 pb-2"><%= post.score %></div>
+        <div class="pt-2 pb-2 vote-score <%= (post.score > 0) ? 'text-success' : ((post.score != 0) ? 'text-danger' : 'text-muted') %>"><%= post.score %></div>
         <div><i class="fa fa-chevron-down vote-icon" onclick="voteOnPost(this, '<%= post._id %>', 'downVote')"></i>
         </div>
         <% } %>
