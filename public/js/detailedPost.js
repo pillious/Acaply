@@ -1,31 +1,49 @@
 var commentBody = document.getElementById("commentBody");
 
 //This function runs when a user tries to delete their post.
+function deletePost(postId) {
+    var confirmDelete = confirm("Are you sure you want to delete this post?");
+    if (confirmDelete) {
+        axios.delete("http://localhost:3000/posts/" + postId).then(resp => {
+            window.location = "/posts/";
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+}
+
+//This function runs when a user tries to delete their post.
 async function createNewComment(postId) {
     if (postId && commentBody.value) {
         var params = {
             comment: commentBody.value,
             postId: postId
         };
-        const response = await axios.post("http://localhost:3000/comment/createComment", {
-            params
-        });
+        try {
+            const response = await axios.post("http://localhost:3000/comment/createComment", {
+                params
+            });
 
-        if (response.status === 200) {
-            console.log(response.data, response.status);
-            // add the new comment to UI (using HandlebarsJs)
-            var template = $('#handlebars-new-comment').html();
-            var compiledTemplate = Handlebars.compile(template);
-
-            var context = {
-                body: commentBody.value
-            };
-
-            var newCommentHTML = compiledTemplate(context);
-            console.log(newCommentHTML)
-            $('#comments-wrapper').prepend(newCommentHTML);
-        } else {
-            console.log(response.data, response.status);
+            if (response.status === 200) {
+                // console.log(response.data, response.status);
+                // // add the new comment to UI (using HandlebarsJs)
+                // var template = $('#handlebars-new-comment').html();
+                // var compiledTemplate = Handlebars.compile(template);
+    
+                // var context = {
+                //     body: commentBody.value
+                // };
+    
+                // var newCommentHTML = compiledTemplate(context);
+                // console.log(newCommentHTML)
+                // $('#comments-wrapper').prepend(newCommentHTML);
+                location.reload();
+            } else {
+                console.log(response.data, response.status);
+            }
+        }
+        catch(err) {
+            console.log(err);
         }
     }
 }
@@ -81,10 +99,15 @@ async function editCommentSave(element, commentId) {
         };
 
         // save edited comment to db
-        const response = await axios.post("http://localhost:3000/comment/editComment", {
-            params
-        });
-        console.log(response)
+        try {
+            const response = await axios.post("http://localhost:3000/comment/editComment", {
+                params
+            });
+            console.log(response)
+        }
+        catch(err) {
+            console.log(err);
+        }
     }
     else {
         location.reload();

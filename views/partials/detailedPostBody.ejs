@@ -14,6 +14,29 @@
         </div>
 
         <div><%= moment(post.created).fromNow() %></div>
+
+        <!-- only display the menu if user owns the comment -->
+        <% if (post.authorUsername === user) { %>
+
+        <div class="menu-wrapper">
+            <button class="menu-toggle post-menu-toggle fa fa-ellipsis-v" id="post-menu-toggle" type="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <!-- <i class="fa fa-ellipsis-v comment-menu"></i> -->
+            </button>
+
+            <div class="menu-dropdown dropdown-menu dropdown-menu-right" aria-labelledby="post-menu-toggle">
+                <form action="/posts/editPost" method="POST">
+                    <input type="hidden" name="postId" value="<%= post._id %>">
+                    <button class="dropdown-item"><i class="fa fa-pencil"></i>
+                        Edit</button>
+                </form>
+                <button class="dropdown-item text-danger" onclick="deletePost('<%= post._id %>')"><i
+                        class="fa fa-trash text-danger"></i> Delete</button>
+
+            </div>
+        </div>
+
+        <% } %>
     </div>
 
     <div class="post-title"><%= post.title %></div>
@@ -23,9 +46,9 @@
     <div class="post-info-wrapper">
         <div class="post-stats-wrapper">
             <% if (post.comments === 1) { %>
-            <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comment </a><span>|</span>
+            <a href='/posts/view/<%= post._id %>' class='post-link'><%= post.comments %> comment </a><span>|</span>
             <% } else {%>
-            <a href="/posts/view/<%= post._id %>" class="post-link"><%= post.comments %> comments </a><span>|</span>
+            <a href='/posts/view/<%= post._id %>' class='post-link'><%= post.comments %> comments </a><span>|</span>
             <% } %>
 
             <% if (post.views === 1) { %>
@@ -36,19 +59,19 @@
         </div>
     </div>
 
+    <% if (!(post.keywords.length <= 1) && post.keywords[0] != "") { %>
     <div class="post-info-wrapper">
         <div>tags:</div>
         <div class="keywords-wrapper">
             <div>
-                <% if (post.keywords.length != 1 && post.keywords[0] != "") {
-            post.keywords.forEach( function(keyword) { %>
+                <% post.keywords.forEach( function(keyword) { %>
                 <div class="post-keyword bg-light" style="display: inline;">
                     <a href="#" class="post-link post-info-dark"><%= keyword %></a>
                 </div>
-                <% }) 
-            } %>
+                <% }) %>
+
             </div>
         </div>
     </div>
-
+    <% } %>
 </div>

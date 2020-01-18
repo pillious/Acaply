@@ -1,15 +1,3 @@
-//This function runs when a user tries to delete their post.
-function deletePost(postId) {
-    var confirmDelete = confirm("Are you sure you want to delete this post?");
-    if (confirmDelete) {
-        axios.delete("http://localhost:3000/posts/" + postId).then(resp => {
-            location.reload();
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-}
-
 // upvote a post
 function voteOnPost(element, postId, voteType) {
     // list of the selected element's classes

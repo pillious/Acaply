@@ -77,13 +77,13 @@
     color: #858585;
 }
 
-.comment-menu-wrapper {
+.menu-wrapper {
     text-align: center;
     border-radius: 100%;
-    width: 20px;
+    width: 25px;
 }
 
-.comment-menu-toggle {
+.menu-toggle {
     border: none;
     background-color: transparent;
     height: 25px;
@@ -95,34 +95,38 @@
     border-radius: 100%;
 }
 
-.comment-menu-toggle:hover {
+.menu-toggle:hover {
     background: rgba(160, 160, 160, 0.2);
     color: #000000;
     transition: background-color 0.3s linear;
 }
 
-.comment-menu-toggle:focus {
+.menu-toggle:focus {
     outline: none;
 }
 
-.comment-dropdown {
+.post-menu-toggle {
+    padding: 0;
+}
+
+.menu-dropdown {
     padding: 0;
     min-width: 5rem;
     text-align: left;
     box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
 }
 
-.comment-dropdown .dropdown-item {
+.menu-dropdown .dropdown-item {
     padding: 0;
     font-size: 14px;
     color: #626262;
     padding: 1px 0 1px 10px;
 }
-.comment-dropdown .dropdown-item:active {
+.menu-dropdown .dropdown-item:active {
     background-color: #e4e4e4;
 }
 
-.comment-dropdown .dropdown-item:focus {
+.menu-dropdown .dropdown-item:focus {
     outline-color: transparent;
 }
 
