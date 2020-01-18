@@ -25,7 +25,11 @@ body {
 }
 
 .sidebar-wrapper {
+    position: sticky;
+    top: 0;
     padding-right: 0;
+    height: fit-content;
+    min-height: 400px;
 }
 
 .sidebar {
