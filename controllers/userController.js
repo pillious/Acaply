@@ -19,13 +19,44 @@ exports.create_account = async function (req, resp) {
 };
 
 //Showing the login page.
-exports.login_page = function (req, resp) {
-    resp.render('login');
+exports.login_page = async function (req, resp) {
+    var userDoc;
+    var username;
+    var isLoggedIn = false;
+
+    // check if user is logged in
+    if (req.session.userSessionId) {
+        const userClassInstance = new UserClass();
+        userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId);
+        username = userDoc.username;
+        isLoggedIn = true;
+
+
+    }
+    // resp.redirect('/index')
+    resp.render('login', {
+        isLoggedIn: isLoggedIn,
+        user: username
+    });
 };
 
 //Showing the signup page.
-exports.signup_page = function (req, resp) {
-    resp.render('signup');
+exports.signup_page = async function (req, resp) {
+    var userDoc;
+    var username;
+    var isLoggedIn = false;
+
+    // check if user is logged in
+    if (req.session.userSessionId) {
+        const userClassInstance = new UserClass();
+        userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId);
+        username = userDoc.username;
+        isLoggedIn = true;
+    }
+    resp.render('signup', {
+        isLoggedIn: isLoggedIn,
+        user: username
+    });
 };
 
 //See if what the user entered is valid.

@@ -247,3 +247,23 @@ body {
 .post-info-dark {
     color: #2c2c2c;
 }
+
+.alert-wrapper {
+    position: absolute;
+    top: 70px;
+    right: 5px;
+    width: fit-content;
+    animation: 1s slide-in-right;
+    display: none;
+}
+
+@keyframes slide-in-right {
+    0% {
+        top: -100px;
+        opacity: 0;
+    }
+    100% {
+        top: 70px;
+        opacity: 1;
+    }
+}

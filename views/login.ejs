@@ -5,20 +5,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Acaply - Login</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+
+    <!-- Custom Styles -->
+    <link type="text/css" rel="stylesheet" href="/css/index.css">
+    <link type="text/css" rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
-    <!-- The form that logs the user in. -->
-    <form action="/loginValidate" method="POST">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">Log In</button>
-    </form>
+    <!-- navbar -->
+    <% include ../views/partials/navbar %>
 
-    <!-- The form that brings the user back to the home page. -->
-    <form action="/">
-        <button type="submit">Home</button>
-    </form>
+    <!-- The form that logs the user in. -->
+    <div class="card-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div class="card card-signin my-5">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">Log In</h5>
+                            <form action="/loginValidate" method="POST" class="form-signin">
+                                <div class="form-label-group">
+                                    <input type="text" id="username" name="username" class="form-control"
+                                        placeholder="Email address" required autofocus>
+                                    <label for="username">Username</label>
+                                </div>
+
+                                <div class="form-label-group">
+                                    <input type="password" id="password" name="password" class="form-control"
+                                        placeholder="Password" required>
+                                    <label for="password">Password</label>
+                                </div>
+
+                                <div class="mb-3 text-right">
+                                    <a href="#">Forgot Password?</a>
+                                </div>
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Log
+                                    in</button>
+                                <div class="mb-3">
+                                    <div class="text-center mt-4">
+                                        <span>Don't have an account? </span>
+                                        <a href="/signup">Sign Up</a>
+                                    </div>
+                                    <div class="text-center mt-1">
+                                        <a href="/posts/">Browse as guest</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

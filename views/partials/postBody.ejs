@@ -38,7 +38,7 @@
         <% if (post.keywords.length != 1 && post.keywords[0] != "") {
         post.keywords.forEach( function(keyword) { %>
         <div class="post-keyword bg-light">
-            <a href="<%= keyword %>" class="post-link post-info-dark"><%= keyword %></a>
+            <a href="/posts/search/<%= keyword %>" class="post-link post-info-dark"><%= keyword %></a>
         </div>
         <% }) 
         } %>
