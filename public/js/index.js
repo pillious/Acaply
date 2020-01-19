@@ -108,3 +108,25 @@ function sortPosts(element, postsType) {
         console.log(err)
     })
 }
+
+// on enter key pressed, submit search
+$('#searchString').keypress(function (e) {
+    if (e.which == 13) {
+        searchPosts();
+    }
+});
+
+// search for posts using searchbar
+async function searchPosts() {
+    // element which contains the search string (searchbar)
+    const searchStringElement = document.getElementById('searchString');
+
+    // use this to query the db
+    var searchString = searchStringElement.value.trim().replace(/ /g, '-');
+
+    if (searchString && searchString.length > 0) {
+            window.location = "http://localhost:3000/posts/search/" + searchString;
+    }
+
+    $('#searchString').val("");
+}

@@ -41,27 +41,9 @@ class PostClass {
         return posts;
     }
 
-    // // get all posts which correspond which search field (e.g author: 'pillious')
-    // async getPostsByOneField(fieldKey, fieldValue) {
-    //     var posts;
-
-    //     if (fieldKey && fieldValue) {
-
-    //         // creates an object with fieldName & fieldValue. Search for posts in db which match the search parameter
-    //         var dbSearchParameter = {};
-    //         dbSearchParameter[fieldKey] = fieldValue
-
-    //         posts = await PostSchema.find(dbSearchParameter).lean()
-    //         return posts;
-
-    //     }
-
-    //     return posts;
+    // async getPostsByKeyWords(keywords) {
+    //     return "coming soon";
     // }
-
-    async getPostsByKeyWords(keywords) {
-        return "coming soon";
-    }
 
     // get all posts which contain the search string (e.g search string = 'english study guide')
     async getPostsByOneField(fieldKey, fieldValue, sortField, sortOrder) {
@@ -107,6 +89,28 @@ class PostClass {
                 comments: []
             };
         }
+    }
+
+    // get all posts which contain the search string
+    async getPostsBySearchString(dbSearchFields, searchString) {
+        var postDoc = [];
+        var dbSearchParam = [];
+        var regexSearchString = new RegExp(searchString, "i");
+
+        dbSearchFields.forEach( (field) => {
+            var paramObj = {};
+            paramObj[field] = regexSearchString;
+            dbSearchParam.push(paramObj)
+        })
+
+        try {
+            postDoc = PostSchema.find( { $or: dbSearchParam})
+        }
+        catch(err) {
+            console.log(err);
+        }
+
+        return postDoc;
     }
 
     async createNewPost(postFields, userSessionId) {

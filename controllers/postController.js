@@ -312,19 +312,13 @@ exports.removeVote_post = async function (req, resp) {
 // remove an upvote or downvote from a post
 exports.search_string_posts = async function (req, resp) {
     var postClassInstance = new PostClass();
-    var postsDoc = [];
+
+    var searchString = req.path.replace('/search/', '').replace(/-/g, ' ');
 
     // check if any of these fields contain the search string
-    const dbSearchParamKeys = ["authorUsername", "keywords", "category", "subCategory", "title", "text"];
+    const dbSearchFields = ["authorUsername", "keywords", "title", "text"];
 
-    for (dbSearchParamKey in dbSearchParamKeys) {
-        var postsDocByParamKey = await postClassInstance.getPostsByOneField("text", req.params.searchString);
-        if (postsDocByParamKey.length != 0) {
-            postsDoc.push(postsDocByParamKey)
-        }
-    }
-
-    console.log(postsDoc)
+    var postsDoc = await postClassInstance.getPostsBySearchString(dbSearchFields, searchString);
 
     let userDoc;
     // check if user is logged in
@@ -351,7 +345,7 @@ exports.search_string_posts = async function (req, resp) {
         delete postsDoc[i].author;
 
         for (vote in postsDoc[i].votes) {
-            delete postDocs[i].votes[vote].userId;
+            delete postsDoc[i].votes[vote].userId;
         }
     }
 
