@@ -15,8 +15,7 @@ exports.all_posts = async function (req, resp) {
     var postsDoc;
     if (req.headers['sort-field'] && req.headers['sort-order']) {
         postsDoc = await postClassInstance.getAllPosts(req.headers['sort-field'], req.headers['sort-order'])
-    }
-    else {
+    } else {
         // defaults to getting posts by descending score (highest score -> lowest score)
         postsDoc = await postClassInstance.getAllPosts('score', 'descending');
     }
@@ -83,7 +82,7 @@ exports.view_post = async function (req, resp) {
         var username;
         // check if current user is the post author
         var isPostAuthor = false;
-        if (userDocCurrent ) {
+        if (userDocCurrent) {
             isLoggedIn = true;
             username = userDocCurrent.username
 
@@ -126,7 +125,7 @@ exports.view_post = async function (req, resp) {
             isPostAuthor: isPostAuthor,
             isLoggedIn: isLoggedIn
         })
-    } catch(err) {
+    } catch (err) {
         resp.send(err)
     }
 };
@@ -139,9 +138,9 @@ exports.to_new_post = async function (req, resp) {
         const userClassInstance = new UserClass();
         userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
         var username;
-    
+
         var isLoggedIn = false;
-    
+
         if (userDoc) {
             isLoggedIn = true;
             username = userDoc.username
@@ -167,7 +166,7 @@ exports.create_post = async function (req, resp) {
             var newPostDoc = await postClassInstance.createNewPost(req.body, req.session.userSessionId);
 
             resp.redirect('/posts/view/' + newPostDoc._id)
-        } catch(err) {
+        } catch (err) {
             resp.send("post failed")
         }
     } else {
@@ -178,17 +177,41 @@ exports.create_post = async function (req, resp) {
 // edit a post
 exports.edit_post = async function (req, resp) {
     var postClassInstance = new PostClass();
+    var userClassInstance = new UserClass();
+    let userDoc;
+    var isLoggedIn;
     // get one specific post 
-    try {
-        var postDoc = await postClassInstance.getSpecificPost(req.body.postId);
+    if (req.session.userSessionId) {
+        try {
+            // check if user is logged in
+            userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId)
+            var username;
 
-        resp.render('editPost', {
-            post: postDoc.post
-        })
-    } catch(err) {
-        resp.redirect('/')
+            isLoggedIn = false;
+
+            if (userDoc) {
+                isLoggedIn = true;
+                username = userDoc.username
+            }
+
+            var postDoc = await postClassInstance.getSpecificPost(req.body.postId);
+
+            if (postDoc) {
+                resp.render('editPost', {
+                    post: postDoc.post,
+                    isLoggedIn: isLoggedIn,
+                    user: username,
+                    postDoc: postDoc.post
+                })
+            } else {
+                resp.send('error getting post to edit');
+            }
+        } catch (err) {
+            resp.redirect('/');
+        }
+    } else {
+        resp.redirect('/login');
     }
-
 }
 
 // update the post in the db
@@ -418,8 +441,7 @@ exports.category_posts = async function (req, resp) {
 
     if (req.headers['sort-field'] && req.headers['sort-order']) {
         postsDoc = await postClassInstance.getPostsByOneField("category", req.params.category, req.headers['sort-field'], req.headers['sort-order']);
-    }
-    else {
+    } else {
         // defaults to getting posts by descending score (highest score -> lowest score)
         postsDoc = await postClassInstance.getPostsByOneField("category", req.params.category, 'score', 'descending');
     }

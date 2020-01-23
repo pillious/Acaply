@@ -1,0 +1,47 @@
+<!-- Form to edit an existing post -->
+<div class="content-wrapper">
+    <!-- Form for editting an existing post. -->
+    <div class="create-post-form-wrapper">
+        <form action="/posts/updatePost/<%= postDoc._id %>" method="POST" class="needs-validation" novalidate>
+            <h3>Edit Post</h3>
+            <div class="new-post-location-wrapper">
+                <h6>Category: <%= postDoc.category.replace(/^\w/, c => c.toUpperCase()); %></h6>
+                <h6>Subcategory: <%= postDoc.subCategory.replace(/^\w/, c => c.toUpperCase()); %></h6>
+
+            </div>
+            <div class="new-post-content-wrapper">
+                <div>
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" placeholder="Post Title" autocomplete="off"
+                        class="new-post-content form-control" value="<%= postDoc.title %>" required>
+                    <div class="invalid-feedback">
+                        Title required.
+                    </div>
+                </div>
+
+                <div>
+                    <label for="body">Body:</label>
+                    <textarea name="body" placeholder="Post Text" rows="6"
+                        class="new-post-content new-post-body form-control"required><%= postDoc.text %></textarea>
+                    <div class="invalid-feedback">
+                        Body text required.
+                    </div>
+                </div>
+
+                <div>
+                    <label for="keywords">Tags:</label>
+                    <input type="text" name="keywords" placeholder="(Math, Food, English)" autocomplete="off"
+                        class="new-post-content form-control" value="<%= postDoc.keywords %>">
+                </div>
+            </div>
+            <div class="new-post-btn-wrapper">
+                <!-- onclick, go back to home page-->
+                <button class="btn btn-outline-danger" type="button"
+                    onclick="window.location = '/posts/'">Cancel</button>
+
+                <!-- finish edits -->
+                <button class="btn btn-primary new-post-btn" type="submit">Done</button>
+            </div>
+        </form>
+    </div>
+</div>
