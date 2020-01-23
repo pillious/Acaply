@@ -12,6 +12,7 @@
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^3.1.2",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "ejs": "^2.7.4",
     "express": "^4.16.4",
     "express-session": "^1.17.0",

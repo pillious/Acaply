@@ -5,6 +5,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 const moment = require('moment');
+require('dotenv').config();
 
 //Create the application.
 const app = express();
@@ -35,10 +36,9 @@ app.use(cors())
 
 //Use sessions for tracking user logins.
 //A session is a storage that consists of information on server-side.
+const sessionSecret = process.env.USER_SESSION_KEY;
 app.use(session({
-    //Super secret code.
-    // -------------- MUST CHANGE BEFORE DEPLOYMENT ---------------------
-    secret: 'ULqlcX4KcYE9jeS3lnpv',
+    secret: sessionSecret,
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({
@@ -52,8 +52,10 @@ app.use('/comment', commentRoutes);
 app.use('/', indexRoutes);
 
 //Connect to the MongoDB database.
-//At the moment, we have our local MongoDB databases on our separate computers.
-mongoose.connect('mongodb://localhost:27017/acaply', {
+const dbUsername = process.env.DATABASE_USERNAME;
+const dbPassword = process.env.DATABASE_PASSWORD;
+
+mongoose.connect('mongodb+srv://' + dbUsername + ':' + dbPassword + '@nnhs-forum-tqvkq.azure.mongodb.net/acaply?retryWrites=true&w=majority', {
     useNewUrlParser: true
 }).then(function() {
     //This means that the database was successfully connected to.
