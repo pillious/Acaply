@@ -54,7 +54,6 @@ app.use('/', indexRoutes);
 //Connect to the MongoDB database.
 const dbUsername = process.env.DATABASE_USERNAME;
 const dbPassword = process.env.DATABASE_PASSWORD;
-console.log(require('dotenv').config())
 
 mongoose.connect('mongodb+srv://' + dbUsername + ':' + dbPassword + '@nnhs-forum-tqvkq.azure.mongodb.net/acaply?retryWrites=true&w=majority', {
     useNewUrlParser: true
