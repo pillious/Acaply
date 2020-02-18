@@ -45,7 +45,7 @@
 .comments-container {
     background-color: #fff;
     border: 1px #f0f0f0 solid;
-    margin-top: 3rem;
+    margin: 3rem 0;
 }
 
 .create-comment-wrapper {
@@ -161,4 +161,38 @@
 
 .edit-comment-save {
     padding: 0.25rem 1.5rem;
+}
+
+@media (max-width: 635px) {
+    .row .post-score-col {
+        max-width: 0;
+    }
+
+    .vote-score {
+        padding: 0 15px;
+    }
+
+    .detailed-post-body-wrapper {
+        padding: 0;
+    }
+
+    .post-wrapper {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 404px) {
+    .row .post-score-col {
+        border: none;
+    }
+
+    .score-wrapper {
+        flex-direction: row;
+        margin-left: 50px;
+        padding: 0 0 0 15px;
+    }
+
+    .post-wrapper {
+        display: block;
+    }
 }

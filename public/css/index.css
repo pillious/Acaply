@@ -291,7 +291,6 @@ body {
 }
 
 /* checkbox to toggle categories on smaller screens */
-/* The container */
 label.container {
     display: block;
     position: relative;
@@ -305,7 +304,6 @@ label.container {
     user-select: none;
 }
 
-/* Hide the browser's default checkbox */
 label.container input {
     position: absolute;
     opacity: 0;
@@ -314,7 +312,6 @@ label.container input {
     width: 0;
 }
 
-/* Create a custom checkbox */
 .checkmark {
     position: absolute;
     top: 10px;
@@ -324,29 +321,24 @@ label.container input {
     background-color: #eee;
 }
 
-/* On mouse-over, add a grey background color */
 label.container:hover input~.checkmark {
     background-color: #ccc;
 }
 
-/* When the checkbox is checked, add a blue background */
 label.container input:checked~.checkmark {
     background-color: rgba(251, 112, 62, 0.8);
 }
 
-/* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
     content: "";
     position: absolute;
     display: none;
 }
 
-/* Show the checkmark when checked */
 label.container input:checked~.checkmark:after {
     display: block;
 }
 
-/* Style the checkmark/indicator */
 label.container .checkmark:after {
     left: 9px;
     top: 5px;
@@ -357,6 +349,12 @@ label.container .checkmark:after {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+@media (max-width: 635px) {
+    .score-wrapper {
+        padding: 10px 5px;
+    }
 }
 
 @media (max-width: 550px) {
