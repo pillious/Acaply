@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<div class="col-lg-2 col-sm-3 collapse show d-md-flex sidebar-wrapper" id="sidebar">
+<div class="col-lg-2 col-sm-3 col-4 collapse show d-md-flex sidebar-wrapper" id="sidebar">
     <ul class="nav flex-column flex-nowrap overflow-hidden bg-white sidebar">
         <% if (allowCreatePost) { %>
         <li class="nav-item">
@@ -15,52 +15,66 @@
             <button class="create-post-btn" title="Go to a category to create a post" onclick="window.location='/posts/'"><i class="fa fa-chevron-left back-arrow"></i>Return Home</button>
         <% } %>
 
-        <!-- sidebar btn which directs to all posts -->
+        <!-- toggle categories in sidebar -->
         <li class="nav-item">
-            <div class="sidebar-category text-truncate">
-                <form action="/posts/">
-                    <button class="btn btn-link d-none d-sm-inline category-btn">All</button>
-                </form>
+            <div>
+                <label class="container">
+                    <span>Show Categories</span>
+                    <input type="checkbox" class="sidebar-toggle" checked="checked">
+                    <span class="checkmark"></span>
+                </label>
             </div>
         </li>
 
-        <% for (var category in categories) { %>
-        <% if (categories.hasOwnProperty(category)) { %>
+        <!-- section of sidebar containing the categories -->
+        <div id="categories">
+            <!-- sidebar btn which directs to all posts -->
+            <li class="nav-item">
+                <div class="sidebar-category text-truncate">
+                    <form action="/posts/">
+                        <button class="btn btn-link d-sm-inline category-btn">All</button>
+                    </form>
+                </div>
+            </li>
 
-        <!-- Show the different categories on the sidebar. -->
-        <li class="nav-item">
-            <div class="sidebar-category text-truncate">
-                <form action="/posts/<%= category.toLowerCase() %>">
-                    <button class="btn btn-link d-none d-sm-inline category-btn"><%= category %></button>
-                    <% if (categories[category].length != 0) { %>
-                    <span class="sidebar-arrow collapsed" data-toggle="collapse" data-target="#<%= category %>"></span>
-                    <% } %>
-                </form>
-            </div>
+            <% for (var category in categories) { %>
+            <% if (categories.hasOwnProperty(category)) { %>
 
-            <% if (categories[category].length != 0) { %>
+            <!-- Show the different categories on the sidebar. -->
+            <li class="nav-item">
+                <div class="sidebar-category text-truncate">
+                    <form action="/posts/<%= category.toLowerCase() %>">
+                        <button class="btn btn-link d-sm-inline category-btn"><%= category %></button>
+                        <% if (categories[category].length != 0) { %>
+                        <span class="sidebar-arrow collapsed" data-toggle="collapse" data-target="#<%= category %>"></span>
+                        <% } %>
+                    </form>
+                </div>
 
-            <!-- Show the subcategories of a category. -->
-            <div class="collapse" id="<%= category %>" aria-expanded="false">
-                <ul class="flex-column pl-2 nav">
-                    <% for (var subcategory in categories[category]) { %>
-                    <li class="nav-item sidebar-subcategory">
-                        <div class="py-0">
-                            <form
-                                action="/posts/<%= category.toLowerCase() %>/<%= categories[category][subcategory].toLowerCase() %>">
-                                <button
-                                    class="btn btn-link d-none d-sm-inline subcategory-btn"><%= categories[category][subcategory] %></button>
-                            </form>
-                        </div>
-                    </li>
-                    <% } %>
-                </ul>
-            </div>
+                <% if (categories[category].length != 0) { %>
+
+                <!-- Show the subcategories of a category. -->
+                <div class="collapse" id="<%= category %>" aria-expanded="false">
+                    <ul class="flex-column pl-2 nav">
+                        <% for (var subcategory in categories[category]) { %>
+                        <li class="nav-item sidebar-subcategory">
+                            <div class="py-0">
+                                <form
+                                    action="/posts/<%= category.toLowerCase() %>/<%= categories[category][subcategory].toLowerCase() %>">
+                                    <button
+                                        class="btn btn-link d-sm-inline subcategory-btn"><%= categories[category][subcategory] %></button>
+                                </form>
+                            </div>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+                <% } %>
+
+            </li>
             <% } %>
-
-        </li>
-        <% } %>
-        <% } %>
+            <% } %>
+        </div>
 
     </ul>
 </div>

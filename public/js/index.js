@@ -130,3 +130,18 @@ async function searchPosts() {
 
     $('#searchString').val("");
 }
+
+var categoriesElement = document.getElementById("categories");
+var sidebarWrapperElement = document.getElementById("sidebar");
+
+// toggle sidebar categories
+$('.sidebar-toggle').change(function() {
+    console.log("hello")
+    // this will contain a reference to the checkbox   
+    if (this.checked) {
+        categoriesElement.style.display = "inline-block";
+    } else {
+        categoriesElement.style.display = "none";
+        sidebarWrapperElement.style.minHeight = "0px";
+    }
+});

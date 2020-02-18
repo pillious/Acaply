@@ -27,8 +27,7 @@
                         <!-- <i class="fa fa-ellipsis-v comment-menu"></i> -->
                     </button>
 
-                    <div class="menu-dropdown dropdown-menu dropdown-menu-right"
-                        aria-labelledby="comment-menu-toggle">
+                    <div class="menu-dropdown dropdown-menu dropdown-menu-right" aria-labelledby="comment-menu-toggle">
                         <button class="dropdown-item" onclick="enableCommentEdit(this)"><i class="fa fa-pencil"></i>
                             Edit</button>
                         <button class="dropdown-item text-danger" onclick="deleteComment('<%= comment._id %>')"><i
@@ -40,12 +39,16 @@
 
             </div>
             <div class="comment-body"><%= comment.body %></div>
+
+            <!-- only display the menu if user owns the comment -->
+            <% if (comment.authorUsername === user) { %>
             <div class="edit-comment-wrapper">
                 <button class="edit-comment-cancel btn btn-sm btn-link"
                     onclick="editCommentCancel(this)">Cancel</button>
                 <button class="edit-comment-save btn btn-sm btn-primary"
                     onclick="editCommentSave(this, '<%= comment._id %>')">Save</button>
             </div>
+            <% } %>
         </div>
         <%  }) %>
         <% } %>
