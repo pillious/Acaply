@@ -1,16 +1,42 @@
 var commentBody = document.getElementById("commentBody");
+var confirmMsgElement = document.getElementById("confirm-msg");
+var confirmYesBtnElement = document.getElementById("confirm-yes-btn");
 
 //This function runs when a user tries to delete their post.
 function deletePost(postId) {
-    var confirmDelete = confirm("Are you sure you want to delete this post?");
-    if (confirmDelete) {
-        axios.delete("http://localhost:3000/posts/" + postId).then(resp => {
-            window.location = "/posts/";
-        }).catch(err => {
-            console.log(err);
-        })
+    const confirmMsg = "Are you sure you want to delete this post?";
+    setupModal(confirmMsg, postId, "post");
+    $('#confirm-modal').modal('show');
+}
+
+// change text & onclick function (when 'yes' presssed) of delete confirmation modal 
+function setupModal(confirmMsg, deleteItemId, deleteType) {
+    console.log("adding")
+    confirmMsgElement.innerHTML = confirmMsg;
+    if (deleteType === "post") {
+        confirmYesBtnElement.onclick = function () {
+            deletePostFromDb(deleteItemId);
+        }
+    } else if (deleteType === "comment") {
+        confirmYesBtnElement.onclick = function () {
+            deleteCommentFromDb(deleteItemId);
+        }
     }
 }
+
+// remove the post from db
+function deletePostFromDb(postId) {
+    axios.delete("http://localhost:3000/posts/" + postId).then(resp => {
+        window.location = "/posts/";
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+// remove the onclick added in setupModal()
+$('#confirm-modal').on('hide.bs.modal', function(e) {
+    $('#confirm-modal').off("click");
+})
 
 //This function runs when a user tries to delete their post.
 async function createNewComment(postId) {
@@ -29,11 +55,11 @@ async function createNewComment(postId) {
                 // // add the new comment to UI (using HandlebarsJs)
                 // var template = $('#handlebars-new-comment').html();
                 // var compiledTemplate = Handlebars.compile(template);
-    
+
                 // var context = {
                 //     body: commentBody.value
                 // };
-    
+
                 // var newCommentHTML = compiledTemplate(context);
                 // console.log(newCommentHTML)
                 // $('#comments-wrapper').prepend(newCommentHTML);
@@ -41,8 +67,7 @@ async function createNewComment(postId) {
             } else {
                 console.log(response.data, response.status);
             }
-        }
-        catch(err) {
+        } catch (err) {
             console.log(err);
         }
     }
@@ -86,12 +111,13 @@ function editCommentCancel(element) {
     location.reload();
 }
 
+// save edits to comment
 async function editCommentSave(element, commentId) {
     // return val -> element containing the comment text
     var commentContentElement = disableCommentEdit(element);
 
     // check if comment text is empty & blank
-    if ((commentContentElement.innerHTML != "") && (commentContentElement.innerHTML.replace(/\s/g,"") != "")) {
+    if ((commentContentElement.innerHTML != "") && (commentContentElement.innerHTML.replace(/\s/g, "") != "")) {
         var params = {
             // temp fix for edited comment formatting
             commentBody: commentContentElement.innerText,
@@ -104,25 +130,26 @@ async function editCommentSave(element, commentId) {
                 params
             });
             console.log(response)
-        }
-        catch(err) {
+        } catch (err) {
             console.log(err);
         }
-    }
-    else {
+    } else {
         location.reload();
     }
 }
 
 //This function runs when a user tries to delete their comment.
-async function deleteComment(commentId) {
-    var confirmDelete = confirm("Are you sure you want to delete this comment?");
-    if (confirmDelete) {
-        axios.delete("http://localhost:3000/comment/" + commentId).then(resp => {
-            location.reload();
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-    // const response = await axios.delete("http://localhost:3000/comment/" + commentId);
+function deleteComment(commentId) {
+    const confirmMsg = "Are you sure you want to delete this comment?";
+    setupModal(confirmMsg, commentId, "comment");
+    $('#confirm-modal').modal('show');
+}
+
+// remove comment from db
+function deleteCommentFromDb(commentId) {
+    axios.delete("http://localhost:3000/comment/" + commentId).then(resp => {
+        location.reload();
+    }).catch(err => {
+        console.log(err);
+    });
 }

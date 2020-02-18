@@ -290,6 +290,16 @@ class CommentClass {
             return {};
         }
     }
+
+    // delete all the comments from a post
+    async deleteCommentsInPost(postId) {
+        try {
+            var comments = await CommentSchema.deleteMany( { parentPost: postId } );
+            return comments;
+        } catch (err) {
+            return [];
+        }
+    }
 }
 
 class UserClass {

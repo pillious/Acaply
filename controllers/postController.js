@@ -5,6 +5,7 @@ const categories = require('../modules/categories')
 
 const {
     PostClass,
+    CommentClass,
     UserClass
 } = require('../modules/modules');
 
@@ -238,11 +239,31 @@ exports.update_post = async function (req, resp) {
 // delete a post
 exports.delete_post = async function (req, resp) {
     if (req.session.userSessionId) {
-        // use function from modules.js to delete post
-        const postClassInstance = new PostClass();
-        var postDoc = await postClassInstance.deletePost(req.params.postId)
+        try {
+            // use function from modules.js to delete post
+            const postClassInstance = new PostClass();
+            var postDoc = await postClassInstance.deletePost(req.params.postId)
 
-        resp.send(postDoc)
+            // delete all comments from the post being deleted
+            const commentClassInstance = new CommentClass();
+            var commentsDoc = await commentClassInstance.deleteCommentsInPost(req.params.postId);
+
+            resp.status(200).send({
+                returnMsg: "post delete successful",
+                postDoc: postDoc,
+                commentsDoc: commentsDoc
+            });
+        } catch (err) {
+            resp.status(400).send({
+                returnMsg: "post delete failed",
+                postDoc: {},
+                commentsDoc: []
+            });
+        }
+
+    }
+    else {
+        resp.redirect('/login');
     }
 }
 

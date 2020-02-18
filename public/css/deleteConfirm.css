@@ -1,0 +1,38 @@
+.confirm-modal-content {
+    border: none;
+}
+
+.confirm-msg {
+    padding: 35px 50px;
+    color: #899fc7;
+}
+
+.confirm-btns {
+    width: 100%;
+    display: flex;
+}
+
+.confirm-btns button {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.yes-btn {
+    width: 50%;
+    height: 50px;
+    background-color: #fc7169;
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+
+}
+
+.no-btn {
+    width: 50%;
+    height: 50px;
+    background-color: #b6bece;
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+}
