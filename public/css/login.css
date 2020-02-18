@@ -1,4 +1,4 @@
-:root {
+html {
     --input-padding-x: 1.5rem;
     --input-padding-y: .75rem;
 }
@@ -7,12 +7,19 @@ body {
     height: 80vh;
 }
 
+label {
+    padding: 1.5rem .75rem;
+}
+
 .card-center {
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+
+    /* mandatory for navbar to work on small mobile screens */
+    margin-top: 40px;
 }
 
 .card-signin {
