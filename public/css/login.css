@@ -38,6 +38,10 @@ label {
     padding: 2rem;
 }
 
+.login-error-msg {
+    display: none;
+}
+
 .form-signin {
     width: 100%;
 }

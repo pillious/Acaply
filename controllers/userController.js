@@ -36,7 +36,12 @@ exports.login_page = async function (req, resp) {
     // resp.redirect('/index')
     resp.render('login', {
         isLoggedIn: isLoggedIn,
-        user: username
+        user: username,
+        showAlert: false,
+        alertContent: {
+            alertColorClass: "",
+            alertMsg: ""
+        }
     });
 };
 
@@ -55,7 +60,12 @@ exports.signup_page = async function (req, resp) {
     }
     resp.render('signup', {
         isLoggedIn: isLoggedIn,
-        user: username
+        user: username,
+        showAlert: false,
+        alertContent: {
+            alertColorClass: "",
+            alertMsg: ""
+        }
     });
 };
 
@@ -69,33 +79,47 @@ exports.login_validate = async function (req, resp) {
         })
         .then(async function (userDoc) {
             if (!userDoc) {
-                resp.send("The username does not exist in the database.");
+                resp.send({
+                    isLoggedIn: false,
+                    user: username,
+                    errorMsg: "Incorrect username or password."
+                });
+            } else {
+                //Check if the entered password is the same as the user password.
+                userDoc.comparePassword(password, async (error, match) => {
+                    if (!match) {
+                        resp.send({
+                            isLoggedIn: false,
+                            user: username,
+                            errorMsg: "Incorrect username or password."
+                        });
+                    } else {
+                        //Set the session ID for the user.
+                        //Generate a new and random ID.
+                        var sessionId = new mongoose.Types.ObjectId();
+
+                        //Once credentials are validated, set the session ID for the user.
+                        req.session.userSessionId = sessionId;
+
+                        //Set the session ID in the user database document.
+                        userDoc.sessionId = sessionId;
+                        await userDoc.save();
+
+                        resp.send({
+                            isLoggedIn: true,
+                            user: username,
+                            errorMsg: ""
+                        })
+                    }
+                });
             }
 
-            //Check if the entered password is the same as the user password.
-            userDoc.comparePassword(password, (error, match) => {
-                if (!match) {
-                    resp.status(400).send("The password is invalid.");
-                }
-            });
-
-            //Set the session ID for the user.
-
-            //Generate a new and random ID.
-            var sessionId = new mongoose.Types.ObjectId();
-
-            //Once credentials are validated, set the session ID for the user.
-            req.session.userSessionId = sessionId;
-
-            //Set the session ID in the user database document.
-            userDoc.sessionId = sessionId;
-            await userDoc.save();
-
-            //Send the user back to the home page.
-            resp.redirect('/')
-
         }).catch(function (err) {
-            resp.send(err);
+            resp.send({
+                isLoggedIn: false,
+                user: username,
+                errorMsg: err
+            });
         })
 };
 

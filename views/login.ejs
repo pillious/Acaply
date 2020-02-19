@@ -30,7 +30,10 @@
                     <div class="card card-signin my-5">
                         <div class="card-body">
                             <h5 class="card-title text-center">Log In</h5>
-                            <form action="/loginValidate" method="POST" class="form-signin">
+                            <div class="text-center mb-3 text-danger login-error-msg" id="login-error-msg">
+                                <!-- text filled only if login error -->
+                            </div>
+                            <form class="form-signin">
                                 <div class="form-label-group">
                                     <input type="text" id="username" name="username" class="form-control"
                                         placeholder="Email address" required autofocus>
@@ -46,8 +49,8 @@
                                 <div class="mb-3 text-right">
                                     <a href="#">Forgot Password?</a>
                                 </div>
-                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Log
-                                    in</button>
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button"
+                                    id="submit-login">Log in</button>
                                 <div class="mb-3">
                                     <div class="text-center mt-4">
                                         <span>Don't have an account? </span>
@@ -65,6 +68,9 @@
         </div>
     </div>
 
+    <!-- display alerts to user -->
+    <% include ../views/partials/alert %>
+
     <!-- Bootstrap 4 requirements -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -75,6 +81,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
+
+    <!-- Axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+    <!-- custom scripts (must go below jquery script) -->
+    <script src="/js/login.js"></script>
 
 </body>
 
