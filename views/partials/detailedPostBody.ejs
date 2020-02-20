@@ -45,16 +45,18 @@
     <div class="post-info-wrapper">
         <div class="post-stats-wrapper">
             <% if (post.comments === 1) { %>
-            <a href='/posts/view/<%= post._id %>' class='post-link'><%= post.comments %> comment </a><span>|</span>
+            <a href='/posts/view/<%= post._id %>' class='post-link'><%= post.comments %> comment </a>
+            <!-- <span>|</span> -->
             <% } else {%>
-            <a href='/posts/view/<%= post._id %>' class='post-link'><%= post.comments %> comments </a><span>|</span>
+            <a href='/posts/view/<%= post._id %>' class='post-link'><%= post.comments %> comments </a>
+            <!-- <span>|</span> -->
             <% } %>
 
-            <% if (post.views === 1) { %>
-            <div><%= post.views %> view</div>
-            <% } else { %>
-            <div><%= post.views %> views</div>
-            <% } %>
+            <!-- <%# if (post.views === 1) { %>
+            <div><%# post.views %> view</div>
+            <%# } else { %>
+            <div><%# post.views %> views</div>
+            <%# } %> -->
         </div>
     </div>
 
