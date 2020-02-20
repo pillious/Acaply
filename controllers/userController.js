@@ -31,7 +31,6 @@ exports.create_account = async function (req, resp) {
                 errorMsg: ""
             });
         }
-
     } catch (err) {
         resp.send({
             isLoggedIn: false,
