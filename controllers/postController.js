@@ -357,7 +357,7 @@ exports.removeVote_post = async function (req, resp) {
 exports.search_string_posts = async function (req, resp) {
     var postClassInstance = new PostClass();
 
-    var searchString = req.path.replace('/search/', '').replace(/-/g, ' ');
+    var searchString = decodeURI(req.path.replace('/search/', '').replace(/-/g, ' '));
 
     // check if any of these fields contain the search string
     const dbSearchFields = ["authorUsername", "keywords", "title", "text"];
