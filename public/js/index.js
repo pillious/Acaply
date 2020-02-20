@@ -27,7 +27,7 @@ function voteOnPost(element, postId, voteType) {
 
 
             } else {
-                alert("Please login before voting on posts.");
+                window.location = "/login";
             }
             $("i.vote-icon").attr("disabled", false);
         }).catch(err => {
@@ -72,7 +72,7 @@ function voteOnPost(element, postId, voteType) {
                     upVoteElement.classList.remove('vote-clicked')
                 }
             } else {
-                alert("Please login before voting on posts.");
+                window.location = "/login";
             }
             $("i.vote-icon").attr("disabled", false);
 
