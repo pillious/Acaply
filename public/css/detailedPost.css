@@ -21,6 +21,7 @@
 
 .post-info-wrapper {
     white-space: normal;
+    flex-wrap: wrap;
 }
 
 .keywords-wrapper {
