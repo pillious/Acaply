@@ -4,20 +4,22 @@ var errorMsgElement = document.getElementById("login-error-msg");
 
 // login on btn press
 $("#submit-login").click(function () {
-    login();
-});
-
-// login on enter key press
-$('#username').keypress(function(event){
-    var keycode = (event.keyCode ? event.keyCode : event.which);
-    if(keycode == '13'){
-        login(); 
+    if (passwordElement.value != '' && usernameElement.value != '') {
+        login();
     }
 });
 
-$('#password').keypress(function(event){
+// login on enter key press
+$('#username').keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
-    if(keycode == '13'){
+    if (keycode == '13' && passwordElement.value != '' && usernameElement.value != '') {
+        login();
+    }
+});
+
+$('#password').keypress(function (event) {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if (keycode == '13' && passwordElement.value != '' && usernameElement.value != '') {
         login();
     }
 });
@@ -33,8 +35,7 @@ async function login() {
 
     if (loginData.data.isLoggedIn) {
         window.location = "/";
-    }
-    else {
+    } else {
         console.log(loginData.data.errorMsg)
         errorMsgElement.style.display = "block";
         errorMsgElement.innerHTML = loginData.data.errorMsg;

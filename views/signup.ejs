@@ -29,7 +29,10 @@
                     <div class="card card-signin my-5">
                         <div class="card-body">
                             <h5 class="card-title text-center">Sign Up</h5>
-                            <form action="/createAccount" method="POST" class="form-signin">
+                            <div class="text-center mb-3 text-danger login-error-msg" id="login-error-msg">
+                                <!-- text filled only if login error -->
+                            </div>
+                            <form class="form-signin">
                                 <div class="form-label-group">
                                     <input type="text" id="username" name="username" class="form-control"
                                         placeholder="Email address" required autofocus>
@@ -45,7 +48,8 @@
                                 <div class="mb-3 text-right">
                                     <a href="#">Forgot Password?</a>
                                 </div>
-                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Create
+                                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button"
+                                    id="submit-signup">Create
                                     Account</button>
                                 <div class="mb-3">
                                     <div class="text-center mt-4">
@@ -77,6 +81,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
+
+    <!-- custom scripts (must go below jquery script) -->
+    <script src="/js/signup.js"></script>
 
     <!-- Axios -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>

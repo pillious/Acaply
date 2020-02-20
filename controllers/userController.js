@@ -9,12 +9,36 @@ const {
 exports.create_account = async function (req, resp) {
     try {
         var user = new UserSchema(req.body);
-        var result = await user.save()
 
-        //Let the user log in.
-        resp.redirect('/login');
-    } catch (error) {
-        resp.status(500).send(error);
+        // if new account is created
+        if (user) {
+            //Set the session ID for the user.
+            //Generate a new ID.
+            var sessionId = new mongoose.Types.ObjectId();
+
+            //Once credentials are validated, set the session ID for the user.
+            req.session.userSessionId = sessionId;
+
+            //Set the session ID in the user database document.
+            user.sessionId = sessionId;
+            await user.save();
+
+            //Let the user log in.
+            resp.status(200).send({
+                isLoggedIn: true,
+                user: user.username,
+                errorCode: null,
+                errorMsg: ""
+            });
+        }
+
+    } catch (err) {
+        resp.send({
+            isLoggedIn: false,
+            user: user.username,
+            errorCode: err.code,
+            errorMsg: err.errmsg
+        });
     }
 };
 
@@ -28,20 +52,15 @@ exports.login_page = async function (req, resp) {
     if (req.session.userSessionId) {
         const userClassInstance = new UserClass();
         userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId);
-        username = userDoc.username;
-        isLoggedIn = true;
-
-
+        if (userDoc) {
+            username = userDoc.username;
+            isLoggedIn = true;
+        }
     }
     // resp.redirect('/index')
     resp.render('login', {
         isLoggedIn: isLoggedIn,
-        user: username,
-        showAlert: false,
-        alertContent: {
-            alertColorClass: "",
-            alertMsg: ""
-        }
+        user: username
     });
 };
 
@@ -55,17 +74,14 @@ exports.signup_page = async function (req, resp) {
     if (req.session.userSessionId) {
         const userClassInstance = new UserClass();
         userDoc = await userClassInstance.getUserProfileBySession(req.session.userSessionId);
-        username = userDoc.username;
-        isLoggedIn = true;
+        if (userDoc) {
+            username = userDoc.username;
+            isLoggedIn = true;
+        }
     }
     resp.render('signup', {
         isLoggedIn: isLoggedIn,
         user: username,
-        showAlert: false,
-        alertContent: {
-            alertColorClass: "",
-            alertMsg: ""
-        }
     });
 };
 
@@ -95,7 +111,7 @@ exports.login_validate = async function (req, resp) {
                         });
                     } else {
                         //Set the session ID for the user.
-                        //Generate a new and random ID.
+                        //Generate a new ID.
                         var sessionId = new mongoose.Types.ObjectId();
 
                         //Once credentials are validated, set the session ID for the user.

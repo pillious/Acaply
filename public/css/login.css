@@ -17,9 +17,6 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    /* mandatory for navbar to work on small mobile screens */
-    margin-top: 40px;
 }
 
 .card-signin {
@@ -115,6 +112,12 @@ label {
     padding-bottom: calc(var(--input-padding-y) / 3);
     font-size: 12px;
     color: #777;
+}
+
+@media (max-width: 575px) {
+    .card-center {
+        display: block;
+    }
 }
 
 /* Fallback for Edge
