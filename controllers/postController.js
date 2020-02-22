@@ -56,6 +56,7 @@ exports.all_posts = async function (req, resp) {
     resp.render('index', {
         posts: postsDoc,
         user: username,
+        isCategoryValid: true,
         categories: categories,
         currentCategory: 'all',
         currentSubcategory: 'none',
@@ -474,6 +475,8 @@ exports.category_posts = async function (req, resp) {
     var postClassInstance = new PostClass();
     var postsDoc;
 
+    var category = req.params.category;
+
     if (req.headers['sort-field'] && req.headers['sort-order']) {
         postsDoc = await postClassInstance.getPostsByOneField("category", req.params.category, req.headers['sort-field'], req.headers['sort-order']);
     } else {
@@ -510,18 +513,36 @@ exports.category_posts = async function (req, resp) {
         }
     }
 
-    // render once posts are returned by getAllPosts()
-    resp.render('index', {
-        posts: postsDoc,
-        user: username,
-        categories: categories,
-        currentCategory: req.params.category,
-        currentSubcategory: 'none',
-        postsType: 'category',
-        allowCreatePost: true,
-        sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
-        isLoggedIn: isLoggedIn
-    })
+    // if the category doesn't exist
+    if (!((category.charAt(0).toUpperCase() + category.slice(1)) in categories)) {
+        resp.render('index', {
+            posts: postsDoc,
+            user: username,
+            isCategoryValid: false,
+            categories: categories,
+            currentCategory: category,
+            currentSubcategory: 'none',
+            postsType: 'category',
+            allowCreatePost: true,
+            sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
+            isLoggedIn: isLoggedIn
+        })
+    } else {
+        // render once posts are returned by getAllPosts()
+        resp.render('index', {
+            posts: postsDoc,
+            user: username,
+            isCategoryValid: true,
+            categories: categories,
+            currentCategory: req.params.category,
+            currentSubcategory: 'none',
+            postsType: 'category',
+            allowCreatePost: true,
+            sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
+            isLoggedIn: isLoggedIn
+        })
+    }
+
 };
 
 // gets posts from specific subcategory
@@ -563,10 +584,26 @@ exports.subCategory_posts = async function (req, resp) {
         }
     }
 
+    var capitalizedCategory = category.charAt(0).toUpperCase() + category.slice(1);
+    var capitalizedSubCategory = subCategory.charAt(0).toUpperCase() + subCategory.slice(1);
+
+    var isCategoryValid = true;
+
+    // if the category or subCategory doesn't exist
+    if (capitalizedCategory in categories) {
+        if (!(categories[capitalizedCategory].includes(capitalizedSubCategory))) {
+            isCategoryValid = false;
+        }
+    }
+    else {
+        isCategoryValid = false;
+    }
+
     // render once posts are returned by getAllPosts()
     resp.render('index', {
         posts: postsDoc,
         user: username,
+        isCategoryValid: isCategoryValid,
         categories: categories,
         currentCategory: category,
         currentSubcategory: subCategory,
@@ -575,4 +612,6 @@ exports.subCategory_posts = async function (req, resp) {
         sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
     })
+
+
 };

@@ -351,6 +351,10 @@ label.container .checkmark:after {
     transform: rotate(45deg);
 }
 
+.no-category-container div {
+    font-size: 1.2rem;
+}
+
 @media (max-width: 635px) {
     .score-wrapper {
         padding: 10px 5px;

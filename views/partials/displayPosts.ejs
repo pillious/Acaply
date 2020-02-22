@@ -6,8 +6,21 @@
         <% include sortPosts %>
     </div>
 
+    <!-- only render posts if category & subcategory exists -->
+    <% if (isCategoryValid) { %>
     <div id="posts-wrapper">
         <!-- create the posts -->
         <% include renderPosts %>
     </div>
+    <% } else { %>
+    <div class="text-center text-secondary no-category-container">
+        <div class="pb-2">
+            This category doesn't exist.
+        </div>
+        <div>
+            Use the sidebar to navigate to an existing category.
+        </div>
+    </div>
+    <% } %>
+
 </div>
