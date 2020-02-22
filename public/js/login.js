@@ -31,12 +31,9 @@ async function login() {
         password: passwordElement.value
     });
 
-    console.log(loginData)
-
     if (loginData.data.isLoggedIn) {
         window.location = "/";
     } else {
-        console.log(loginData.data.errorMsg)
         errorMsgElement.style.display = "block";
         errorMsgElement.innerHTML = loginData.data.errorMsg;
     }

@@ -26,9 +26,10 @@ $("#submit-signup").click(function () {
 // signup on enter key press
 $('#username').keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
-    var isEmailValid = emailIsValid(emailElement.value);
 
     if (keycode == '13' && passwordElement.value != '' && usernameElement.value != '') {
+        var isEmailValid = emailIsValid(emailElement.value);
+
         if (isEmailValid) {
             signup();
         }
@@ -41,9 +42,10 @@ $('#username').keypress(function (event) {
 
 $('#password').keypress(function (event) {
     var keycode = (event.keyCode ? event.keyCode : event.which);
-    var isEmailValid = emailIsValid(emailElement.value);
 
     if (keycode == '13' && passwordElement.value != '' && usernameElement.value != '') {
+        var isEmailValid = emailIsValid(emailElement.value);
+
         if (isEmailValid) {
             signup();
         }

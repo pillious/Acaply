@@ -25,6 +25,18 @@ router.post('/createAccount', user_controller.create_account);
 //Validate login credentials and log the user in.
 router.post('/loginValidate', user_controller.login_validate);
 
+//Go to forgot password page
+router.get('/forgotPassword', user_controller.forgot_password);
+
+// send a password reset email
+router.post('/sendResetEmail', user_controller.reset_password_email);
+
+// go to the password reset pag
+router.get('/resetPassword/:id/:token', user_controller.reset_password_page);
+
+// reset user's password
+router.post('/resetPassword', user_controller.reset_password);
+
 //Log the current user out.
 router.post('/logout', user_controller.logout);
 

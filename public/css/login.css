@@ -114,6 +114,10 @@ label {
     color: #777;
 }
 
+.match-message {
+    display: none;
+}
+
 @media (max-width: 575px) {
     .card-center {
         display: block;

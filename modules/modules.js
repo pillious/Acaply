@@ -318,10 +318,11 @@ class UserClass {
     // get user profile (must use getUserProfileBySession for finding user by session id)
     async getUserProfile(dbUserSearchParameter) {
         try {
-            var userDoc = await UserSchema.findOne(dbUserSearchParameter);
+            var userDoc;
+            userDoc  = await UserSchema.findOne(dbUserSearchParameter);
             return userDoc;
         } catch (err) {
-            return {};
+            return err;
         }
     }
 
