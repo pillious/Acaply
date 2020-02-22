@@ -192,7 +192,7 @@ exports.reset_password_email = async function (req, resp) {
             const msg = {
                 to: 'andrewzhlee@gmail.com',
                 from: 'Acaply <noreply@acaply.com>',
-                templateId: 'd-960392eaff9942e8989f06340a3cdefe',
+                templateId: process.env.RESET_PASSWORD_EMAIL_ID,
                 dynamic_template_data: {
                     user: userDoc.username,
                     link: link
