@@ -6,4 +6,5 @@ A social media website for high schoolers.
 - Database: MongoDB, Mongoose.
 - Website: HTML, CSS, Bootstrap, Embedded JavaScript Templates.
 - Language: JavaScript.
+- Email: Mailgun
 - Other: Axios, Express, Node.js.
