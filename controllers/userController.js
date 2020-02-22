@@ -6,14 +6,7 @@ const {
     UserClass
 } = require('../modules/modules');
 
-// mailgun
-const mailgun = require("mailgun-js");
-const domain = 'sandbox7886b17869f344a4be81bd63f071b106.mailgun.org';
-const api_key = process.env.MAILGUN_API_KEY;
-const mg = mailgun({
-    apiKey: api_key,
-    domain: domain
-});
+const sgMail = require('@sendgrid/mail');
 
 // const {
 //     EmailHelper
@@ -185,8 +178,7 @@ exports.reset_password_email = async function (req, resp) {
 
             try {
                 token = jwt.encode(payload, secret);
-            }
-            catch(err) {
+            } catch (err) {
                 resp.send({
                     success: false,
                     message: "An error occured while sending you the email. Please try again."
@@ -195,28 +187,31 @@ exports.reset_password_email = async function (req, resp) {
 
             var link = 'http://localhost:3000/resetPassword/' + userDoc._id + '/' + token;
 
-            // send the email
-            var emailData = {
-                from: 'Acaply <noreply@acaply.com>',
+            // send reset password email with SendGrid
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            const msg = {
                 to: 'andrewzhlee@gmail.com',
-                subject: 'Acaply - Password Reset',
-                text: 'Hi ' + userDoc.username + ", click the button below to change your password" + link
+                from: 'Acaply <noreply@acaply.com>',
+                templateId: 'd-960392eaff9942e8989f06340a3cdefe',
+                dynamic_template_data: {
+                    user: userDoc.username,
+                    link: link
+                }
             };
-            mg.messages().send(emailData, function (error, body) {
-                if (error) {
+            (async () => {
+                try {
+                    await sgMail.send(msg);
+                    resp.send({
+                        success: true,
+                        message: 'Success! A password reset email has been sent to ' + req.body.email + '.'
+                    });
+                } catch (err) {
                     resp.send({
                         success: false,
                         message: "An error occured while sending you the email. Please try again."
                     });
                 }
-                else {
-                    resp.send({
-                        success: true,
-                        message: 'Success! A password reset email has been sent to ' + req.body.email + '.'
-                    });
-                }
-            });
-
+            })();
 
         } else {
             resp.send({
@@ -307,7 +302,7 @@ exports.reset_password = async function (req, resp) {
     } else {
         resp.send({
             passwordChanged: false,
-            message:  "An error occured while trying to change your password. Click the button below to generate a new link."
+            message: "An error occured while trying to change your password. Click the button below to generate a new link."
         });
     }
 };
