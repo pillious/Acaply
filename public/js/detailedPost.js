@@ -11,7 +11,6 @@ function deletePost(postId) {
 
 // change text & onclick function (when 'yes' presssed) of delete confirmation modal 
 function setupModal(confirmMsg, deleteItemId, deleteType) {
-    console.log("adding")
     confirmMsgElement.innerHTML = confirmMsg;
     if (deleteType === "post") {
         confirmYesBtnElement.onclick = function () {
@@ -51,18 +50,6 @@ async function createNewComment(postId) {
             });
 
             if (response.status === 200) {
-                // console.log(response.data, response.status);
-                // // add the new comment to UI (using HandlebarsJs)
-                // var template = $('#handlebars-new-comment').html();
-                // var compiledTemplate = Handlebars.compile(template);
-
-                // var context = {
-                //     body: commentBody.value
-                // };
-
-                // var newCommentHTML = compiledTemplate(context);
-                // console.log(newCommentHTML)
-                // $('#comments-wrapper').prepend(newCommentHTML);
                 location.reload();
             } else {
                 console.log(response.data, response.status);
