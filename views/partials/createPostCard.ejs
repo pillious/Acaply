@@ -2,20 +2,21 @@
 <div class="content-wrapper">
     <!-- Form for creating a new post. -->
     <div class="create-post-form-wrapper">
-        <form action="/posts/createPost" method="POST" class="needs-validation" novalidate>
+        <form class="needs-validation" novalidate>
             <h3>New Post</h3>
             <div class="new-post-location-wrapper">
                 <h6>Category: <%= category.replace(/^\w/, c => c.toUpperCase()); %></h6>
                 <h6>Subcategory: <%= subCategory.replace(/^\w/, c => c.toUpperCase()); %></h6>
 
                 <!-- hidden inputs -->
-                <input type="hidden" name="category" value="<%= category %>">
-                <input type="hidden" name="subCategory" value="<%= subCategory %>">
+                <input type="hidden" name="category" id="category" value="<%= category %>">
+                <input type="hidden" name="subCategory" id="subCategory" value="<%= subCategory %>">
             </div>
             <div class="new-post-content-wrapper">
+                <div class="text-danger text-center" id="message"></div>
                 <div>
                     <label for="title">Title:</label>
-                    <input type="text" name="title" placeholder="Post Title" autocomplete="off"
+                    <input type="text" name="title" id="title" placeholder="Post Title" autocomplete="off"
                         class="new-post-content form-control" required>
                     <div class="invalid-feedback">
                         Title required.
@@ -24,7 +25,7 @@
 
                 <div>
                     <label for="body">Body:</label>
-                    <textarea name="body" placeholder="Post Text" rows="6"
+                    <textarea name="body" id="body" placeholder="Post Text" rows="6"
                         class="new-post-content new-post-body form-control" required></textarea>
                     <div class="invalid-feedback">
                         Body text required.
@@ -33,7 +34,7 @@
 
                 <div>
                     <label for="keywords">Tags:</label>
-                    <input type="text" name="keywords" placeholder="(Math, Food, English)" autocomplete="off"
+                    <input type="text" name="keywords" id="keywords" placeholder="Seperate tags with commas" autocomplete="off"
                         class="new-post-content form-control">
                 </div>
             </div>

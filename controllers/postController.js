@@ -166,12 +166,27 @@ exports.create_post = async function (req, resp) {
             var postClassInstance = new PostClass();
             var newPostDoc = await postClassInstance.createNewPost(req.body, req.session.userSessionId);
 
-            resp.redirect('/posts/view/' + newPostDoc._id)
+            resp.send({
+                isLoggedIn: true,
+                postCreated: true,
+                message: "Post successfully created!",
+                postId: newPostDoc._id
+            })
         } catch (err) {
-            resp.send("post failed")
+            resp.send({
+                isLoggedIn: true,
+                postCreated: false,
+                message: "The post was unable to be created. Please try again.",
+                postId: null
+            })
         }
     } else {
-        resp.redirect('/login')
+        resp.send({
+            isLoggedIn: true,
+            postCreated: true,
+            message: "Please login before creating a post.",
+            postId: null
+        })
     }
 }
 
@@ -261,8 +276,7 @@ exports.delete_post = async function (req, resp) {
             });
         }
 
-    }
-    else {
+    } else {
         resp.redirect('/login');
     }
 }
