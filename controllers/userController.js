@@ -185,40 +185,33 @@ exports.reset_password_email = async function (req, resp) {
                 });
             }
 
-            // var link = 'http://localhost:3000/resetPassword/' + userDoc._id + '/' + token;
             var link = req.protocol + '://' + req.get('host') + '/resetPassword/' + userDoc._id + '/' + token;
 
-            console.log(link);
-
             // // send reset password email with SendGrid
-            // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-            // const msg = {
-            //     to: 'andrewzhlee@gmail.com',
-            //     from: 'Acaply <noreply@acaply.com>',
-            //     templateId: process.env.RESET_PASSWORD_EMAIL_ID,
-            //     dynamic_template_data: {
-            //         user: userDoc.username,
-            //         link: link
-            //     }
-            // };
-            // (async () => {
-            //     try {
-            //         await sgMail.send(msg);
-            //         resp.send({
-            //             success: true,
-            //             message: 'Success! A password reset email has been sent to ' + req.body.email + '.'
-            //         });
-            //     } catch (err) {
-            //         resp.send({
-            //             success: false,
-            //             message: "An error occured while sending you the email. Please try again."
-            //         });
-            //     }
-            // })();
-            resp.send({
-                success: true,
-                message: 'Success! A password reset email has been sent to ' + req.body.email + '.'
-            });
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            const msg = {
+                to: 'andrewzhlee@gmail.com',
+                from: 'Acaply <noreply@acaply.com>',
+                templateId: process.env.RESET_PASSWORD_EMAIL_ID,
+                dynamic_template_data: {
+                    user: userDoc.username,
+                    link: link
+                }
+            };
+            (async () => {
+                try {
+                    await sgMail.send(msg);
+                    resp.send({
+                        success: true,
+                        message: 'Success! A password reset email has been sent to ' + req.body.email + '.'
+                    });
+                } catch (err) {
+                    resp.send({
+                        success: false,
+                        message: "An error occured while sending you the email. Please try again."
+                    });
+                }
+            })();
 
         } else {
             resp.send({
