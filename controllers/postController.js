@@ -465,7 +465,7 @@ exports.author_posts = async function (req, resp) {
         categories: categories,
         currentCategory: 'search',
         currentSubcategory: 'none',
-        postsType: 'search',
+        postsType: 'author',
         allowCreatePost: false,
         sortField: (req.headers['sort-field'] ? req.headers['sort-field'] : 'score'),
         isLoggedIn: isLoggedIn
