@@ -12,7 +12,7 @@ function voteOnPost(element, postId, voteType) {
     // check if user is adding a vote or removing a vote
     if (elementClassList.contains('vote-clicked')) {
         // send voting info to db (remove a vote)
-        axios.post("http://localhost:3000/posts/vote/removeVote/" + postId).then(resp => {
+        axios.post("/posts/vote/removeVote/" + postId).then(resp => {
             if (resp.data.isLoggedIn) {
                 // remove class 'vote-clicked' to make arrow gray
                 elementClassList.remove('vote-clicked');
@@ -36,7 +36,7 @@ function voteOnPost(element, postId, voteType) {
         });
     } else {
         // send voting info to db (add a vote, up/down vote)
-        axios.post("http://localhost:3000/posts/vote/" + voteType + "/" + postId).then(resp => {
+        axios.post("/posts/vote/" + voteType + "/" + postId).then(resp => {
             if (resp.data.isLoggedIn) {
                 // add the class 'vote-clicked' to make arrow orange
                 elementClassList.add('vote-clicked');
@@ -85,7 +85,7 @@ function voteOnPost(element, postId, voteType) {
 
 // retrive the posts in a certain order (depending on the selected 'Sort by' option)
 function sortPosts(element, postsType) {
-    var url = 'http://localhost:3000/posts/'
+    var url = '/posts/'
     if (postsType === 'all') {
         url += 'sortAllPosts'
     }
@@ -125,7 +125,7 @@ async function searchPosts() {
     var searchString = searchStringElement.value.trim().replace(/ /g, '-');
 
     if (searchString && searchString.length > 0) {
-            window.location = "http://localhost:3000/posts/search/" + searchString;
+            window.location = "/posts/search/" + searchString;
     }
 
     $('#searchString').val("");

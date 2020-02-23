@@ -65,7 +65,7 @@ mongoose.connect('mongodb+srv://' + dbUsername + ':' + dbPassword + '@nnhs-forum
 });
 
 //Set the port number.
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 //Run the application on the specified port.
 app.listen(port, () => console.log(`Acaply listening on port ${port}.`));

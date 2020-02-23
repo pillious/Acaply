@@ -25,7 +25,7 @@ function setupModal(confirmMsg, deleteItemId, deleteType) {
 
 // remove the post from db
 function deletePostFromDb(postId) {
-    axios.delete("http://localhost:3000/posts/" + postId).then(resp => {
+    axios.delete("/posts/" + postId).then(resp => {
         window.location = "/posts/";
     }).catch(err => {
         console.log(err);
@@ -45,7 +45,7 @@ async function createNewComment(postId) {
             postId: postId
         };
         try {
-            const response = await axios.post("http://localhost:3000/comment/createComment", {
+            const response = await axios.post("/comment/createComment", {
                 params
             });
 
@@ -113,7 +113,7 @@ async function editCommentSave(element, commentId) {
 
         // save edited comment to db
         try {
-            const response = await axios.post("http://localhost:3000/comment/editComment", {
+            const response = await axios.post("/comment/editComment", {
                 params
             });
             console.log(response)
@@ -134,7 +134,7 @@ function deleteComment(commentId) {
 
 // remove comment from db
 function deleteCommentFromDb(commentId) {
-    axios.delete("http://localhost:3000/comment/" + commentId).then(resp => {
+    axios.delete("/comment/" + commentId).then(resp => {
         location.reload();
     }).catch(err => {
         console.log(err);

@@ -21,7 +21,7 @@
 
 // send post info to db
 async function createPost() {
-    const postData = await axios.post("http://localhost:3000/posts/createPost", {
+    const postData = await axios.post("/posts/createPost", {
         category: $( "#category" ).val(),
         subCategory: $( "#subCategory" ).val(),
         title: $( "#title" ).val(),
@@ -31,13 +31,13 @@ async function createPost() {
 
     if (postData.data.isLoggedIn) {
         if (postData.data.postCreated) {
-            window.location = "http://localhost:3000/posts/view/" + postData.data.postId;
+            window.location = "/posts/view/" + postData.data.postId;
         }
         else {
             $( "#message" ).html(postData.data.message);
         }
     }
     else {
-        window.location = "http://localhost:3000/login";
+        window.location = "/login";
     }
 }

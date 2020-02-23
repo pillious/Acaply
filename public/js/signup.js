@@ -64,7 +64,7 @@ function emailIsValid(email) {
 
 // attempt to create new account
 async function signup() {
-    const signupData = await axios.post("http://localhost:3000/createAccount", {
+    const signupData = await axios.post("/createAccount", {
         username: usernameElement.value,
         email: emailElement.value,
         password: passwordElement.value

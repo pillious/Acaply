@@ -26,7 +26,7 @@ $('#password').keypress(function (event) {
 
 // attempt login
 async function login() {
-    const loginData = await axios.post("http://localhost:3000/loginValidate", {
+    const loginData = await axios.post("/loginValidate", {
         username: usernameElement.value,
         password: passwordElement.value
     });

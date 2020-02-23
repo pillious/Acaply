@@ -37,7 +37,7 @@ function emailIsValid(email) {
 
 // send password reset email
 async function sendEmail() {
-    const emailData = await axios.post("http://localhost:3000/sendResetEmail", {
+    const emailData = await axios.post("/sendResetEmail", {
         email: emailElement.value
     });
 

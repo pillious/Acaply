@@ -22,7 +22,7 @@ $('#password, #confirmPassword').on('keyup', function (event) {
 async function resetPassword() {
     var newPassword = $('#password').val();
 
-    const resetPasswordData = await axios.post("http://localhost:3000/resetPassword", {
+    const resetPasswordData = await axios.post("/resetPassword", {
         userId: $('#userId').val(),
         token: $('#token').val(),
         newPassword: newPassword
