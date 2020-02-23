@@ -412,6 +412,7 @@ exports.search_string_posts = async function (req, resp) {
     resp.render('index', {
         posts: postsDoc,
         user: username,
+        isCategoryValid: true,
         categories: categories,
         currentCategory: 'search',
         currentSubcategory: 'none',
@@ -460,6 +461,7 @@ exports.author_posts = async function (req, resp) {
     resp.render('index', {
         posts: postsDoc,
         user: username,
+        isCategoryValid: true,
         categories: categories,
         currentCategory: 'search',
         currentSubcategory: 'none',

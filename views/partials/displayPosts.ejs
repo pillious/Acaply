@@ -8,10 +8,22 @@
 
     <!-- only render posts if category & subcategory exists -->
     <% if (isCategoryValid) { %>
+    <% if (posts && posts.length > 0) { %>
     <div id="posts-wrapper">
         <!-- create the posts -->
         <% include renderPosts %>
     </div>
+    <% } else { %>
+    <div class="text-center text-secondary no-category-container">
+        <div class="pb-2">
+            It's lonely out here &nbsp; : (
+        </div>
+        <div>
+            Be the first to post something under this topic!
+        </div>
+        
+    </div>
+    <% } %>
     <% } else { %>
     <div class="text-center text-secondary no-category-container">
         <div class="pb-2">
