@@ -6,7 +6,7 @@
   "scripts": {
     "now-start": "node app.js",
     "start": "nodemon app.js",
-    "build": ""
+    "now-build": ""
   },
   "engines": {
     "node": ">= 10.16.3"
