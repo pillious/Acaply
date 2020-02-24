@@ -1,0 +1,9 @@
+{
+    "version": 2,
+    "name": "acaply",
+    "builds": [
+      { "src": "package.json", "use": "@now/static-build" },
+      { "src": "app.js", "use": "@now/node-server" },
+      { "src": "*.ejs", "use": "@now/static" }
+    ]
+  }

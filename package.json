@@ -4,10 +4,13 @@
   "description": "A website for high schoolers.",
   "main": "app.js",
   "scripts": {
+    "now-start": "node app.js",
     "start": "nodemon app.js"
   },
+  "engines": {
+    "node": ">= 10.16.3"
+  },
   "keywords": [],
-  "license": "MIT",
   "dependencies": {
     "@sendgrid/mail": "^6.5.3",
     "bcryptjs": "^2.4.3",
