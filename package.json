@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "now-start": "node app.js",
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "build": ""
   },
   "engines": {
     "node": ">= 10.16.3"
