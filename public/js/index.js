@@ -136,7 +136,6 @@ var sidebarWrapperElement = document.getElementById("sidebar");
 
 // toggle sidebar categories
 $('.sidebar-toggle').change(function() {
-    // this will contain a reference to the checkbox   
     if (this.checked) {
         categoriesElement.style.display = "inline-block";
     } else {

@@ -5,6 +5,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 const moment = require('moment');
+var path = require('path');
 require('dotenv').config();
 
 //Create the application.
@@ -16,7 +17,7 @@ var commentRoutes = require('./routes/commentRouter');
 var indexRoutes = require('./routes/indexRouter');
 
 //Set the view engine (embedded JavaScript templates).
-app.set('views', 'views');
+app.set('views', path.join(__dirname, 'views/'));
 app.set('view engine', 'ejs');
 
 // momentjs local var (can be accessed by any EJS scripts)

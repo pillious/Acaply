@@ -1,17 +1,27 @@
 {
     "version": 2,
     "name": "acaply",
-    "builds": [{
-            "src": "package.json",
-            "use": "@now/static-build"
-        },
-        {
-            "src": "app.js",
-            "use": "@now/node-server"
-        },
-        {
-            "src": "*.ejs",
-            "use": "@now/static"
-        }
-    ]
+    "env": {
+      "DATABASE_USERNAME": "@database-username",
+      "DATABASE_PASSWORD": "@database-password",
+      "USER_SESSION_KEY": "@user-session-key",
+      "SENDGRID_API_KEY": "@sendgrid-api-key",
+      "RESET_PASSWORD_EMAIL_ID": "@reset-password-email-id"
+    },
+    "build": {
+      "env": {
+        "DATABASE_USERNAME": "@database-username",
+        "DATABASE_PASSWORD": "@database-password",
+        "USER_SESSION_KEY": "@user-session-key",
+        "SENDGRID_API_KEY": "@sendgrid-api-key",
+        "RESET_PASSWORD_EMAIL_ID": "@reset-password-email-id"
+      }
+    },
+    "builds": [
+      { "src": "app.js", "use": "@now/node" },
+      { "src": "*.js", "use": "@now/static" }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/app.js" }
+      ]
 }

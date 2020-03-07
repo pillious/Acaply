@@ -4,10 +4,8 @@
   "description": "A website for high schoolers.",
   "main": "app.js",
   "scripts": {
-    "now-start": "node app.js",
-    "start": "nodemon app.js",
-    "build": "npm run build",
-    "now-build": "npm run build"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
   "engines": {
     "node": ">= 10.16.3"
