@@ -2,6 +2,8 @@
 
 A social media website for high schoolers.
 
+[](public/images/logo.png)
+
 ### Technologies:
 
 - Database: MongoDB, Mongoose.

@@ -54,10 +54,10 @@ app.use('/posts', postRoutes);
 app.use('/comment', commentRoutes);
 app.use('/', indexRoutes);
 
-//Connect to the MongoDB database.
 const dbUsername = process.env.DATABASE_USERNAME;
 const dbPassword = process.env.DATABASE_PASSWORD;
 
+//Connect to the MongoDB database.
 mongoose
   .connect(
     'mongodb+srv://' +
@@ -74,7 +74,7 @@ mongoose
     console.log('Database connected.');
   })
   .catch((err) => {
-    console.log('Not Connected to Database ERROR! ', err);
+    console.log('Error connecting to MongoDB.', err);
   });
 
 //Set the port number.
