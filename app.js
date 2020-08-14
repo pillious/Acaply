@@ -6,6 +6,7 @@ var MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 const moment = require('moment');
 var path = require('path');
+var favicon = require('serve-favicon');
 require('dotenv').config();
 
 //Create the application.
@@ -25,6 +26,8 @@ app.locals.moment = moment; // this makes moment available as a variable in ever
 
 //The public folder serves static files such as images, CSS files, and JavaScript files.
 app.use(express.static(__dirname + '/public'));
+
+app.use(favicon(__dirname + '/public/images/favicon_files/favicon.ico'));
 
 //Parse the URL-encoded bodies (as sent by HTML forms).
 app.use(express.urlencoded({ extended: true }));

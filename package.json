@@ -25,6 +25,7 @@
     "moment": "^2.24.0",
     "mongodb": "^3.3.4",
     "mongoose": "^5.3.12",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "serve-favicon": "^2.5.0"
   }
 }
