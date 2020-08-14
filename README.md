@@ -2,7 +2,7 @@
 
 A social media website for high schoolers.
 
-[](public/images/logo.png)
+[?](/public/images/logo.png)
 
 ### Technologies:
 
