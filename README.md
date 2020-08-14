@@ -2,6 +2,10 @@
 
 A social media website for high schoolers. Check it out here: https://acaply.com/.
 
+### Demo:
+
+- Check out the functionality demo here: https://www.youtube.com/watch?v=3Sawc7FZLVw.
+
 ![Logo](/public/images/logo.png)
 
 ### Icon:
@@ -34,6 +38,11 @@ RESET_PASSWORD_EMAIL_ID
 - Email: SendGrid.
 - Other: Axios, Express, Node.js.
 
+### Deployment:
+
+- The Node.js web application for Acaply is deployed on Vercel (previously zeit.co).
+- The MongoDB database for Acaply is hosted on MongoDB Atlas (free tier: 500 MB).
+
 ### Some things I plan on adding:
 
 - Dark mode
@@ -42,3 +51,10 @@ RESET_PASSWORD_EMAIL_ID
 - styling error when shrink screen.
 - personal profile page.
 - make a new config folder and move the DB there
+- describe folder structure
+
+### New Features:
+
+- Added a favicon (serve-favicon).
+- Added a logo.
+- Updated read me file.
