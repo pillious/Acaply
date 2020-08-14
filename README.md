@@ -2,6 +2,11 @@
 
 A social media website for high schoolers.
 
+### Links:
+
+- https://acaply.com/
+- [Demo](https://www.youtube.com/watch?v=3Sawc7FZLVw)
+
 ![Logo](/public/images/logo.png)
 
 ### Technologies:
