@@ -70,6 +70,9 @@ mongoose
       '@nnhs-forum-tqvkq.azure.mongodb.net/acaply?retryWrites=true&w=majority',
     {
       useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
     }
   )
   .then(function () {
