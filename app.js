@@ -27,25 +27,27 @@ app.locals.moment = moment; // this makes moment available as a variable in ever
 app.use(express.static(__dirname + '/public'));
 
 //Parse the URL-encoded bodies (as sent by HTML forms).
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 //Parse the JSON bodies (as sent by API clients).
 app.use(express.json());
 
 // Use cors
-app.use(cors())
+app.use(cors());
 
 //Use sessions for tracking user logins.
 //A session is a storage that consists of information on server-side.
 const sessionSecret = process.env.USER_SESSION_KEY;
-app.use(session({
+app.use(
+  session({
     secret: sessionSecret,
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({
-        mongooseConnection: mongoose.connection
-    })
-}));
+      mongooseConnection: mongoose.connection,
+    }),
+  })
+);
 
 //Configure more middleware (routes).
 app.use('/posts', postRoutes);
@@ -56,14 +58,24 @@ app.use('/', indexRoutes);
 const dbUsername = process.env.DATABASE_USERNAME;
 const dbPassword = process.env.DATABASE_PASSWORD;
 
-mongoose.connect('mongodb+srv://' + dbUsername + ':' + dbPassword + '@nnhs-forum-tqvkq.azure.mongodb.net/acaply?retryWrites=true&w=majority', {
-    useNewUrlParser: true
-}).then(function() {
+mongoose
+  .connect(
+    'mongodb+srv://' +
+      dbUsername +
+      ':' +
+      dbPassword +
+      '@nnhs-forum-tqvkq.azure.mongodb.net/acaply?retryWrites=true&w=majority',
+    {
+      useNewUrlParser: true,
+    }
+  )
+  .then(function () {
     //This means that the database was successfully connected to.
-    console.log("Database connected.");
-}).catch((err) => {
-    console.log("Not Connected to Database ERROR! ", err);
-});
+    console.log('Database connected.');
+  })
+  .catch((err) => {
+    console.log('Not Connected to Database ERROR! ', err);
+  });
 
 //Set the port number.
 const port = process.env.PORT || 3000;
