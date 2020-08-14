@@ -1,20 +1,15 @@
 # Acaply
 
-A social media website for high schoolers.
-
-### Links:
-
-- https://acaply.com/
-- [Demo](https://www.youtube.com/watch?v=3Sawc7FZLVw)
+A social media website for high schoolers. Check it out: https://acaply.com/.
 
 ![Logo](/public/images/logo.png)
 
 ### Technologies:
 
-- Database: MongoDB, Mongoose.
+- Database: MongoDB, Mongoose, Mongo Atlas.
 - Website: HTML, CSS, Bootstrap, Embedded JavaScript Templates.
 - Language: JavaScript.
-- Email: SendGrid
+- Email: SendGrid.
 - Other: Axios, Express, Node.js.
 
 ### Some things I plan on adding:
