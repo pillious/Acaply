@@ -2,7 +2,7 @@
 
 A social media website for high schoolers.
 
-[?](/public/images/logo.png)
+[Logo](/public/images/logo.png?raw=true 'Acaply')
 
 ### Technologies:
 
