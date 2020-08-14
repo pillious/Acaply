@@ -1,8 +1,25 @@
 # Acaply
 
-A social media website for high schoolers. Check it out: https://acaply.com/.
+A social media website for high schoolers. Check it out here: https://acaply.com/.
 
 ![Logo](/public/images/logo.png)
+
+### Usage:
+
+- `git clone https://github.com/pillious/acaply.com.git`.
+- `npm install`.
+- Create a `.env` file and add these credentials:
+
+```
+DATABASE_USERNAME
+DATABASE_PASSWORD
+USER_SESSION_KEY
+SENDGRID_API_KEY
+RESET_PASSWORD_EMAIL_ID
+```
+
+- `npm run dev`.
+- Go to localhost:3000.
 
 ### Technologies:
 
@@ -18,7 +35,6 @@ A social media website for high schoolers. Check it out: https://acaply.com/.
 - Usage instructions
 - favicon :)
 - redirect on comment click - check in console
-- info on read me
 - make an account first 'message'
 - styling error when shrink screen.
 - personal profile page.
