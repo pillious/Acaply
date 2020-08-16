@@ -1,31 +1,38 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <a class="navbar-brand" href="/posts/">Acaply</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation-bar"
-        aria-controls="navigation-bar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navigation-bar">
-        <!-- Show this stuff if the user is logged in. -->
-        <% if (isLoggedIn) { %>
-        <div class="nav-item ml-auto">
-            <% if (user) { %>
-            <a href="/posts/user/<%= user %>" class="btn navbar-link"><%= user %></a>
-            <% } %>
-        </div>
-        <div class="nav-item">
-            <form action="/logout" method="POST">
-                <button type="submit" class="btn navbar-link">Log Out</button>
-            </form>
-        </div>
-        <!-- Show this stuff if the user is not logged in. -->
-        <% } else { %>
-        <div class="nav-item ml-auto">
-            <a href="/login" class="btn navbar-link">Log In</a>
-        </div>
-        <div class="nav-item">
-            <a href="/signup" class="btn navbar-link">Sign Up</a>
-        </div>
-        <% } %>
+  <a class="navbar-brand" href="/posts/">Acaply</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navigation-bar"
+    aria-controls="navigation-bar"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navigation-bar">
+    <!-- Show this stuff if the user is logged in. -->
+    <% if (isLoggedIn) { %>
+    <div class="nav-item ml-auto">
+      <% if (user) { %>
+      <a href="/posts/user/<%= user %>" class="btn navbar-link"><%= user %></a>
+      <% } %>
     </div>
+    <div class="nav-item">
+      <form action="/logout" method="POST">
+        <button type="submit" class="btn navbar-link">Log Out</button>
+      </form>
+    </div>
+    <!-- Show this stuff if the user is not logged in. -->
+    <% } else { %>
+    <div class="nav-item ml-auto">
+      <a href="/login" class="btn navbar-link">Log In</a>
+    </div>
+    <div class="nav-item">
+      <a href="/signup" class="btn navbar-link">Sign Up</a>
+    </div>
+    <% } %>
+  </div>
 </nav>
