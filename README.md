@@ -54,13 +54,12 @@ RESET_PASSWORD_EMAIL_ID
 
 - Dark mode
 - styling error when shrink screen.
-- make a new config folder and move the DB there
-- describe folder structure
 
 ### New Features:
 
 - Added a favicon (serve-favicon).
 - Added a logo.
-- Updated read me file.
+- Updated read me file (my favorite).
 - When the 'log in' button on the login page is clicked, if both inputs are empty, it tells you to "please enter your username and password".
 - When logged in user attempts to submit white-space comment, it just refreshes the page.
+- Moved database connection to new configuration folder.
