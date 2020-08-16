@@ -43,13 +43,15 @@ RESET_PASSWORD_EMAIL_ID
 - The Node.js web application for Acaply is deployed on Vercel (previously zeit.co).
 - The MongoDB database for Acaply is hosted on MongoDB Atlas (free tier: 500 MB).
 
+### Detailed Project Structure:
+
+- `README.md`: provides documentation about Acaply (written in Markdown).
+- `package-lock.json`: auto-generated file (you can ignore).
+
 ### Some things I plan on adding:
 
 - Dark mode
-- redirect on comment click - check in console
-- make an account first 'message'
 - styling error when shrink screen.
-- personal profile page.
 - make a new config folder and move the DB there
 - describe folder structure
 
