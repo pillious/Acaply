@@ -59,3 +59,4 @@ RESET_PASSWORD_EMAIL_ID
 - Added a logo.
 - Updated read me file.
 - When the 'log in' button on the login page is clicked, if both inputs are empty, it tells you to "please enter your username and password".
+- When logged in user attempts to submit white-space comment, it just refreshes the page.
