@@ -47,6 +47,8 @@ RESET_PASSWORD_EMAIL_ID
 
 - `README.md`: provides documentation about Acaply (written in Markdown).
 - `package-lock.json`: auto-generated file (you can ignore).
+- `package.json`: lists our scripts and dependencies.
+- We have a `start` script for production and a `dev` script for development mode.
 
 ### Some things I plan on adding:
 
