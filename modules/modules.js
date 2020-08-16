@@ -315,6 +315,7 @@ class CommentClass {
     // try to delete comment by comment's _id field
     try {
       var comment = await CommentSchema.findByIdAndRemove(commentId);
+
       return comment;
     } catch (err) {
       return {};
