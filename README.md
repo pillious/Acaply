@@ -49,6 +49,8 @@ RESET_PASSWORD_EMAIL_ID
 - `package-lock.json`: auto-generated file (you can ignore).
 - `package.json`: lists our scripts and dependencies.
 - We have a `start` script for production and a `dev` script for development mode.
+- Here are the NPM packages that we will use:
+- `@sendgrid/mail`: for sending emails to users who have forgotten their passwords.
 
 ### Some things I plan on adding:
 
