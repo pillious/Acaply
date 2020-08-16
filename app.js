@@ -9,6 +9,8 @@ var path = require('path');
 var favicon = require('serve-favicon');
 require('dotenv').config();
 
+const connectDatabase = require('./config/database');
+
 //Create the application.
 const app = express();
 
@@ -52,36 +54,13 @@ app.use(
   })
 );
 
+//Connect to database.
+connectDatabase();
+
 //Configure more middleware (routes).
 app.use('/posts', postRoutes);
 app.use('/comment', commentRoutes);
 app.use('/', indexRoutes);
-
-const dbUsername = process.env.DATABASE_USERNAME;
-const dbPassword = process.env.DATABASE_PASSWORD;
-
-//Connect to the MongoDB database.
-mongoose
-  .connect(
-    'mongodb+srv://' +
-      dbUsername +
-      ':' +
-      dbPassword +
-      '@nnhs-forum-tqvkq.azure.mongodb.net/acaply?retryWrites=true&w=majority',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
-  )
-  .then(function () {
-    //This means that the database was successfully connected to.
-    console.log('Database connected.');
-  })
-  .catch((err) => {
-    console.log('Error connecting to MongoDB.', err);
-  });
 
 //Set the port number.
 const port = process.env.PORT || 3000;
