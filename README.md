@@ -2,6 +2,10 @@
 
 A social media website for high schoolers. Check it out here: https://acaply.com/.
 
+### Info:
+
+- Acaply is an academic internet forum for NNHS high schoolers. Students can discuss a variety of topics, ranging from classes to clubs to fundraisers.
+
 ### Demo:
 
 - Check out the functionality demo here: https://www.youtube.com/watch?v=3Sawc7FZLVw.
@@ -52,10 +56,13 @@ RESET_PASSWORD_EMAIL_ID
 - Here are the NPM packages that we will use:
 - `@sendgrid/mail`: for sending emails to users who have forgotten their passwords.
 
-### Some things I plan on adding:
+### Some things for adding:
 
 - Dark mode
 - styling error when shrink screen.
+- Decrease comment count on comment delete
+- other mail sending thing
+- updating a comment
 
 ### New Features:
 
