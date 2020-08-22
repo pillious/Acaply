@@ -1,6 +1,6 @@
 # Acaply
 
-A social media website for high schoolers. Check it out here: https://acaply.com/.
+Acaply is a social media website for high schoolers. Check it out here: https://acaply.com/.
 
 ### Info:
 
