@@ -3,13 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-const cors = require('cors');
-const moment = require('moment');
-var path = require('path');
-var favicon = require('serve-favicon');
-require('dotenv').config();
-
-const connectDatabase = require('./config/database');
 
 //Create the application.
 const app = express();
@@ -20,30 +13,24 @@ var commentRoutes = require('./routes/commentRouter');
 var indexRoutes = require('./routes/indexRouter');
 
 //Set the view engine (embedded JavaScript templates).
-app.set('views', path.join(__dirname, 'views/'));
+app.set('views', 'views');
 app.set('view engine', 'ejs');
-
-// momentjs local var (can be accessed by any EJS scripts)
-app.locals.moment = moment; // this makes moment available as a variable in every EJS page
 
 //The public folder serves static files such as images, CSS files, and JavaScript files.
 app.use(express.static(__dirname + '/public'));
 
 //Parse the URL-encoded bodies (as sent by HTML forms).
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded());
 
 //Parse the JSON bodies (as sent by API clients).
 app.use(express.json());
 
-// Use cors
-app.use(cors());
-
 //Use sessions for tracking user logins.
 //A session is a storage that consists of information on server-side.
-const sessionSecret = process.env.USER_SESSION_KEY;
 app.use(
   session({
-    secret: sessionSecret,
+    //Super secret code.
+    secret: 'ULqlcX4KcYE9jeS3lnpv',
     resave: true,
     saveUninitialized: false,
     store: new MongoStore({
@@ -52,16 +39,24 @@ app.use(
   })
 );
 
-//Connect to database.
-connectDatabase();
-
 //Configure more middleware (routes).
 app.use('/posts', postRoutes);
 app.use('/comment', commentRoutes);
 app.use('/', indexRoutes);
 
+//Connect to the MongoDB database.
+//At the moment, we have our local MongoDB databases on our separate computers.
+mongoose
+  .connect('mongodb://localhost:27017/acaply', {
+    useNewUrlParser: true,
+  })
+  .then(function () {
+    //This means that the database was successfully connected to.
+    console.log('Database connected.');
+  });
+
 //Set the port number.
-const port = process.env.PORT || 3000;
+const port = process.env.port || 3000;
 
 //Run the application on the specified port.
 app.listen(port, () => console.log(`Acaply listening on port ${port}.`));
