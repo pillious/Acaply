@@ -34,11 +34,7 @@ RESET_PASSWORD_EMAIL_ID
 - Language: JavaScript.
 - Email: SendGrid.
 - Other: Axios, Express, Node.js.
-
-### Deployment:
-
-- The Node.js web application for Acaply is deployed on Vercel (previously zeit.co).
-- The MongoDB database for Acaply is hosted on MongoDB Atlas (free tier: 500 MB).
+- Deployment: Vercel (Zeit) & MongoDB Atlas.
 
 ### Some things for adding:
 
