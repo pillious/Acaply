@@ -58,7 +58,6 @@ RESET_PASSWORD_EMAIL_ID
 
 ### Some things for adding:
 
-- Dark mode
 - styling error when shrink screen.
 - Decrease comment count on comment delete
 - other mail sending thing
