@@ -1,14 +1,6 @@
 # Acaply
 
-Acaply is a social media website for high schoolers. Check it out here: https://acaply.com/.
-
-### Info:
-
-- Acaply is an academic internet forum for NNHS high schoolers. Students can discuss a variety of topics, ranging from classes to clubs to fundraisers.
-
-### Demo:
-
-- Check out the functionality demo here: https://www.youtube.com/watch?v=3Sawc7FZLVw.
+Acaply is a social media website for high schoolers. Check it out here: [Acaply](https://acaply-alpha-fawn.vercel.app/).
 
 ### Usage:
 
