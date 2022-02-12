@@ -39,11 +39,7 @@ My motivation for building Acaply was to primarily understand the interactions b
 
 ### Challenges
 
-The most challenging aspect of the project was handling user authentication and managing user sessions. I learned how to setup secure signup, login, session, and password reset features. In addition, with the help of mongoose and bcrpyt, I also learned the process of storing user data and hashing account passwords.
-
-<!-- TODO -->
-
-Another obstacle I initially faced was the structure of my database.
+The most challenging aspect of the project was handling user authentication and managing user sessions. I learned how to setup secure signup, login, session, and password reset features. In addition, with the help of mongoose and bcrpyt, I also understood how to store user data and hash account passwords.
 
 ### Built With
 
@@ -58,12 +54,12 @@ Another obstacle I initially faced was the structure of my database.
 
 ## Architecture
 
-<center>Application Architecture</center>
+<div align="center">Application Architecture</div>
 <div align="center">
     <img src="./assets/architecture.png" alt="Application Architecture" title="Application Architecture" width="400" align="center" />
 </div>
 <br/>
-<center>Database Structure</center>
+<div align="center">Database Structure</div>
 <div align="center">
     <img src="./assets/database.png" alt="Database Structure" title="Database Structure" width="400" align="center" />
 </div>
