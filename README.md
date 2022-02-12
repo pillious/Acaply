@@ -23,7 +23,7 @@
   - [Getting Started](#-getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-  - [License](#-license)
+  - [License](#%EF%B8%8F-license)
   - [Contact](#-contact)
 </details>
 
