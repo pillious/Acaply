@@ -8,13 +8,28 @@
   <p align="center">
     An online forum for students.
     <br /><br />
-    <a href="https://acaply.humpillious.vercel.app/">View Demo</a>
+    <a href="https://acaply-alpha-fawn.vercel.app/">View Demo</a>
   </p>
 </div>
 
+<details>
+  <summary>Table of Contents</summary>
+  
+  - [About the Project](#-about-the-project)
+    - [Motivation](#motivation)
+    - [Challenges](#challenges)
+    - [Built With](#built-with)
+  - [Architecture](#architecture)
+  - [Getting Started](#-getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [License](#-license)
+  - [Contact](#-contact)
+</details>
+
 <!-- About -->
 
-## 💡 About The Project
+## 💡 About the Project
 
 ![App Screenshot](./assets/app.png)
 
@@ -23,6 +38,12 @@
 My motivation for building Acaply was to primarily understand the interactions between the server side and client side portions of a feature-dense application.
 
 ### Challenges
+
+The most challenging aspect of the project was handling user authentication and managing user sessions. I learned how to setup secure signup, login, session, and password reset features. In addition, with the help of mongoose and bcrpyt, I also learned the process of storing user data and hashing account passwords.
+
+<!-- TODO -->
+
+Another obstacle I initially faced was the structure of my database.
 
 ### Built With
 
@@ -33,11 +54,27 @@ My motivation for building Acaply was to primarily understand the interactions b
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+<!-- Architecture -->
+
+## Architecture
+
+<center>Application Architecture</center>
+<div align="center">
+    <img src="./assets/architecture.png" alt="Application Architecture" title="Application Architecture" width="400" align="center" />
+</div>
+<br/>
+<center>Database Structure</center>
+<div align="center">
+    <img src="./assets/database.png" alt="Database Structure" title="Database Structure" width="400" align="center" />
+</div>
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- GETTING STARTED -->
 
 ## 🚀 Getting Started
 
-[Live Demo](acaply.humpillious.vercel.app/)
+[Live Demo](https://acaply-alpha-fawn.vercel.app/)
 <br>
 To get a local copy up and running follow these steps.
 
@@ -76,19 +113,9 @@ To get a local copy up and running follow these steps.
     ```sh
     npm start
     ```
-    [Deploy using vercel](https://vercel.com/docs/concepts/deployments/overview)
+    [Deploy using Vercel](https://vercel.com/docs/concepts/deployments/overview)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
-
-<!-- ## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#top">back to top</a>)</p> -->
 
 <!-- LICENSE -->
 
@@ -103,11 +130,5 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 Andrew Lee (pillious) - andrewzhlee@gmail.com
 <br>
 ([My Website](https://andrewzh.com))
-
-<!-- ACKNOWLEDGMENTS -->
-
-## 📚 Acknowledgments
-
--   [Electron Template with Next.js & Typescript](https://github.com/vercel/next.js/tree/canary/examples/with-electron-typescript)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
